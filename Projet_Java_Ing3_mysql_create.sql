@@ -20,6 +20,7 @@ CREATE TABLE `Trimestre` (
 
 CREATE TABLE `Niveau` (
 	`id` INT NOT NULL AUTO_INCREMENT,
+	`nom` varchar(255) NOT NULL,
 	PRIMARY KEY (`id`)
 );
 
