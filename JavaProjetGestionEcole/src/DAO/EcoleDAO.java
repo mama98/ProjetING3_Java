@@ -30,9 +30,9 @@ public class EcoleDAO extends DAO<Ecole> {
         try {
             // prefer prepareStatement as statement to avoid SQL injection
             PreparedStatement statement = this.connect.prepareStatement(
-                    "INSERT INTO ecole(id_ecole,nom_ecole,adresse_ecole) VALUES(?,?,?)"
+                    "INSERT INTO ecole(id,nom) VALUES(?,?)"
             );
-            //insert param to change the ? into data
+            //Changer les ? par la valeur de l'objet créé pour adapter le java a la requette SQL.
             statement.setObject(1, obj.getId(), Types.INTEGER);
             statement.setObject(2, obj.getNom(), Types.VARCHAR);
 
@@ -51,7 +51,7 @@ public class EcoleDAO extends DAO<Ecole> {
         try {
             // prefer prepareStatement as statement to avoid SQL injection
             PreparedStatement statement = this.connect.prepareStatement(
-                    "DELETE FROM ecole WHERE id_ecole=?"
+                    "DELETE FROM ecole WHERE id=?"
             );
             //insert param to change the ? into data
             statement.setObject(1, obj.getId(), Types.INTEGER);
@@ -70,11 +70,11 @@ public class EcoleDAO extends DAO<Ecole> {
         try {
             // prefer prepareStatement as statement to avoid SQL injection
             PreparedStatement statement = this.connect.prepareStatement(
-                    "UPDATE ecole SET nom_ecole=?, adresse_ecole=?, WHERE id_ecole=?"
+                    "UPDATE ecole SET nom=?, WHERE id=?"
             );
             //insert param to change the ? into data
-            statement.setObject(1, obj.getId(), Types.VARCHAR);
             statement.setObject(2, obj.getNom(), Types.VARCHAR);
+            statement.setObject(1, obj.getId(), Types.INTEGER);
             statement.executeUpdate(); //execute update for change in DB and executeQuery for select
 
     } catch (SQLException e) {
