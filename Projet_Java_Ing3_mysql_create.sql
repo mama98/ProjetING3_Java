@@ -42,8 +42,8 @@ CREATE TABLE `Inscription` (
 CREATE TABLE `Bulletin` (
 	`id` INT NOT NULL AUTO_INCREMENT,
 	`appreciation` varchar(255) NOT NULL,
-	`id_Trimestre` varchar(255) NOT NULL,
-	`id_Inscription` varchar(255) NOT NULL,
+	`id_Trimestre` INT NOT NULL,
+	`id_Inscription` INT NOT NULL,
 	PRIMARY KEY (`id`)
 );
 
