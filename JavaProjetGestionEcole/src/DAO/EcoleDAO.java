@@ -92,11 +92,11 @@ public class EcoleDAO extends DAO<Ecole> {
     try {
       ResultSet result = this.connect.createStatement(
         ResultSet.TYPE_SCROLL_INSENSITIVE,
-        ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM ecole WHERE id_ecole = " + id_ecole);
+        ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM ecole WHERE id = " + id_ecole);
       if(result.first())
         ecole = new Ecole(
           id_ecole,
-          result.getString("nom_ecole")
+          result.getString("nom")
         );         
     } catch (SQLException e) {
       e.printStackTrace();
