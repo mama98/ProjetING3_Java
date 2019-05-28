@@ -96,23 +96,23 @@ public class PersonneDAO extends DAO<Personne>{
         
         Personne personne = new Personne();      
       
-    try {
-      ResultSet result = this.connect.createStatement(
-        ResultSet.TYPE_SCROLL_INSENSITIVE,
-        ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM Personne WHERE id = " + id);
-      if(result.first())
-        personne = new Personne(
-            id, 
-            result.getString("nom"),
-            result.getString("prenom"),
-            result.getString("login"),
-            result.getString("password"),
-            result.getBoolean("type_Enseignant")
-        );         
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
-    return personne;
+        try {
+          ResultSet result = this.connect.createStatement(
+            ResultSet.TYPE_SCROLL_INSENSITIVE,
+            ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM Personne WHERE id = " + id);
+          if(result.first())
+            personne = new Personne(
+                id, 
+                result.getString("nom"),
+                result.getString("prenom"),
+                result.getString("login"),
+                result.getString("password"),
+                result.getBoolean("type_Enseignant")
+            );         
+        } catch (SQLException e) {
+          e.printStackTrace();
+        }
+        return personne;
         
     }
     
