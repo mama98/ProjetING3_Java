@@ -4,40 +4,36 @@
  * and open the template in the editor.
  */
 package DAO;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
-import modele.AnneeScolaire;
-
-import modele.Trimestre;
+import modele.DetailBulletin;
 
 /**
  *
  * @author Marine <ECE>
  */
-public class TrimestreDAO extends DAO<Trimestre>{
+public class DetailBulletinDAO extends DAO<DetailBulletin> {
 
-    public TrimestreDAO(Connection conn) {
+    public DetailBulletinDAO(Connection conn) {
         super(conn);
     }
 
     @Override
-    public boolean create(Trimestre obj) {
-        
+    public boolean create(DetailBulletin obj) {
+                
         try {
             // prefer prepareStatement as statement to avoid SQL injection
             PreparedStatement statement = this.connect.prepareStatement(
-                    "INSERT INTO Trimestre(id,numero,debut,fin, id_AnneeScolaire) VALUES(?,?,?,?,?)"
+                    "INSERT INTO DetailBulletin(id, appreciation, id_Bulletin, id_Enseignement) VALUES(?,?,?,?)"
             );
             //Changer les ? par la valeur de l'objet créé pour adapter le java a la requette SQL.
             statement.setObject(1, obj.getId(), Types.INTEGER);
-            statement.setObject(2, obj.getNumero(), Types.INTEGER);
-            statement.setObject(3, obj.getDebut(), Types.INTEGER);
-            statement.setObject(4, obj.getFin(), Types.INTEGER);
-            statement.setObject(5, obj.getId_AnneeScolaire(), Types.INTEGER);
+            statement.setObject(2, obj.getAppreciation(), Types.VARCHAR);
+            statement.setObject(3, obj.getId_Bulletin(), Types.INTEGER);
+            statement.setObject(4, obj.getId_Enseignement(), Types.INTEGER);
 
             statement.executeUpdate(); //execute update for change in DB and executeQuery for select
 
@@ -48,39 +44,14 @@ public class TrimestreDAO extends DAO<Trimestre>{
     }
 
     @Override
-    public boolean delete(Trimestre obj) {
-        
-    try {
-            // prefer prepareStatement as statement to avoid SQL injection
-            PreparedStatement statement = this.connect.prepareStatement(
-                    "DELETE FROM Trimestre WHERE id=?"
-            );
-            //Changer les ? par la valeur de l'objet créé pour adapter le java a la requette SQL.
-            statement.setObject(1, obj.getId(), Types.INTEGER);
-
-            statement.executeUpdate(); //execute update for change in DB and executeQuery for select
-
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
-        return true;
-    }
-
-    @Override
-    public boolean update(Trimestre obj) {
-       
-               
+    public boolean delete(DetailBulletin obj) {
+                
         try {
             // prefer prepareStatement as statement to avoid SQL injection
             PreparedStatement statement = this.connect.prepareStatement(
-                    "UPDATE Trimestre SET numero=?, debut=?, fin=?, WHERE id=?"
+                    "DELETE FROM DetailBulletin WHERE id=?"
             );
             //insert param to change the ? into data
-            
-            statement.setObject(2, obj.getNumero(), Types.INTEGER);
-            statement.setObject(3, obj.getDebut(), Types.INTEGER);
-            statement.setObject(4, obj.getFin(), Types.INTEGER);
-            statement.setObject(5, obj.getId_AnneeScolaire(), Types.INTEGER);
             statement.setObject(1, obj.getId(), Types.INTEGER);
             statement.executeUpdate(); //execute update for change in DB and executeQuery for select
 
@@ -91,28 +62,44 @@ public class TrimestreDAO extends DAO<Trimestre>{
     }
 
     @Override
-    public Trimestre find(int id_trimestre) {
+    public boolean update(DetailBulletin obj) {
+     
+        try {
+            // prefer prepareStatement as statement to avoid SQL injection
+            PreparedStatement statement = this.connect.prepareStatement(
+                    "UPDATE DetailBulletin SET appreciation=?, WHERE id=?"
+            );
+            //insert param to change the ? into data
+            statement.setObject(2, obj.getAppreciation(), Types.VARCHAR);
+            statement.setObject(1, obj.getId(), Types.INTEGER);
+            statement.executeUpdate(); //execute update for change in DB and executeQuery for select
+
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+        return true;
+    }
+
+    @Override
+    public DetailBulletin find(int id_detailbulletin) {
         
-                
-            Trimestre trimestre = new Trimestre();      
+                    DetailBulletin detailbulletin = new DetailBulletin();      
       
     try {
       ResultSet result = this.connect.createStatement(
         ResultSet.TYPE_SCROLL_INSENSITIVE,
-        ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM Trimestre WHERE id = " + id_trimestre );
+        ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM DetailBulletin WHERE id = " + id_detailbulletin);
       if(result.first())
-        trimestre = new Trimestre(
-          id_trimestre,
-          result.getInt("numero"),
-          result.getInt("debut"),
-          result.getInt("fin"),
-          result.getInt("id_AnneeScolaire")       
+        detailbulletin = new DetailBulletin(
+          id_detailbulletin,
+          result.getString("appreciation"),
+          result.getInt("id_Bulletin"),
+          result.getInt("id_Enseignement")
         );         
     } catch (SQLException e) {
       e.printStackTrace();
     }
-    return trimestre;
+    return detailbulletin;
     }
-    
     
 }
