@@ -36,10 +36,6 @@ public class Personne{
         this.password = password;
     }
 
-    public boolean isType_Enseignant() {
-        return type_Enseignant;
-    }
-
     public int getId(){
         return this.id;
     }
@@ -75,7 +71,10 @@ public class Personne{
     public String getPassword(){
         return this.password;
     }
-
+    public boolean getType_Enseignant(){
+        return this.type_Enseignant;
+    }
+    
     public void setPassword(String password){
         this.password = password;
     }

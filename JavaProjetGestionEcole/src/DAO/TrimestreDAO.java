@@ -99,15 +99,14 @@ public class TrimestreDAO extends DAO<Trimestre>{
     try {
       ResultSet result = this.connect.createStatement(
         ResultSet.TYPE_SCROLL_INSENSITIVE,
-        ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM trimestre WHERE id = " + id_trimestre );
+        ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM Trimestre WHERE id = " + id_trimestre );
       if(result.first())
         trimestre = new Trimestre(
           id_trimestre,
           result.getInt("numero"),
           result.getInt("debut"),
           result.getInt("fin"),
-          result.getInt("id_AnneeScolaire")
-          
+          result.getInt("id_AnneeScolaire")       
         );         
     } catch (SQLException e) {
       e.printStackTrace();

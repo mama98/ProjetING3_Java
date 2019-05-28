@@ -30,7 +30,7 @@ public class PersonneDAO extends DAO<Personne>{
         try {
             // prefer prepareStatement as statement to avoid SQL injection
             PreparedStatement statement = this.connect.prepareStatement(
-                    "INSERT INTO personne(id, nom, prenom, login, password, type_Enseignant) VALUES(?,?,?,?,?,false)"
+                    "INSERT INTO Personne(id, nom, prenom, login, password, type_Enseignant) VALUES(?,?,?,?,?,false)"
             );
             //insert param to change the ? into data
             statement.setObject(1, obj.getId(), Types.INTEGER);
@@ -54,7 +54,7 @@ public class PersonneDAO extends DAO<Personne>{
         try {
             // prefer prepareStatement as statement to avoid SQL injection
             PreparedStatement statement = this.connect.prepareStatement(
-                    "DELETE FROM personne WHERE id=?"
+                    "DELETE FROM Personne WHERE id=?"
             );
             //insert param to change the ? into data
             statement.setObject(1, obj.getId(), Types.INTEGER);
@@ -73,7 +73,7 @@ public class PersonneDAO extends DAO<Personne>{
         try {
             // prefer prepareStatement as statement to avoid SQL injection
             PreparedStatement statement = this.connect.prepareStatement(
-                    "UPDATE personne SET nom=?, prenom=?, login=?, password=?, type_Enseignant=false, WHERE id=?"
+                    "UPDATE Personne SET nom=?, prenom=?, login=?, password=?, type_Enseignant=false, WHERE id=?"
             );
             //insert param to change the ? into data
             statement.setObject(2, obj.getNom(), Types.VARCHAR);
@@ -99,7 +99,7 @@ public class PersonneDAO extends DAO<Personne>{
     try {
       ResultSet result = this.connect.createStatement(
         ResultSet.TYPE_SCROLL_INSENSITIVE,
-        ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM discipline WHERE id = " + id);
+        ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM Personne WHERE id = " + id);
       if(result.first())
         personne = new Personne(
             id, 

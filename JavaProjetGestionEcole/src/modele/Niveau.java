@@ -12,22 +12,34 @@ package modele;
 public class Niveau {
     
     private int id;
+    private String nom;
 
     public Niveau()
     {
         id=0;
+        nom=null;
     }
-    public Niveau(int id) {
+    public Niveau(int id, String nom) {
         this.id = id;
+        this.nom=nom;
     }
 
     public int getId() {
         return id;
     }
-
+    public String getNom() {
+        return nom;
+    }
+    
     public void setId(int id) {
         this.id = id;
     }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+
     
     
 }

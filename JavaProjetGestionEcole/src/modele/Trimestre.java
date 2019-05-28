@@ -18,7 +18,6 @@ public class Trimestre {
     private int debut;
     private int fin;
     private int id_AnneeScolaire;
-    
     //Constructeurs:
     
     public Trimestre() {
