@@ -11,25 +11,25 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 
-import modele.Niveau;
+import modele.Discipline;
 
 /**
  *
  * @author val_r
  */
-public class NiveauDAO extends DAO<Niveau>{
+public class DisciplineDAO extends DAO<Discipline>{
 
-    public NiveauDAO(Connection conn) {
+    public DisciplineDAO(Connection conn) {
         super(conn);
     }
 
     @Override
-    public boolean create(Niveau obj) {
+    public boolean create(Discipline obj) {
         
         try {
             // prefer prepareStatement as statement to avoid SQL injection
             PreparedStatement statement = this.connect.prepareStatement(
-                    "INSERT INTO niveau(id, nom) VALUES(?,?)"
+                    "INSERT INTO discipline(id, nom) VALUES(?,?)"
             );
             //insert param to change the ? into data
             statement.setObject(1, obj.getId(), Types.INTEGER);
@@ -39,16 +39,17 @@ public class NiveauDAO extends DAO<Niveau>{
     } catch (SQLException e) {
       e.printStackTrace();
     }
-        return true;    
-    
+        return true;
+        
     }
 
     @Override
-    public boolean delete(Niveau obj) {
+    public boolean delete(Discipline obj) {
+        
         try {
             // prefer prepareStatement as statement to avoid SQL injection
             PreparedStatement statement = this.connect.prepareStatement(
-                    "DELETE FROM niveau WHERE id=?"
+                    "DELETE FROM discipline WHERE id=?"
             );
             //insert param to change the ? into data
             statement.setObject(1, obj.getId(), Types.INTEGER);
@@ -58,14 +59,16 @@ public class NiveauDAO extends DAO<Niveau>{
       e.printStackTrace();
     }
         return true;
+        
     }
 
     @Override
-    public boolean update(Niveau obj) {
+    public boolean update(Discipline obj) {
+        
         try {
             // prefer prepareStatement as statement to avoid SQL injection
             PreparedStatement statement = this.connect.prepareStatement(
-                    "UPDATE niveau SET nom=?, WHERE id=?"
+                    "UPDATE discipline SET nom=?, WHERE id=?"
             );
             //insert param to change the ? into data
             statement.setObject(2, obj.getNom(), Types.VARCHAR);
@@ -76,28 +79,28 @@ public class NiveauDAO extends DAO<Niveau>{
           e.printStackTrace();
         }
         return true;
+        
     }
 
     @Override
-    public Niveau find(int id) {
+    public Discipline find(int id) {
         
-        Niveau niv = new Niveau();      
+        Discipline discip = new Discipline();      
       
     try {
       ResultSet result = this.connect.createStatement(
         ResultSet.TYPE_SCROLL_INSENSITIVE,
-        ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM niveau WHERE id = " + id);
+        ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM discipline WHERE id = " + id);
       if(result.first())
-        niv = new Niveau(
+        discip = new Discipline(
             id, 
             result.getString("nom")
         );         
     } catch (SQLException e) {
       e.printStackTrace();
     }
-    return niv;
+    return discip;
+        
     }
-
-   
     
 }

@@ -11,64 +11,52 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 
-import modele.Niveau;
+import modele.Personne;
+
 
 /**
  *
  * @author val_r
  */
-public class NiveauDAO extends DAO<Niveau>{
+public class PersonneDAO extends DAO<Personne>{
 
-    public NiveauDAO(Connection conn) {
+    public PersonneDAO(Connection conn) {
         super(conn);
     }
 
     @Override
-    public boolean create(Niveau obj) {
+    public boolean create(Personne obj) {
         
         try {
             // prefer prepareStatement as statement to avoid SQL injection
             PreparedStatement statement = this.connect.prepareStatement(
-                    "INSERT INTO niveau(id, nom) VALUES(?,?)"
+                    "INSERT INTO personne(id, nom, prenom, login, password, type_Enseignant) VALUES(?,?,?,?,?,false)"
             );
             //insert param to change the ? into data
             statement.setObject(1, obj.getId(), Types.INTEGER);
             statement.setObject(2, obj.getNom(), Types.VARCHAR);
-            statement.executeUpdate(); //execute update for change in DB and executeQuery for select
-
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
-        return true;    
-    
-    }
-
-    @Override
-    public boolean delete(Niveau obj) {
-        try {
-            // prefer prepareStatement as statement to avoid SQL injection
-            PreparedStatement statement = this.connect.prepareStatement(
-                    "DELETE FROM niveau WHERE id=?"
-            );
-            //insert param to change the ? into data
-            statement.setObject(1, obj.getId(), Types.INTEGER);
+            statement.setObject(3, obj.getPrenom(), Types.VARCHAR);
+            statement.setObject(4, obj.getLogin(), Types.VARCHAR);
+            statement.setObject(5, obj.getPassword(), Types.VARCHAR);
+            statement.setObject(6, obj.getType_Enseignant(), Types.BOOLEAN);
             statement.executeUpdate(); //execute update for change in DB and executeQuery for select
 
     } catch (SQLException e) {
       e.printStackTrace();
     }
         return true;
+        
     }
 
     @Override
-    public boolean update(Niveau obj) {
+    public boolean delete(Personne obj) {
+        
         try {
             // prefer prepareStatement as statement to avoid SQL injection
             PreparedStatement statement = this.connect.prepareStatement(
-                    "UPDATE niveau SET nom=?, WHERE id=?"
+                    "DELETE FROM personne WHERE id=?"
             );
             //insert param to change the ? into data
-            statement.setObject(2, obj.getNom(), Types.VARCHAR);
             statement.setObject(1, obj.getId(), Types.INTEGER);
             statement.executeUpdate(); //execute update for change in DB and executeQuery for select
 
@@ -76,28 +64,56 @@ public class NiveauDAO extends DAO<Niveau>{
           e.printStackTrace();
         }
         return true;
+        
     }
 
     @Override
-    public Niveau find(int id) {
+    public boolean update(Personne obj) {
         
-        Niveau niv = new Niveau();      
+        try {
+            // prefer prepareStatement as statement to avoid SQL injection
+            PreparedStatement statement = this.connect.prepareStatement(
+                    "UPDATE personne SET nom=?, prenom=?, login=?, password=?, type_Enseignant=false, WHERE id=?"
+            );
+            //insert param to change the ? into data
+            statement.setObject(2, obj.getNom(), Types.VARCHAR);
+            statement.setObject(3, obj.getPrenom(), Types.VARCHAR);
+            statement.setObject(4, obj.getLogin(), Types.VARCHAR);
+            statement.setObject(5, obj.getPassword(), Types.VARCHAR);
+            statement.setObject(6, obj.getType_Enseignant(), Types.BOOLEAN);
+            statement.setObject(1, obj.getId(), Types.INTEGER);
+            statement.executeUpdate(); //execute update for change in DB and executeQuery for select
+
+        } catch (SQLException e) {
+          e.printStackTrace();
+        }
+        return true;
+        
+    }
+
+    @Override
+    public Personne find(int id) {
+        
+        Personne personne = new Personne();      
       
     try {
       ResultSet result = this.connect.createStatement(
         ResultSet.TYPE_SCROLL_INSENSITIVE,
-        ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM niveau WHERE id = " + id);
+        ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM discipline WHERE id = " + id);
       if(result.first())
-        niv = new Niveau(
+        personne = new Personne(
             id, 
-            result.getString("nom")
+            result.getString("nom"),
+            result.getString("prenom"),
+            result.getString("login"),
+            result.getString("password"),
+            result.getBoolean("type_Enseignant")
         );         
     } catch (SQLException e) {
       e.printStackTrace();
     }
-    return niv;
+    return personne;
+        
     }
-
-   
     
 }
