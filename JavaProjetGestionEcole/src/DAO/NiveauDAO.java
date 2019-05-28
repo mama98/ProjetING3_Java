@@ -29,7 +29,7 @@ public class NiveauDAO extends DAO<Niveau>{
         try {
             // prefer prepareStatement as statement to avoid SQL injection
             PreparedStatement statement = this.connect.prepareStatement(
-                    "INSERT INTO niveau(id, nom) VALUES(?,?)"
+                    "INSERT INTO Niveau(id, nom) VALUES(?,?)"
             );
             //insert param to change the ? into data
             statement.setObject(1, obj.getId(), Types.INTEGER);
