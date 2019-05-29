@@ -16,7 +16,7 @@ public class TESTDAO {
         public static void main(String[] args){
 
             DAO<Ecole> niv = DAO_Factory.getEcoleDAO();
-            Ecole niv1= new Ecole(1, "ECE");
+            Ecole niv1= new Ecole(2,"EPF");
             
             boolean result=niv.create(niv1);
             
@@ -25,5 +25,8 @@ public class TESTDAO {
             if(result==true)
                 {System.out.println("Yep");}
             
+            Ecole niv2 = niv.find(4);
+            
+            System.out.println(niv2.getNom());
         }
 }

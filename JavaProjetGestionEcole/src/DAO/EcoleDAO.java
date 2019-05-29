@@ -30,11 +30,10 @@ public class EcoleDAO extends DAO<Ecole> {
         try {
             // prefer prepareStatement as statement to avoid SQL injection
             PreparedStatement statement = this.connect.prepareStatement(
-                    "INSERT INTO ecole(id,nom) VALUES(?,?)"
+                    "INSERT INTO ecole(nom) VALUES(?)"
             );
             //Changer les ? par la valeur de l'objet créé pour adapter le java a la requette SQL.
-            statement.setObject(1, obj.getId(), Types.INTEGER);
-            statement.setObject(2, obj.getNom(), Types.VARCHAR);
+            statement.setObject(1, obj.getNom(), Types.VARCHAR);
 
             statement.executeUpdate(); //execute update for change in DB and executeQuery for select
 
