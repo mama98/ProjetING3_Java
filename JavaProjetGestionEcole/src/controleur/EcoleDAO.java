@@ -30,7 +30,7 @@ public class EcoleDAO extends DAO<Ecole> {
         try {
             // prefer prepareStatement as statement to avoid SQL injection
             PreparedStatement statement = this.connect.prepareStatement(
-                    "INSERT INTO ecole(nom) VALUES(?)"
+                    "INSERT INTO Ecole(nom) VALUES(?)"
             );
             //Changer les ? par la valeur de l'objet créé pour adapter le java a la requette SQL.
             statement.setObject(1, obj.getNom(), Types.VARCHAR);
@@ -50,7 +50,7 @@ public class EcoleDAO extends DAO<Ecole> {
         try {
             // prefer prepareStatement as statement to avoid SQL injection
             PreparedStatement statement = this.connect.prepareStatement(
-                    "DELETE FROM ecole WHERE id=?"
+                    "DELETE FROM Ecole WHERE id=?"
             );
             //insert param to change the ? into data
             statement.setObject(1, obj.getId(), Types.INTEGER);
@@ -69,7 +69,7 @@ public class EcoleDAO extends DAO<Ecole> {
         try {
             // prefer prepareStatement as statement to avoid SQL injection
             PreparedStatement statement = this.connect.prepareStatement(
-                    "UPDATE ecole SET nom=?, WHERE id=?"
+                    "UPDATE Ecole SET nom=?, WHERE id=?"
             );
             //insert param to change the ? into data
             statement.setObject(2, obj.getNom(), Types.VARCHAR);
@@ -91,7 +91,7 @@ public class EcoleDAO extends DAO<Ecole> {
     try {
       ResultSet result = this.connect.createStatement(
         ResultSet.TYPE_SCROLL_INSENSITIVE,
-        ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM ecole WHERE id = " + id_ecole);
+        ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM Ecole WHERE id = " + id_ecole);
       if(result.first())
         ecole = new Ecole(
           id_ecole,

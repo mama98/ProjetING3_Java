@@ -30,7 +30,7 @@ public class AnneeScolaireDAO extends DAO<AnneeScolaire> {
           try {
             // prefer prepareStatement as statement to avoid SQL injection
             PreparedStatement statement = this.connect.prepareStatement(
-                    "INSERT INTO anneescolaire(id) VALUES(?)"
+                    "INSERT INTO AnneeScolaire(id) VALUES(?)"
             );
             //insert param to change the ? into data
             statement.setObject(1, obj.getId(), Types.INTEGER);
@@ -51,7 +51,7 @@ public class AnneeScolaireDAO extends DAO<AnneeScolaire> {
          try {
             // prefer prepareStatement as statement to avoid SQL injection
             PreparedStatement statement = this.connect.prepareStatement(
-                    "DELETE FROM anneescolaire WHERE id=?"
+                    "DELETE FROM AnneeScolaire WHERE id=?"
             );
             //insert param to change the ? into data
             statement.setObject(1, obj.getId(), Types.INTEGER);
@@ -77,7 +77,7 @@ public class AnneeScolaireDAO extends DAO<AnneeScolaire> {
     try {
       ResultSet result = this.connect.createStatement(
         ResultSet.TYPE_SCROLL_INSENSITIVE,
-        ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM anneescolaire WHERE id = " + id_annee_scolaire);
+        ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM AnneeScolaire WHERE id = " + id_annee_scolaire);
       if(result.first())
         annee = new AnneeScolaire(
           id_annee_scolaire

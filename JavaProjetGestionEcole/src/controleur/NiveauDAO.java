@@ -48,7 +48,7 @@ public class NiveauDAO extends DAO<Niveau>{
         try {
             // prefer prepareStatement as statement to avoid SQL injection
             PreparedStatement statement = this.connect.prepareStatement(
-                    "DELETE FROM niveau WHERE id=?"
+                    "DELETE FROM Niveau WHERE id=?"
             );
             //insert param to change the ? into data
             statement.setObject(1, obj.getId(), Types.INTEGER);
@@ -65,7 +65,7 @@ public class NiveauDAO extends DAO<Niveau>{
         try {
             // prefer prepareStatement as statement to avoid SQL injection
             PreparedStatement statement = this.connect.prepareStatement(
-                    "UPDATE niveau SET nom=?, WHERE id=?"
+                    "UPDATE Niveau SET nom=?, WHERE id=?"
             );
             //insert param to change the ? into data
             statement.setObject(2, obj.getNom(), Types.VARCHAR);
@@ -86,7 +86,7 @@ public class NiveauDAO extends DAO<Niveau>{
     try {
       ResultSet result = this.connect.createStatement(
         ResultSet.TYPE_SCROLL_INSENSITIVE,
-        ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM niveau WHERE id = " + id);
+        ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM Niveau WHERE id = " + id);
       if(result.first())
         niv = new Niveau(
             id, 

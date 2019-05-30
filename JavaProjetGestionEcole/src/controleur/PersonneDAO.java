@@ -30,7 +30,7 @@ public class PersonneDAO extends DAO<Personne>{
         try {
             // prefer prepareStatement as statement to avoid SQL injection
             PreparedStatement statement = this.connect.prepareStatement(
-                    "INSERT INTO Personne(id, nom, prenom, login, password, type_Enseignant) VALUES(?,?,?,?,?,false)"
+                    "INSERT INTO Personne(id, nom, prenom, login, password, type_Enseignant) VALUES(?,?,?,?,?,?)"
             );
             //insert param to change the ? into data
             statement.setObject(1, obj.getId(), Types.INTEGER);

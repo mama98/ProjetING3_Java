@@ -29,7 +29,7 @@ public class DisciplineDAO extends DAO<Discipline>{
         try {
             // prefer prepareStatement as statement to avoid SQL injection
             PreparedStatement statement = this.connect.prepareStatement(
-                    "INSERT INTO discipline(id, nom) VALUES(?,?)"
+                    "INSERT INTO Discipline(id, nom) VALUES(?,?)"
             );
             //insert param to change the ? into data
             statement.setObject(1, obj.getId(), Types.INTEGER);
@@ -49,7 +49,7 @@ public class DisciplineDAO extends DAO<Discipline>{
         try {
             // prefer prepareStatement as statement to avoid SQL injection
             PreparedStatement statement = this.connect.prepareStatement(
-                    "DELETE FROM discipline WHERE id=?"
+                    "DELETE FROM Discipline WHERE id=?"
             );
             //insert param to change the ? into data
             statement.setObject(1, obj.getId(), Types.INTEGER);
@@ -68,7 +68,7 @@ public class DisciplineDAO extends DAO<Discipline>{
         try {
             // prefer prepareStatement as statement to avoid SQL injection
             PreparedStatement statement = this.connect.prepareStatement(
-                    "UPDATE discipline SET nom=?, WHERE id=?"
+                    "UPDATE Discipline SET nom=?, WHERE id=?"
             );
             //insert param to change the ? into data
             statement.setObject(2, obj.getNom(), Types.VARCHAR);
@@ -90,7 +90,7 @@ public class DisciplineDAO extends DAO<Discipline>{
     try {
       ResultSet result = this.connect.createStatement(
         ResultSet.TYPE_SCROLL_INSENSITIVE,
-        ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM discipline WHERE id = " + id);
+        ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM Discipline WHERE id = " + id);
       if(result.first())
         discip = new Discipline(
             id, 
