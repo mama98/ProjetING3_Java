@@ -4,8 +4,7 @@
  * and open the template in the editor.
  */
 package vue;
-import DAO.DAO;
-import DAO_Factory.DAO_Factory;
+import controleur.*;
 import modele.*;
 
 /**

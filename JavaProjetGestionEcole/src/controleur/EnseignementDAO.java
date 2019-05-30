@@ -3,41 +3,40 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DAO;
+package controleur;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
+import modele.AnneeScolaire;
 
-import modele.Classe;
-
+import modele.Enseignement;
 
 /**
  *
  * @author val_r
  */
-public class ClasseDAO extends DAO<Classe> {
+public class EnseignementDAO extends DAO<Enseignement> {
 
-    public ClasseDAO(Connection conn) {
+    public EnseignementDAO(Connection conn) {
         super(conn);
     }
 
     @Override
-    public boolean create(Classe obj) {
+    public boolean create(Enseignement obj) {
         
         try {
             // prefer prepareStatement as statement to avoid SQL injection
             PreparedStatement statement = this.connect.prepareStatement(
-                    "INSERT INTO Classe(id, nom, id_AnneeScolaire, id_Ecole, id_Niveau) VALUES(?,?,?,?,?)"
+                    "INSERT INTO Enseignement (id, id_Classe, id_Discipline, id_Personne) VALUES(?,?,?,?)"
             );
             //insert param to change the ? into data
             statement.setObject(1, obj.getId(), Types.INTEGER);
-            statement.setObject(2, obj.getNom(), Types.VARCHAR);
-            statement.setObject(3, obj.getId_AnneeScolaire(), Types.INTEGER);
-            statement.setObject(4, obj.getId_Ecole(), Types.INTEGER);
-            statement.setObject(5, obj.getId_Niveau(), Types.INTEGER);
+            statement.setObject(2, obj.getId_Classe(), Types.INTEGER);
+            statement.setObject(3, obj.getId_Discipline(), Types.INTEGER);
+            statement.setObject(4, obj.getId_Personne(), Types.INTEGER);
 
             statement.executeUpdate(); //execute update for change in DB and executeQuery for select
 
@@ -49,12 +48,12 @@ public class ClasseDAO extends DAO<Classe> {
     }
 
     @Override
-    public boolean delete(Classe obj) {
+    public boolean delete(Enseignement obj) {
         
         try {
             // prefer prepareStatement as statement to avoid SQL injection
             PreparedStatement statement = this.connect.prepareStatement(
-                    "DELETE FROM Classe WHERE id=?"
+                    "DELETE FROM Enseignement WHERE id=?"
             );
             //insert param to change the ? into data
             statement.setObject(1, obj.getId(), Types.INTEGER);
@@ -68,18 +67,17 @@ public class ClasseDAO extends DAO<Classe> {
     }
 
     @Override
-    public boolean update(Classe obj) {
+    public boolean update(Enseignement obj) {
         
         try {
             // prefer prepareStatement as statement to avoid SQL injection
             PreparedStatement statement = this.connect.prepareStatement(
-                    "UPDATE Classe SET nom=?, id_AnneeScolaire=?, id_Ecole=?, id_Niveau=?, WHERE id=?"
+                    "UPDATE Enseignement SET id_Classe=?, id_Discipline=?, id_Personne=?, WHERE id=?"
             );
             //insert param to change the ? into data
-            statement.setObject(2, obj.getNom(), Types.VARCHAR);
-            statement.setObject(3, obj.getId_AnneeScolaire(), Types.INTEGER);
-            statement.setObject(4, obj.getId_Ecole(), Types.INTEGER);
-            statement.setObject(5, obj.getId_Niveau(), Types.INTEGER);
+            statement.setObject(2, obj.getId_Classe(), Types.INTEGER);
+            statement.setObject(3, obj.getId_Discipline(), Types.INTEGER);
+            statement.setObject(4, obj.getId_Personne(), Types.INTEGER);
             statement.setObject(1, obj.getId(), Types.INTEGER);
             statement.executeUpdate(); //execute update for change in DB and executeQuery for select
 
@@ -91,27 +89,26 @@ public class ClasseDAO extends DAO<Classe> {
     }
 
     @Override
-    public Classe find(int id) {
+    public Enseignement find(int id) {
         
-        Classe classe = new Classe();      
+        Enseignement ens = new Enseignement();      
       
         try {
           ResultSet result = this.connect.createStatement(
             ResultSet.TYPE_SCROLL_INSENSITIVE,
-            ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM Classe WHERE id = " + id);
+            ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM Enseignement WHERE id = " + id);
           if(result.first())
-            classe = new Classe(
+            ens = new Enseignement(
                 id, 
-                result.getString("nom"),
-                result.getInt("id_AnneeScolaire"),
-                result.getInt("id_Ecole"),
-                result.getInt("id_Niveau")
+                result.getInt("id_Classe"),
+                result.getInt("id_Discipline"),
+                result.getInt("id_Personne")
 
             );         
         } catch (SQLException e) {
           e.printStackTrace();
         }
-        return classe;
+        return ens;
         
     }
     

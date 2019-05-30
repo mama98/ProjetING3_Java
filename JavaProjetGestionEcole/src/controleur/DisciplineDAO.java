@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DAO;
+package controleur;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,34 +11,29 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 
-import modele.Personne;
-
+import modele.Discipline;
 
 /**
  *
  * @author val_r
  */
-public class PersonneDAO extends DAO<Personne>{
+public class DisciplineDAO extends DAO<Discipline>{
 
-    public PersonneDAO(Connection conn) {
+    public DisciplineDAO(Connection conn) {
         super(conn);
     }
 
     @Override
-    public boolean create(Personne obj) {
+    public boolean create(Discipline obj) {
         
         try {
             // prefer prepareStatement as statement to avoid SQL injection
             PreparedStatement statement = this.connect.prepareStatement(
-                    "INSERT INTO Personne(id, nom, prenom, login, password, type_Enseignant) VALUES(?,?,?,?,?,false)"
+                    "INSERT INTO discipline(id, nom) VALUES(?,?)"
             );
             //insert param to change the ? into data
             statement.setObject(1, obj.getId(), Types.INTEGER);
             statement.setObject(2, obj.getNom(), Types.VARCHAR);
-            statement.setObject(3, obj.getPrenom(), Types.VARCHAR);
-            statement.setObject(4, obj.getLogin(), Types.VARCHAR);
-            statement.setObject(5, obj.getPassword(), Types.VARCHAR);
-            statement.setObject(6, obj.getType_Enseignant(), Types.BOOLEAN);
             statement.executeUpdate(); //execute update for change in DB and executeQuery for select
 
     } catch (SQLException e) {
@@ -49,38 +44,34 @@ public class PersonneDAO extends DAO<Personne>{
     }
 
     @Override
-    public boolean delete(Personne obj) {
+    public boolean delete(Discipline obj) {
         
         try {
             // prefer prepareStatement as statement to avoid SQL injection
             PreparedStatement statement = this.connect.prepareStatement(
-                    "DELETE FROM Personne WHERE id=?"
+                    "DELETE FROM discipline WHERE id=?"
             );
             //insert param to change the ? into data
             statement.setObject(1, obj.getId(), Types.INTEGER);
             statement.executeUpdate(); //execute update for change in DB and executeQuery for select
 
-        } catch (SQLException e) {
-          e.printStackTrace();
-        }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
         return true;
         
     }
 
     @Override
-    public boolean update(Personne obj) {
+    public boolean update(Discipline obj) {
         
         try {
             // prefer prepareStatement as statement to avoid SQL injection
             PreparedStatement statement = this.connect.prepareStatement(
-                    "UPDATE Personne SET nom=?, prenom=?, login=?, password=?, type_Enseignant=false, WHERE id=?"
+                    "UPDATE discipline SET nom=?, WHERE id=?"
             );
             //insert param to change the ? into data
             statement.setObject(2, obj.getNom(), Types.VARCHAR);
-            statement.setObject(3, obj.getPrenom(), Types.VARCHAR);
-            statement.setObject(4, obj.getLogin(), Types.VARCHAR);
-            statement.setObject(5, obj.getPassword(), Types.VARCHAR);
-            statement.setObject(6, obj.getType_Enseignant(), Types.BOOLEAN);
             statement.setObject(1, obj.getId(), Types.INTEGER);
             statement.executeUpdate(); //execute update for change in DB and executeQuery for select
 
@@ -92,27 +83,23 @@ public class PersonneDAO extends DAO<Personne>{
     }
 
     @Override
-    public Personne find(int id) {
+    public Discipline find(int id) {
         
-        Personne personne = new Personne();      
+        Discipline discip = new Discipline();      
       
-        try {
-          ResultSet result = this.connect.createStatement(
-            ResultSet.TYPE_SCROLL_INSENSITIVE,
-            ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM Personne WHERE id = " + id);
-          if(result.first())
-            personne = new Personne(
-                id, 
-                result.getString("nom"),
-                result.getString("prenom"),
-                result.getString("login"),
-                result.getString("password"),
-                result.getBoolean("type_Enseignant")
-            );         
-        } catch (SQLException e) {
-          e.printStackTrace();
-        }
-        return personne;
+    try {
+      ResultSet result = this.connect.createStatement(
+        ResultSet.TYPE_SCROLL_INSENSITIVE,
+        ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM discipline WHERE id = " + id);
+      if(result.first())
+        discip = new Discipline(
+            id, 
+            result.getString("nom")
+        );         
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return discip;
         
     }
     

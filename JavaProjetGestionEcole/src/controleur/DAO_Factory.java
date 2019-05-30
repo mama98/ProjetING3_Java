@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DAO_Factory;
+package controleur;
 
 /**
  *
@@ -15,7 +15,6 @@ package DAO_Factory;
  * and open the template in the editor.
  */
 
-import DAO.*;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;

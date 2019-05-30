@@ -3,41 +3,37 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DAO;
+package controleur;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
-import modele.AnneeScolaire;
 
-import modele.Trimestre;
+import modele.Ecole;
 
 /**
  *
- * @author Marine <ECE>
+ * @author Marine
  */
-public class TrimestreDAO extends DAO<Trimestre>{
+public class EcoleDAO extends DAO<Ecole> {
 
-    public TrimestreDAO(Connection conn) {
+    public EcoleDAO(Connection conn) {
         super(conn);
     }
 
     @Override
-    public boolean create(Trimestre obj) {
+    public boolean create(Ecole obj) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         
         try {
             // prefer prepareStatement as statement to avoid SQL injection
             PreparedStatement statement = this.connect.prepareStatement(
-                    "INSERT INTO Trimestre(id,numero,debut,fin, id_AnneeScolaire) VALUES(?,?,?,?,?)"
+                    "INSERT INTO ecole(nom) VALUES(?)"
             );
             //Changer les ? par la valeur de l'objet créé pour adapter le java a la requette SQL.
-            statement.setObject(1, obj.getId(), Types.INTEGER);
-            statement.setObject(2, obj.getNumero(), Types.INTEGER);
-            statement.setObject(3, obj.getDebut(), Types.INTEGER);
-            statement.setObject(4, obj.getFin(), Types.INTEGER);
-            statement.setObject(5, obj.getId_AnneeScolaire(), Types.INTEGER);
+            statement.setObject(1, obj.getNom(), Types.VARCHAR);
 
             statement.executeUpdate(); //execute update for change in DB and executeQuery for select
 
@@ -48,39 +44,15 @@ public class TrimestreDAO extends DAO<Trimestre>{
     }
 
     @Override
-    public boolean delete(Trimestre obj) {
+    public boolean delete(Ecole obj) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         
-    try {
-            // prefer prepareStatement as statement to avoid SQL injection
-            PreparedStatement statement = this.connect.prepareStatement(
-                    "DELETE FROM Trimestre WHERE id=?"
-            );
-            //Changer les ? par la valeur de l'objet créé pour adapter le java a la requette SQL.
-            statement.setObject(1, obj.getId(), Types.INTEGER);
-
-            statement.executeUpdate(); //execute update for change in DB and executeQuery for select
-
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
-        return true;
-    }
-
-    @Override
-    public boolean update(Trimestre obj) {
-       
-               
         try {
             // prefer prepareStatement as statement to avoid SQL injection
             PreparedStatement statement = this.connect.prepareStatement(
-                    "UPDATE Trimestre SET numero=?, debut=?, fin=?, WHERE id=?"
+                    "DELETE FROM ecole WHERE id=?"
             );
             //insert param to change the ? into data
-            
-            statement.setObject(2, obj.getNumero(), Types.INTEGER);
-            statement.setObject(3, obj.getDebut(), Types.INTEGER);
-            statement.setObject(4, obj.getFin(), Types.INTEGER);
-            statement.setObject(5, obj.getId_AnneeScolaire(), Types.INTEGER);
             statement.setObject(1, obj.getId(), Types.INTEGER);
             statement.executeUpdate(); //execute update for change in DB and executeQuery for select
 
@@ -91,28 +63,44 @@ public class TrimestreDAO extends DAO<Trimestre>{
     }
 
     @Override
-    public Trimestre find(int id_trimestre) {
+    public boolean update(Ecole obj) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         
-                
-            Trimestre trimestre = new Trimestre();      
+        try {
+            // prefer prepareStatement as statement to avoid SQL injection
+            PreparedStatement statement = this.connect.prepareStatement(
+                    "UPDATE ecole SET nom=?, WHERE id=?"
+            );
+            //insert param to change the ? into data
+            statement.setObject(2, obj.getNom(), Types.VARCHAR);
+            statement.setObject(1, obj.getId(), Types.INTEGER);
+            statement.executeUpdate(); //execute update for change in DB and executeQuery for select
+
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+        return true;
+    }
+
+    @Override
+    public Ecole find(int id_ecole) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+            Ecole ecole = new Ecole();      
       
     try {
       ResultSet result = this.connect.createStatement(
         ResultSet.TYPE_SCROLL_INSENSITIVE,
-        ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM Trimestre WHERE id = " + id_trimestre );
+        ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM ecole WHERE id = " + id_ecole);
       if(result.first())
-        trimestre = new Trimestre(
-          id_trimestre,
-          result.getInt("numero"),
-          result.getInt("debut"),
-          result.getInt("fin"),
-          result.getInt("id_AnneeScolaire")       
+        ecole = new Ecole(
+          id_ecole,
+          result.getString("nom")
         );         
     } catch (SQLException e) {
       e.printStackTrace();
     }
-    return trimestre;
+    return ecole;
     }
-    
     
 }
