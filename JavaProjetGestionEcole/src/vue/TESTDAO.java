@@ -225,7 +225,7 @@ public class TESTDAO {
             DAO<Personne> dao = DAO_Factory.getPersonneDAO();
 
             Personne new_T = new Personne(1, "Spoutnik", "Danu",
-                            "schtoblyat", "op@chki", true);
+                            "schtoblyat", "op@chki", 0);
 
             try {
                 dao.create(new_T);

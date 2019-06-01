@@ -60,7 +60,7 @@ CREATE TABLE `Personne` (
 	`prenom` varchar(255) NOT NULL,
 	`login` varchar(255) NOT NULL,
 	`password` varchar(255) NOT NULL,
-	`type_Enseignant` boolean,
+	`type_Enseignant` BOOLEAN,
 	PRIMARY KEY (`id`)
 );
 
