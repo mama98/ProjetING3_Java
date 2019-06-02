@@ -58,7 +58,7 @@ public class ModifierInfosGraphique extends javax.swing.JFrame {
         jLabel1.setBackground(new java.awt.Color(239, 239, 237));
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(239, 239, 237));
-        jLabel1.setText("Creation d'un compte");
+        jLabel1.setText("Modifier vos informations");
 
         jPanel3.setBackground(new java.awt.Color(52, 73, 94));
 
@@ -128,23 +128,23 @@ public class ModifierInfosGraphique extends javax.swing.JFrame {
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
                             .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(167, Short.MAX_VALUE))
+                .addContainerGap(203, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(127, 127, 127)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(127, 127, 127)
-                        .addComponent(jLabel3))
+                        .addComponent(jLabel7)
+                        .addGap(24, 24, 24))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(22, 22, 22)
+                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)))
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -195,7 +195,6 @@ public class ModifierInfosGraphique extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        System.out.println("Creation d'un compte");
         if (jTextField3.getText().isEmpty() ||
             jTextField4.getText().isEmpty() ||
             jTextField5.getText().isEmpty() ||
@@ -207,14 +206,17 @@ public class ModifierInfosGraphique extends javax.swing.JFrame {
             user.setPrenom(jTextField4.getText());
             user.setLogin(jTextField5.getText());
             user.setPassword(jTextField6.getText());
-            
-            try{
-                dao.update(user);
+   
+            boolean update = dao.update(user);
+            if (update) {
                 JOptionPane.showMessageDialog(null, "Informations modifiées avec succès");
                 this.setVisible(false);
-                new EnseignantGraphique(user).setVisible(true);
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, e.getMessage());
+                if (user.getType_Enseignant())
+                    new EnseignantGraphique(user).setVisible(true);
+                else
+                    new EleveGraphique(user).setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(null, "Une erreur est survenue. Merci de vérifier vos informations et de réessayer");
             }
         }
     }//GEN-LAST:event_jButton4ActionPerformed

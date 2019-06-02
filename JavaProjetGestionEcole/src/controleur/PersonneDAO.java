@@ -26,7 +26,7 @@ public class PersonneDAO extends DAO<Personne>{
 
     @Override
     public boolean create(Personne obj) {
-        
+
         try {
             // prefer prepareStatement as statement to avoid SQL injection
             PreparedStatement statement = this.connect.prepareStatement(
@@ -41,11 +41,11 @@ public class PersonneDAO extends DAO<Personne>{
             statement.setObject(5, obj.getType_Enseignant(), Types.BOOLEAN);
             statement.executeUpdate(); //execute update for change in DB and executeQuery for select
 
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
+        } catch (SQLException e) {
+            return false;
+        }
         return true;
-        
+
     }
 
     @Override
@@ -61,7 +61,7 @@ public class PersonneDAO extends DAO<Personne>{
             statement.executeUpdate(); //execute update for change in DB and executeQuery for select
 
         } catch (SQLException e) {
-          e.printStackTrace();
+          return false;
         }
         return true;
         
@@ -73,19 +73,20 @@ public class PersonneDAO extends DAO<Personne>{
         try {
             // prefer prepareStatement as statement to avoid SQL injection
             PreparedStatement statement = this.connect.prepareStatement(
-                    "UPDATE Personne SET nom=?, prenom=?, login=?, password=?, type_Enseignant=false, WHERE id=?"
+                    "UPDATE Personne SET nom=?, prenom=?, login=?, password=?, type_Enseignant=? WHERE id=?"
             );
+            
             //insert param to change the ? into data
-            statement.setObject(2, obj.getNom(), Types.VARCHAR);
-            statement.setObject(3, obj.getPrenom(), Types.VARCHAR);
-            statement.setObject(4, obj.getLogin(), Types.VARCHAR);
-            statement.setObject(5, obj.getPassword(), Types.VARCHAR);
-            statement.setObject(6, obj.getType_Enseignant(), Types.INTEGER);
-            statement.setObject(1, obj.getId(), Types.INTEGER);
+            statement.setObject(1, obj.getNom(), Types.VARCHAR);
+            statement.setObject(2, obj.getPrenom(), Types.VARCHAR);
+            statement.setObject(3, obj.getLogin(), Types.VARCHAR);
+            statement.setObject(4, obj.getPassword(), Types.VARCHAR);
+            statement.setObject(5, obj.getType_Enseignant(), Types.BOOLEAN);
+            statement.setObject(6, obj.getId(), Types.INTEGER);
             statement.executeUpdate(); //execute update for change in DB and executeQuery for select
 
         } catch (SQLException e) {
-          e.printStackTrace();
+          return false;
         }
         return true;
         
@@ -110,7 +111,7 @@ public class PersonneDAO extends DAO<Personne>{
                 result.getInt("type_Enseignant")
             );         
         } catch (SQLException e) {
-          e.printStackTrace();
+          return null;
         }
         return personne;
         

@@ -209,21 +209,22 @@ public class CreationCompte extends javax.swing.JFrame {
         if (jTextField3.getText().isEmpty() ||
                 jTextField4.getText().isEmpty() ||
                 jTextField5.getText().isEmpty() ||
-                jTextField6.getText().isEmpty())
+ jTextField6.getText().isEmpty())
             JOptionPane.showMessageDialog(null, "Merci de remplir tous les champs");
-        else{
+        else {
             int type = 0;
-            if (jCheckBox1.isSelected())
+            if (jCheckBox1.isSelected()) {
                 type = 1;
+            }
             DAO<Personne> dao = DAO_Factory.getPersonneDAO();
-            Personne newUser = new Personne(3, jTextField3.getText(), jTextField4.getText(),
-                            jTextField5.getText(), jTextField6.getText(), type);
-            try{
-                dao.create(newUser);
+            Personne newUser = new Personne(0, jTextField3.getText(), jTextField4.getText(),
+                    jTextField5.getText(), jTextField6.getText(), type);
+            boolean create = dao.create(newUser);
+            if (create) {
                 this.setVisible(false);
                 new ConnexionGraphique().setVisible(true);
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, e.getMessage());
+            } else {
+                JOptionPane.showMessageDialog(null, "Une erreur est survenue. Merci de vérifier vos informations et de réessayer");
             }
         }
     }//GEN-LAST:event_jButton4ActionPerformed

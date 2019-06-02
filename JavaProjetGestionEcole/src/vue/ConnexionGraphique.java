@@ -199,7 +199,7 @@ public class ConnexionGraphique extends javax.swing.JFrame {
                 login,
                 passw,
                 result.getInt("type_Enseignant")
-            );    
+            );
           else{
               throw new ConnectException();         
           }
@@ -211,8 +211,8 @@ public class ConnexionGraphique extends javax.swing.JFrame {
     }
     
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String jlogin= jTextField1.getText();
-        String jpassw= jPasswordField1.getText(); 
+        String jlogin = jTextField1.getText();
+        String jpassw = jPasswordField1.getText(); 
 
         try {
             Personne user = connect(jlogin, jpassw);
@@ -220,7 +220,7 @@ public class ConnexionGraphique extends javax.swing.JFrame {
             if(user.getType_Enseignant()==true)
                 new EnseignantGraphique(user).setVisible(true);
             else
-                new EleveGraphique().setVisible(true);
+                new EleveGraphique(user).setVisible(true);
         } catch (ConnectException e) {
             JOptionPane.showMessageDialog(null, "Ce compte n'existe pas. Merci de réessayer ou de créer votre compte");
         }
