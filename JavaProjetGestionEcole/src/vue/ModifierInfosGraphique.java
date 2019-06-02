@@ -7,6 +7,8 @@ package vue;
 
 import controleur.DAO;
 import controleur.DAO_Factory;
+import java.util.HashSet;
+import java.util.Set;
 import javax.swing.JOptionPane;
 import modele.Personne;
 
@@ -14,13 +16,16 @@ import modele.Personne;
  *
  * @author Marine <ECE>
  */
-public class CreationCompte extends javax.swing.JFrame {
+public class ModifierInfosGraphique extends javax.swing.JFrame {
+    
+    private Personne user;
 
     /**
-     * Creates new form CreationCompte
+     * Creates new form ModifierInfosGraphique
      */
-    public CreationCompte() {
+    public ModifierInfosGraphique(Personne user) {
         initComponents();
+        this.user = user;
     }
 
     /**
@@ -40,8 +45,6 @@ public class CreationCompte extends javax.swing.JFrame {
         jTextField3 = new javax.swing.JTextField();
         jTextField4 = new javax.swing.JTextField();
         jButton4 = new javax.swing.JButton();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jLabel6 = new javax.swing.JLabel();
         jTextField5 = new javax.swing.JTextField();
         jTextField6 = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
@@ -80,13 +83,6 @@ public class CreationCompte extends javax.swing.JFrame {
             }
         });
 
-        jCheckBox1.setForeground(new java.awt.Color(52, 73, 94));
-
-        jLabel6.setBackground(new java.awt.Color(239, 239, 237));
-        jLabel6.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(239, 239, 237));
-        jLabel6.setText("Enseignant :");
-
         jTextField5.setBackground(new java.awt.Color(228, 233, 237));
 
         jTextField6.setBackground(new java.awt.Color(228, 233, 237));
@@ -119,7 +115,6 @@ public class CreationCompte extends javax.swing.JFrame {
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel5)
                             .addComponent(jLabel3)
-                            .addComponent(jLabel6)
                             .addComponent(jLabel7)
                             .addComponent(jLabel8))
                         .addGap(30, 30, 30)
@@ -127,14 +122,13 @@ public class CreationCompte extends javax.swing.JFrame {
                             .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jCheckBox1)
                             .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(205, 205, 205)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
                             .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(167, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -158,11 +152,7 @@ public class CreationCompte extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jCheckBox1)
-                    .addComponent(jLabel6))
-                .addGap(18, 18, 18)
+                .addGap(60, 60, 60)
                 .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1)
@@ -207,21 +197,22 @@ public class CreationCompte extends javax.swing.JFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         System.out.println("Creation d'un compte");
         if (jTextField3.getText().isEmpty() ||
-                jTextField4.getText().isEmpty() ||
-                jTextField5.getText().isEmpty() ||
-                jTextField6.getText().isEmpty())
-            JOptionPane.showMessageDialog(null, "Merci de remplir tous les champs");
+            jTextField4.getText().isEmpty() ||
+            jTextField5.getText().isEmpty() ||
+            jTextField6.getText().isEmpty())
+        JOptionPane.showMessageDialog(null, "Merci de remplir tous les champs");
         else{
-            int type = 0;
-            if (jCheckBox1.isSelected())
-                type = 1;
             DAO<Personne> dao = DAO_Factory.getPersonneDAO();
-            Personne newUser = new Personne(3, jTextField3.getText(), jTextField4.getText(),
-                            jTextField5.getText(), jTextField6.getText(), type);
+            user.setNom(jTextField3.getText());
+            user.setPrenom(jTextField4.getText());
+            user.setLogin(jTextField5.getText());
+            user.setPassword(jTextField6.getText());
+            
             try{
-                dao.create(newUser);
+                dao.update(user);
+                JOptionPane.showMessageDialog(null, "Informations modifiées avec succès");
                 this.setVisible(false);
-                new ConnexionGraphique().setVisible(true);
+                new EnseignantGraphique(user).setVisible(true);
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
             }
@@ -236,11 +227,9 @@ public class CreationCompte extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton4;
-    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;

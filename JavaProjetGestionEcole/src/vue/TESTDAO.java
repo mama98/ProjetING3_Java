@@ -284,7 +284,7 @@ public class TESTDAO {
 
         //FIXME : Ajout de tests pour les classes ?
 
-        public static void main(String[] args){
+        public static void tests(String[] args){
             dao_test_suite();
         }
 }

@@ -66,8 +66,8 @@ public class ConnexionGraphique extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
+        jPasswordField1 = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -116,8 +116,6 @@ public class ConnexionGraphique extends javax.swing.JFrame {
 
         jTextField1.setBackground(new java.awt.Color(228, 233, 237));
 
-        jTextField2.setBackground(new java.awt.Color(228, 233, 237));
-
         jButton2.setText("Créer un compte");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -137,9 +135,9 @@ public class ConnexionGraphique extends javax.swing.JFrame {
                             .addComponent(jLabel4)
                             .addComponent(jLabel2))
                         .addGap(30, 30, 30)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
+                            .addComponent(jPasswordField1)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(205, 205, 205)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -157,12 +155,12 @@ public class ConnexionGraphique extends javax.swing.JFrame {
                 .addGap(55, 55, 55)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(48, 48, 48)
+                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(49, 49, 49)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(68, Short.MAX_VALUE))
+                .addContainerGap(80, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -214,20 +212,17 @@ public class ConnexionGraphique extends javax.swing.JFrame {
     
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String jlogin= jTextField1.getText();
-        String jpassw= jTextField2.getText();
-        DAO<Personne> dao = DAO_Factory.getPersonneDAO(); 
+        String jpassw= jPasswordField1.getText(); 
 
         try {
             Personne user = connect(jlogin, jpassw);
-            //System.out.println(user.getType_Enseignant());
+            this.setVisible(false);
             if(user.getType_Enseignant()==true)
-            {
-                this.setVisible(false);
-                new EnseignantGraphique().setVisible(true);
-            }
+                new EnseignantGraphique(user).setVisible(true);
+            else
+                new EleveGraphique().setVisible(true);
         } catch (ConnectException e) {
             JOptionPane.showMessageDialog(null, "Ce compte n'existe pas. Merci de réessayer ou de créer votre compte");
-            //System.out.println(e.getMessage());
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -248,7 +243,7 @@ public class ConnexionGraphique extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 }
