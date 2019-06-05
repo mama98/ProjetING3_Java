@@ -19,7 +19,7 @@ import modele.*;
  *
  * @author val_r
  */
-public class DetailBulletinGraphique extends javax.swing.JFrame {
+public class EnsRechercheEleve extends javax.swing.JFrame {
 
     private Personne user;
     private Personne eleve;
@@ -52,7 +52,7 @@ public class DetailBulletinGraphique extends javax.swing.JFrame {
     /**
      * Creates new form DetailBulletinGraphique
      */
-    public DetailBulletinGraphique(Personne user) {
+    public EnsRechercheEleve(Personne user) {
         initComponents();
         this.user = user;
         eleve = new Personne();
