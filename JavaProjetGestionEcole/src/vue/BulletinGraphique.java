@@ -5,6 +5,15 @@
  */
 package vue;
 
+import controleur.DAO_Factory;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import modele.Personne;
 
 /**
@@ -14,6 +23,20 @@ import modele.Personne;
 public class BulletinGraphique extends javax.swing.JFrame {
 
     private Personne user;
+    private DefaultComboBoxModel modelChoix = new DefaultComboBoxModel();
+
+    protected static Connection connect = null;
+        static {
+            Connection tmp = null;
+
+            try {
+                Class.forName("com.mysql.jdbc.Driver");
+                tmp = DriverManager.getConnection("jdbc:mysql://localhost/gestionEcole", "root", "");
+            } catch (ClassNotFoundException | SQLException ex) {
+                Logger.getLogger(DAO_Factory.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            connect = tmp;
+        }
 
     /**
      * Creates new form ModifierInfosGraphique
@@ -21,7 +44,8 @@ public class BulletinGraphique extends javax.swing.JFrame {
     public BulletinGraphique(Personne user) {
         initComponents();
         this.user = user;
-        jLabel2.setText("Bonjour " + user.getPrenom());
+        nomLabel.setText("Bonjour " + user.getPrenom());
+        populateModel();
     }
 
     /**
@@ -37,10 +61,11 @@ public class BulletinGraphique extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
-        jLabel3 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        nomLabel = new javax.swing.JLabel();
+        choixBulletinComboBox = new javax.swing.JComboBox();
+        detailBulletinButton = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        resultArea = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -58,7 +83,7 @@ public class BulletinGraphique extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addComponent(jLabel1)
-                .addContainerGap(594, Short.MAX_VALUE))
+                .addContainerGap(582, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -77,54 +102,62 @@ public class BulletinGraphique extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("jlabel2");
+        nomLabel.setBackground(new java.awt.Color(255, 255, 255));
+        nomLabel.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        nomLabel.setForeground(new java.awt.Color(255, 255, 255));
+        nomLabel.setText("jlabel2");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        choixBulletinComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        choixBulletinComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                choixBulletinComboBoxActionPerformed(evt);
+            }
+        });
 
-        jLabel3.setText("jLabel3");
+        detailBulletinButton.setText("Detail du Bulletin");
+        detailBulletinButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                detailBulletinButtonActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Detail du Bulletin");
+        resultArea.setEditable(false);
+        resultArea.setColumns(20);
+        resultArea.setRows(5);
+        jScrollPane1.setViewportView(resultArea);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(detailBulletinButton)
+                .addGap(337, 337, 337))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton1)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 720, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(choixBulletinComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(nomLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addGap(23, 23, 23))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 494, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(124, 124, 124))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jButton2)
-                        .addGap(318, 318, 318))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(49, 49, 49)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(nomLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(55, 55, 55)
+                .addComponent(choixBulletinComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(59, 59, 59)
-                .addComponent(jButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
+                .addComponent(detailBulletinButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                 .addComponent(jButton1)
-                .addGap(18, 18, 18))
+                .addGap(21, 21, 21))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -151,16 +184,51 @@ public class BulletinGraphique extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    
+    private void choixBulletinComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_choixBulletinComboBoxActionPerformed
+        populateModel();
+    }//GEN-LAST:event_choixBulletinComboBoxActionPerformed
+
+    private void detailBulletinButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_detailBulletinButtonActionPerformed
+        this.setVisible(false);
+        new ConnexionGraphique().setVisible(true); //FIXME
+    }//GEN-LAST:event_detailBulletinButtonActionPerformed
+
+    public void populateModel(){
+        try{
+            ResultSet result = BulletinGraphique.connect.createStatement(
+                ResultSet.TYPE_SCROLL_INSENSITIVE,
+                ResultSet.CONCUR_READ_ONLY).executeQuery(
+                    "SELECT * FROM Bulletin b, Personne p WHERE b.id_Inscription = p.id AND p.id = " + user.getId()
+            );
+
+            if (modelChoix.getSize() == 0)
+                while(result.next())
+                    modelChoix.addElement(result.getString("nom") + "_" + result.getString("b.id_Trimestre"));
+            choixBulletinComboBox.setModel(modelChoix);
+
+            String choix = choixBulletinComboBox.getSelectedItem().toString();
+            String appreciation = new String();
+            while(result.next())
+                if (choix.equals(result.getString("nom") + "_" + result.getString("b.id_Trimestre")))
+                    appreciation = result.getString("appreciation");
+            resultArea.setText(appreciation);
+
+        } catch (SQLException e){
+            JOptionPane.showMessageDialog(null, "Une erreur s'est produite. Merci de réessayer");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox choixBulletinComboBox;
+    private javax.swing.JButton detailBulletinButton;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel nomLabel;
+    private javax.swing.JTextArea resultArea;
     // End of variables declaration//GEN-END:variables
 }
