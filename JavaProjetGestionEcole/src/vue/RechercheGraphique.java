@@ -164,9 +164,9 @@ public class RechercheGraphique extends javax.swing.JFrame {
                 for (int indexCol = 0; indexCol < tablesCols[tablesComboBox.getSelectedIndex()].length; indexCol++) {
                     strToInsert = result.getString(tablesCols[tablesComboBox.getSelectedIndex()][indexCol])
                                         .replaceAll(searchQuery, "<b><font color=\"rgb(159,90,253)\">" + searchQuery + "</b></font>");
-                    rowToInsert = appendValue(rowToInsert, "<html>" + strToInsert);
+                    rowToInsert = appendValue(rowToInsert, "<html>" + strToInsert);    
                 }
-                 modelTable.addRow(rowToInsert);
+                modelTable.addRow(rowToInsert);
                 ++resultCount;
             }
 

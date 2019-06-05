@@ -173,7 +173,7 @@ public class EnseignantGraphique extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         this.setVisible(false);
-        new EnseignementGraphique(user).setVisible(true);
+        new GestionSelectionEleveGraphique(user).setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {                                         
