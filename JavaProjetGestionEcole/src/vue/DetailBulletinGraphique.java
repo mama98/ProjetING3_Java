@@ -14,20 +14,23 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.JOptionPane;
 import modele.Personne;
 import modele.Bulletin;
 
 /**
  *
- * @author Marine 
+ * @author Marine
  */
 public class DetailBulletinGraphique extends javax.swing.JFrame {
 
     private Personne user;
     private Bulletin bulletin;
     private DefaultComboBoxModel modelChoix = new DefaultComboBoxModel();
-    
+    private final static Object[] cols = new Object[]{"Note", "Appréciation"};
+    private DefaultTableModel modelTable = new DefaultTableModel(cols, 0);
+
         protected static Connection connect = null;
         static {
             Connection tmp = null;
@@ -46,8 +49,9 @@ public class DetailBulletinGraphique extends javax.swing.JFrame {
     public DetailBulletinGraphique(Personne user, Bulletin bulletin) {
         initComponents();
         this.user = user;
-        this.bulletin = bulletin;        
+        this.bulletin = bulletin;
         nomLabel.setText("Bonjour " + user.getPrenom());
+        jTableNotes.setModel(modelTable);
         populateModel();
     }
 
@@ -113,7 +117,6 @@ public class DetailBulletinGraphique extends javax.swing.JFrame {
         nomLabel.setForeground(new java.awt.Color(255, 255, 255));
         nomLabel.setText("jlabel2");
 
-        choixDisciplineComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         choixDisciplineComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 choixDisciplineComboBoxActionPerformed(evt);
@@ -217,10 +220,11 @@ public class DetailBulletinGraphique extends javax.swing.JFrame {
 
     private void returnButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_returnButtonActionPerformed
         this.setVisible(false);
-        new EleveGraphique(user).setVisible(true);
+        new BulletinGraphique(user).setVisible(true);
     }//GEN-LAST:event_returnButtonActionPerformed
-    
+
     public void populateModel(){
+        modelTable.setRowCount(0);
         try{
             ResultSet result = BulletinGraphique.connect.createStatement(
                 ResultSet.TYPE_SCROLL_INSENSITIVE,
@@ -230,24 +234,22 @@ public class DetailBulletinGraphique extends javax.swing.JFrame {
 
             if (modelChoix.getSize() == 0)
                 while(result.next())
-                    modelChoix.addElement(result.getString("nom") + "_" + result.getString("b.id_Trimestre"));
+                    if (modelChoix.getIndexOf(result.getString("nom")) == -1)
+                        modelChoix.addElement(result.getString("nom"));
             choixDisciplineComboBox.setModel(modelChoix);
 
             String choix = choixDisciplineComboBox.getSelectedItem().toString();
-            String appreciation = new String();
             while(result.next())
-                if (choix.equals(result.getString("nom") + "_" + result.getString("b.id_Trimestre"))){
-                    appreciation = result.getString("appreciation");
-                    this.bulletin = new Bulletin(0, appreciation,
-                                                result.getInt("id_Trimestre"),
-                                                result.getInt("id_Inscription"));
+                if (choix.equals(result.getString("nom"))){
+                    jTexteAppreciation.setText(result.getString("db.appreciation"));
+                    Object[] rowToInsert = new Object[]{result.getString("note"),
+                                                        result.getString("ev.appreciation")};
+                    modelTable.addRow(rowToInsert);
                 }
-            resultArea.setText(appreciation);
-
         } catch (SQLException e){
             JOptionPane.showMessageDialog(null, "Une erreur s'est produite. Merci de réessayer");
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
+            JOptionPane.showMessageDialog(null, "Le bulletin n'a pas de notes.");
         }
     }
 
