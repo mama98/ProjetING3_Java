@@ -28,6 +28,8 @@ public class GestionSelectionEleveGraphique extends javax.swing.JFrame {
 
        private Personne user;
        private Bulletin bulletin;
+       private int id_eleve;
+       
 
     /**
      * Creates new form GestionSelectionEleveGraphique
@@ -230,7 +232,7 @@ public class GestionSelectionEleveGraphique extends javax.swing.JFrame {
 
     private void SelectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SelectButtonActionPerformed
         this.setVisible(false);
-     //   new GestionChoixGraph(user).setVisible(true); 
+      //  new GestionChoixModifGraphique(user, bulletin, id_eleve).setVisible(true); 
     }//GEN-LAST:event_SelectButtonActionPerformed
 
     private void searchFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchFieldKeyReleased
@@ -239,7 +241,6 @@ public class GestionSelectionEleveGraphique extends javax.swing.JFrame {
 
     private void jComboBoxBulletinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxBulletinActionPerformed
               try {
-            String searchQuery = searchField.getText();
             ResultSet result = RechercheGraphique.connect.createStatement(
                 ResultSet.TYPE_SCROLL_INSENSITIVE,
                 ResultSet.CONCUR_READ_ONLY).executeQuery(
@@ -248,7 +249,6 @@ public class GestionSelectionEleveGraphique extends javax.swing.JFrame {
                 
             if(result.first()){
                 bulletin = new Bulletin(result.getInt("id"), result.getString("nom"),result.getString("appreciation"),result.getInt("id_Trimestre"),result.getInt("id_Inscription"));
-                System.out.println(bulletin.getNom());
             }
               } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
@@ -329,6 +329,7 @@ public class GestionSelectionEleveGraphique extends javax.swing.JFrame {
                 );
             while(result.next()){
             jComboBoxBulletin.addItem(result.getString("nom"));
+            id_eleve=result.getInt("i.id");
             }
             
         } catch (SQLException e) {
