@@ -67,11 +67,11 @@ public class DetailBulletinDAO extends DAO<DetailBulletin> {
         try {
             // prefer prepareStatement as statement to avoid SQL injection
             PreparedStatement statement = this.connect.prepareStatement(
-                    "UPDATE DetailBulletin SET appreciation=?, WHERE id=?"
+                    "UPDATE DetailBulletin SET appreciation=? WHERE id=?"
             );
             //insert param to change the ? into data
-            statement.setObject(2, obj.getAppreciation(), Types.VARCHAR);
-            statement.setObject(1, obj.getId(), Types.INTEGER);
+            statement.setObject(1, obj.getAppreciation(), Types.VARCHAR);
+            statement.setObject(2, obj.getId(), Types.INTEGER);
             statement.executeUpdate(); //execute update for change in DB and executeQuery for select
 
     } catch (SQLException e) {

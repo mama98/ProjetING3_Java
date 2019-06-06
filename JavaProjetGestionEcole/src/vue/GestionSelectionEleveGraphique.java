@@ -29,7 +29,7 @@ public class GestionSelectionEleveGraphique extends javax.swing.JFrame {
        private Personne user;
        private Bulletin bulletin;
        private int id_eleve;
-       
+
 
     /**
      * Creates new form GestionSelectionEleveGraphique
@@ -56,7 +56,7 @@ public class GestionSelectionEleveGraphique extends javax.swing.JFrame {
             }
             connect = tmp;
         }
-        
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -232,7 +232,7 @@ public class GestionSelectionEleveGraphique extends javax.swing.JFrame {
 
     private void SelectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SelectButtonActionPerformed
         this.setVisible(false);
-        new GestionChoixModifGraphique(user, id_eleve, bulletin).setVisible(true); 
+        new GestionChoixModifGraphique(user, id_eleve, bulletin).setVisible(true);
     }//GEN-LAST:event_SelectButtonActionPerformed
 
     private void searchFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchFieldKeyReleased
@@ -246,7 +246,7 @@ public class GestionSelectionEleveGraphique extends javax.swing.JFrame {
                 ResultSet.CONCUR_READ_ONLY).executeQuery(
                         "SELECT * FROM  Bulletin b, Inscription i WHERE i.id=b.id_Inscription AND b.id='" + jComboBoxBulletin.getSelectedItem().toString().charAt(0) + "'"
                 );
-                
+
             if(result.first()){
                 bulletin = new Bulletin(result.getInt("id"), result.getString("nom"),result.getString("appreciation"),result.getInt("id_Trimestre"),result.getInt("id_Inscription"));
             }
@@ -268,38 +268,38 @@ public class GestionSelectionEleveGraphique extends javax.swing.JFrame {
         temp.add(newObj);
         return temp.toArray();
     }
-    
+
     public void displayTable(){
         DefaultTableModel tableModel = (DefaultTableModel) tableEleve.getModel();
-        tableModel.setRowCount(0);        
+        tableModel.setRowCount(0);
 
         try {
             String searchQuery = searchField.getText();
             ResultSet result = RechercheGraphique.connect.createStatement(
                 ResultSet.TYPE_SCROLL_INSENSITIVE,
                 ResultSet.CONCUR_READ_ONLY).executeQuery(
-                        "SELECT * FROM Personne p, Inscription i, Classe c, Niveau n WHERE p.id=i.id_Personne AND i.id_Classe=c.id AND c.id_Niveau=n.id AND (p.nom LIKE '%" + searchQuery + "%' OR p.prenom LIKE '%" + searchQuery + "%')" 
+                        "SELECT * FROM Personne p, Inscription i, Classe c, Niveau n WHERE p.id=i.id_Personne AND i.id_Classe=c.id AND c.id_Niveau=n.id AND (p.nom LIKE '%" + searchQuery + "%' OR p.prenom LIKE '%" + searchQuery + "%')"
                 );
            while(result.next()){
-               
+
              Object[] rowToInsert = new Object[]{};
-             
+
               String strToInsert = result.getString("i.id");
-                    rowToInsert = appendValue(rowToInsert, strToInsert);  
+                    rowToInsert = appendValue(rowToInsert, strToInsert);
                strToInsert = result.getString("p.prenom")
                                         .replaceAll(searchQuery, "<b><font color=\"rgb(159,90,253)\">" + searchQuery + "</b></font>");
                     rowToInsert = appendValue(rowToInsert, "<html>" + strToInsert);
-                    
+
                strToInsert = result.getString("p.nom")
                                         .replaceAll(searchQuery, "<b><font color=\"rgb(159,90,253)\">" + searchQuery + "</b></font>");
                     rowToInsert = appendValue(rowToInsert, "<html>" + strToInsert);
-                    
+
                strToInsert = result.getString("n.nom");
                     rowToInsert = appendValue(rowToInsert, "<html>" + strToInsert);
                strToInsert = result.getString("c.nom");
-               
+
                     rowToInsert = appendValue(rowToInsert, "<html>" + strToInsert);
-                    
+
                     tableModel.addRow(rowToInsert);
 
             }
@@ -310,10 +310,10 @@ public class GestionSelectionEleveGraphique extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
-   
-    
+
+
     public void updateComboBox()
-    {           
+    {
         //jComboBoxBulletin.removeAll();
         jComboBoxBulletin.setModel(new DefaultComboBoxModel());
         try {
@@ -325,13 +325,13 @@ public class GestionSelectionEleveGraphique extends javax.swing.JFrame {
             ResultSet result = RechercheGraphique.connect.createStatement(
                 ResultSet.TYPE_SCROLL_INSENSITIVE,
                 ResultSet.CONCUR_READ_ONLY).executeQuery(
-                        "SELECT * FROM Bulletin b, Inscription i, trimestre t WHERE b.id_Inscription=i.id AND t.id=b.id_Trimestre AND i.id="+ selected_id
+                        "SELECT * FROM Bulletin b, Inscription i, Trimestre t WHERE b.id_Inscription=i.id AND t.id=b.id_Trimestre AND i.id="+ selected_id
                 );
             while(result.next()){
             jComboBoxBulletin.addItem(result.getString("b.id") + "_" + result.getString("nom") + "_" + result.getString("t.numero"));
             id_eleve=result.getInt("i.id");
             }
-            
+
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Votre requête a échoué. Merci de réessayer");
         }

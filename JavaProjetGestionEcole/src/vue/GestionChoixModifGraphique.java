@@ -5,6 +5,7 @@
  */
 package vue;
 
+import controleur.DAO;
 import controleur.DAO_Factory;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -21,6 +22,8 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import modele.Personne;
 import modele.Bulletin;
+import modele.DetailBulletin;
+import modele.Evaluation;
 import static vue.ConnexionGraphique.connect;
 
 /**
@@ -381,10 +384,13 @@ public class GestionChoixModifGraphique extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonAjouterActionPerformed
 
     private void jButtonModifierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModifierActionPerformed
-        if (tableResult.getSelectedRow() == -1)
+        int row = tableResult.getSelectedRow();
+        if (row == -1)
             JOptionPane.showMessageDialog(null, "Veuillez selectionner une valeur avant de continuer");
         else{
             this.setVisible(false);
+            int value = Integer.parseInt(tableResult.getValueAt(row, 0).toString());
+            new ModifierBu_DB_EvGraphique(enseignant, idEleve, bulletin, value, tablesComboBox.getSelectedIndex()).setVisible(true);
         }
     }//GEN-LAST:event_jButtonModifierActionPerformed
 
@@ -392,7 +398,35 @@ public class GestionChoixModifGraphique extends javax.swing.JFrame {
         if (tableResult.getSelectedRow() == -1)
             JOptionPane.showMessageDialog(null, "Veuillez selectionner une valeur avant de continuer");
         else{
-            this.setVisible(false);
+            int row = tableResult.getSelectedRow();
+            int value = Integer.parseInt(tableResult.getValueAt(row, 0).toString());
+            switch(tablesComboBox.getSelectedIndex()){
+                case 0:
+                    DAO<Bulletin> daoB = DAO_Factory.getBulletinDAO();
+                    Bulletin bulletin = new Bulletin(value, "", "", 0, 0);
+                    if(daoB.delete(bulletin))
+                        JOptionPane.showMessageDialog(null, "Suppression reussie");
+                    else
+                        JOptionPane.showMessageDialog(null, "La suppression a echoue");
+                    break;
+                case 1:
+                    DAO<DetailBulletin> daoDB = DAO_Factory.getDetailBulletinDAO();
+                    DetailBulletin detailBulletin = new DetailBulletin(value, "", 0, 0);
+                    if(daoDB.delete(detailBulletin))
+                        JOptionPane.showMessageDialog(null, "Suppression reussie");
+                    else
+                        JOptionPane.showMessageDialog(null, "La suppression a echoue");
+                    break;
+                case 2:
+                    DAO<Evaluation> daoE = DAO_Factory.getEvaluationDAO();
+                    Evaluation evaluation = new Evaluation(value, 0, "", 0);
+                    if(daoE.delete(evaluation))
+                        JOptionPane.showMessageDialog(null, "Suppression reussie");
+                    else
+                        JOptionPane.showMessageDialog(null, "La suppression a echoue");
+                    break;
+            }
+            displayTable();
         }
     }//GEN-LAST:event_jButtonSupprimerActionPerformed
 
