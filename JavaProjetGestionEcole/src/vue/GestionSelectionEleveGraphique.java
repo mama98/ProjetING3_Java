@@ -244,7 +244,7 @@ public class GestionSelectionEleveGraphique extends javax.swing.JFrame {
             ResultSet result = RechercheGraphique.connect.createStatement(
                 ResultSet.TYPE_SCROLL_INSENSITIVE,
                 ResultSet.CONCUR_READ_ONLY).executeQuery(
-                        "SELECT * FROM  Bulletin b, Inscription i WHERE i.id=b.id_Inscription AND b.nom='" + jComboBoxBulletin.getSelectedItem().toString() + "'"
+                        "SELECT * FROM  Bulletin b, Inscription i WHERE i.id=b.id_Inscription AND b.id='" + jComboBoxBulletin.getSelectedItem().toString().charAt(0) + "'"
                 );
                 
             if(result.first()){
@@ -325,10 +325,10 @@ public class GestionSelectionEleveGraphique extends javax.swing.JFrame {
             ResultSet result = RechercheGraphique.connect.createStatement(
                 ResultSet.TYPE_SCROLL_INSENSITIVE,
                 ResultSet.CONCUR_READ_ONLY).executeQuery(
-                        "SELECT * FROM Bulletin b, Inscription i WHERE b.id_Inscription=i.id AND i.id="+ selected_id
+                        "SELECT * FROM Bulletin b, Inscription i, trimestre t WHERE b.id_Inscription=i.id AND t.id=b.id_Trimestre AND i.id="+ selected_id
                 );
             while(result.next()){
-            jComboBoxBulletin.addItem(result.getString("nom"));
+            jComboBoxBulletin.addItem(result.getString("b.id") + "_" + result.getString("nom") + "_" + result.getString("t.numero"));
             id_eleve=result.getInt("i.id");
             }
             
