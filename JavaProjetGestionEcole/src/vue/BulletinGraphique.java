@@ -239,6 +239,7 @@ public class BulletinGraphique extends javax.swing.JFrame {
                 if (choix.equals(result.getString("nom") + " Trimestre " + result.getString("b.id_Trimestre"))){
                     appreciation = result.getString("appreciation");
                     this.bulletin = new Bulletin(result.getInt("b.id"), 
+                                                result.getString("nom"),
                                                 appreciation,
                                                 result.getInt("id_Trimestre"),
                                                 result.getInt("id_Inscription"));

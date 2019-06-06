@@ -13,9 +13,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import modele.Personne;
+import modele.Bulletin;
 /**
  *
  * @author Marine <ECE>
@@ -23,12 +27,18 @@ import modele.Personne;
 public class GestionSelectionEleveGraphique extends javax.swing.JFrame {
 
        private Personne user;
+       private Bulletin bulletin;
 
     /**
      * Creates new form GestionSelectionEleveGraphique
      */
     public GestionSelectionEleveGraphique(Personne user) {
         initComponents();
+        tableEleve.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+        public void valueChanged(ListSelectionEvent event) {
+            updateComboBox();
+        }
+    });
         this.user = user;
     }
 
@@ -61,7 +71,7 @@ public class GestionSelectionEleveGraphique extends javax.swing.JFrame {
         tableEleve = new javax.swing.JTable();
         retourButton = new javax.swing.JButton();
         SelectButton = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         jComboBoxBulletin = new javax.swing.JComboBox();
         searchField = new javax.swing.JTextField();
 
@@ -91,8 +101,6 @@ public class GestionSelectionEleveGraphique extends javax.swing.JFrame {
                 .addContainerGap(32, Short.MAX_VALUE))
         );
 
-        jLabelSelect.getAccessibleContext().setAccessibleName("Sélection de l'élève");
-
         jPanel3.setBackground(new java.awt.Color(52, 73, 94));
 
         tableEleve.setModel(new javax.swing.table.DefaultTableModel(
@@ -119,7 +127,9 @@ public class GestionSelectionEleveGraphique extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Recherche par nom ou prénom:");
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Recherche par nom ou prénom:");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -137,16 +147,16 @@ public class GestionSelectionEleveGraphique extends javax.swing.JFrame {
                         .addGap(23, 23, 23)))
                 .addContainerGap())
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(58, 58, 58)
-                .addComponent(jLabel1)
+                .addGap(22, 22, 22)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap(112, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
+                .addContainerGap(102, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addGap(28, 28, 28)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -156,6 +166,19 @@ public class GestionSelectionEleveGraphique extends javax.swing.JFrame {
         );
 
         jComboBoxBulletin.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selectionner Bulletin" }));
+        jComboBoxBulletin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jComboBoxBulletinMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jComboBoxBulletinMousePressed(evt);
+            }
+        });
+        jComboBoxBulletin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxBulletinActionPerformed(evt);
+            }
+        });
 
         searchField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -187,7 +210,7 @@ public class GestionSelectionEleveGraphique extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
                 .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 408, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 411, Short.MAX_VALUE)
                 .addComponent(jComboBoxBulletin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -206,12 +229,39 @@ public class GestionSelectionEleveGraphique extends javax.swing.JFrame {
     }//GEN-LAST:event_retourButtonActionPerformed
 
     private void SelectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SelectButtonActionPerformed
-        // TODO add your handling code here:
+        this.setVisible(false);
+     //   new GestionChoixGraph(user).setVisible(true); 
     }//GEN-LAST:event_SelectButtonActionPerformed
 
     private void searchFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchFieldKeyReleased
         displayTable();
     }//GEN-LAST:event_searchFieldKeyReleased
+
+    private void jComboBoxBulletinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxBulletinActionPerformed
+              try {
+            String searchQuery = searchField.getText();
+            ResultSet result = RechercheGraphique.connect.createStatement(
+                ResultSet.TYPE_SCROLL_INSENSITIVE,
+                ResultSet.CONCUR_READ_ONLY).executeQuery(
+                        "SELECT * FROM  Bulletin b, Inscription i WHERE i.id=b.id_Inscription AND b.nom='" + jComboBoxBulletin.getSelectedItem().toString() + "'"
+                );
+                
+            if(result.first()){
+                bulletin = new Bulletin(result.getInt("id"), result.getString("nom"),result.getString("appreciation"),result.getInt("id_Trimestre"),result.getInt("id_Inscription"));
+                System.out.println(bulletin.getNom());
+            }
+              } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+    }//GEN-LAST:event_jComboBoxBulletinActionPerformed
+
+    private void jComboBoxBulletinMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBoxBulletinMouseClicked
+
+    }//GEN-LAST:event_jComboBoxBulletinMouseClicked
+
+    private void jComboBoxBulletinMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBoxBulletinMousePressed
+
+    }//GEN-LAST:event_jComboBoxBulletinMousePressed
 
     private Object[] appendValue(Object[] obj, Object newObj) {
         ArrayList<Object> temp = new ArrayList<Object>(Arrays.asList(obj));
@@ -234,8 +284,8 @@ public class GestionSelectionEleveGraphique extends javax.swing.JFrame {
                
              Object[] rowToInsert = new Object[]{};
              
-              String strToInsert = result.getString("p.id");
-                    rowToInsert = appendValue(rowToInsert, "<html>" + strToInsert);  
+              String strToInsert = result.getString("i.id");
+                    rowToInsert = appendValue(rowToInsert, strToInsert);  
                strToInsert = result.getString("p.prenom")
                                         .replaceAll(searchQuery, "<b><font color=\"rgb(159,90,253)\">" + searchQuery + "</b></font>");
                     rowToInsert = appendValue(rowToInsert, "<html>" + strToInsert);
@@ -260,12 +310,37 @@ public class GestionSelectionEleveGraphique extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
+   
+    
+    public void updateComboBox()
+    {           
+        //jComboBoxBulletin.removeAll();
+        jComboBoxBulletin.setModel(new DefaultComboBoxModel());
+        try {
+            int column = 0;
+            int row = tableEleve.getSelectedRow();
+            String selected_row = tableEleve.getModel().getValueAt(row, column).toString();
+            int selected_id = Integer.parseInt(selected_row);
+            String searchQuery = searchField.getText();
+            ResultSet result = RechercheGraphique.connect.createStatement(
+                ResultSet.TYPE_SCROLL_INSENSITIVE,
+                ResultSet.CONCUR_READ_ONLY).executeQuery(
+                        "SELECT * FROM Bulletin b, Inscription i WHERE b.id_Inscription=i.id AND i.id="+ selected_id
+                );
+            while(result.next()){
+            jComboBoxBulletin.addItem(result.getString("nom"));
+            }
+            
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Votre requête a échoué. Merci de réessayer");
+        }
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton SelectButton;
     private javax.swing.JComboBox jComboBoxBulletin;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabelSelect;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;

@@ -11,6 +11,7 @@ package modele;
  */
 public class Bulletin {
     private int id;
+    private String nom;
     private String appreciation;
     private int id_Trimestre;
     private int id_Inscription;
@@ -23,11 +24,16 @@ public class Bulletin {
         id_Inscription=0;
     }
 
-    public Bulletin(int id, String appreciation, int id_Trimestre, int id_Inscription) {
+    public Bulletin(int id, String nom, String appreciation, int id_Trimestre, int id_Inscription) {
         this.id = id;
         this.appreciation = appreciation;
         this.id_Trimestre = id_Trimestre;
         this.id_Inscription = id_Inscription;
+        this.nom = nom;
+    }
+
+    public String getNom() {
+        return nom;
     }
 
     public int getId() {
@@ -60,6 +66,10 @@ public class Bulletin {
 
     public void setId_Inscription(int id_Inscription) {
         this.id_Inscription = id_Inscription;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
     }
     
     

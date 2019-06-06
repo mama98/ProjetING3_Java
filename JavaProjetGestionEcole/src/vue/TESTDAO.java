@@ -55,7 +55,7 @@ public class TESTDAO {
 
             DAO<Bulletin> dao = DAO_Factory.getBulletinDAO();
 
-            Bulletin new_bulletin = new Bulletin(1, "DAO_test_bulletin()", 1, 1);
+            Bulletin new_bulletin = new Bulletin(1, "DAO BULLETIN", "DAO_test_bulletin()", 1, 1);
 
             try {
                 dao.create(new_bulletin);
