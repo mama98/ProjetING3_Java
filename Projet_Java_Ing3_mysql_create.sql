@@ -1,3 +1,4 @@
+﻿
 CREATE TABLE `Ecole` (
 	`id` INT NOT NULL AUTO_INCREMENT,
 	`nom` varchar(255) NOT NULL,
@@ -130,12 +131,14 @@ ALTER TABLE `DetailBulletin` ADD CONSTRAINT `DetailBulletin_fk1` FOREIGN KEY (`i
 
 ALTER TABLE `Evaluation` ADD CONSTRAINT `Evaluation_fk0` FOREIGN KEY (`id_DetailBulletin`) REFERENCES `DetailBulletin`(`id`);
 
-INSERT INTO `AnneeScolaire` (`id`) VALUES ('2018'), ('2019');
-INSERT INTO `Ecole` (`id`, `nom`) VALUES ('1', 'ECE'), ('2', 'EPITA'), ('3', 'ESTACA'), ('4', 'ESILV');
-INSERT INTO `Discipline` (`id`, `nom`) VALUES ('1', 'Informatique'), ('2', 'Mathématiques'), ('3', 'Physique'), ('4', 'Electronique'), ('5', 'Anglais'), ('6', 'Espagnol'), ('7', 'Japonais');
+INSERT INTO `AnneeScolaire` (`id`) VALUES ('2015'), ('2016'),('2017'), ('2018'), ('2019');
+INSERT INTO `Ecole` (`id`, `nom`) VALUES ('1', 'ECE'), ('2', 'EPITA'), ('3', 'ESTACA'), ('4', 'ESILV'), ('5', 'EPF');
+INSERT INTO `Discipline` (`id`, `nom`) VALUES ('1', 'Informatique'), ('2', 'Mathématiques'), ('3', 'Physique'), ('4', 'Electronique'), ('5', 'Anglais'), ('6', 'Espagnol'), ('7', 'Japonais'), ('8', 'Droit');
 INSERT INTO `Niveau` (`id`, `nom`) VALUES ('1', 'ING1'), ('2', 'ING2'), ('3', 'ING3'), ('4', 'ING4'), ('5', 'ING5');
 INSERT INTO `Classe` (`id`, `nom`, `id_AnneeScolaire`, `id_Ecole`, `id_Niveau`) VALUES ('1', 'TD01', '2019', '1', '3'), ('2', 'TD02', '2019', '1', '3'), ('3', 'TD03', '2019', '1', '3'), ('4', 'TD04', '2018', '1', '3'), ('5', 'TD05', '2019', '1', '3'), ('6', 'TD02', '2019', '2', '2');
-INSERT INTO `Personne` (`id`, `nom`, `prenom`, `login`, `password`, `type_Enseignant`) VALUES ('1', 'Beurotte', 'Marine', 'mama', 'beubeu', '0'), ('2', 'Ricout', 'Valentine', 'vava', 'riri', '1'), ('3', 'Hubert', 'Philippe', 'phiphi', 'huhu', '0'), ('4', 'Cohen', 'Arthur', 'arar', 'coco', '1');
+INSERT INTO `Personne` (`id`, `nom`, `prenom`, `login`, `password`, `type_Enseignant`) VALUES ('1', 'Beurotte', 'Marine', 'mama', 'beubeu', '0'), ('2', 'Ricout', 'Valentine', 'vava', 'riri', '1'), ('3', 'Hubert', 'Philippe', 'phiphi', 'huhu', '0'), ('4', 'Cohen', 'Arthur', 'arar', 'coco', '1'), ('5', 'Afkir', 'Sophia', 'soso', 'afaf', '0'), ('6', 'Poissonnier', 'Terence', 'tete', 'poipoi', '1'), ('7', 'Chamouard', 'Laure', 'lolo', 'chacha', '0'),
+ ('8', 'Rossignol', 'Paul-Louis', 'popo', 'roro', '1'), ('9', 'Le Du', 'Laure', 'laulau', 'lele', '0'), ('10', 'Planchard', 'Malo', 'malo', 'coco', '1'), ('11', 'Rabillard', 'Paul', 'paul', 'rara', '0'), ('12', 'Lemercier', 'Thomas', 'toto', 'lele', '1'), ('13', 'Montoute', 'Kerwan', 'keke', 'monmon', '0'), ('14', 'Lenclud', 'Gregoire', 'greg', 'lele', '1'), ('15', 'Jogarajah', 'Kishor', 'kiki', 'jojo', '0'), ('16', 'Devincre', 'Leonard', 'leo', 'dede', '1'),
+ ('17', 'Corbet', 'Alexandre', 'alex', 'coco', '0'), ('18', 'Chhem', 'Serina', 'sese', 'cheche', '1'), ('19', 'Carlier', 'Helene', 'hehe', 'caca', '0'), ('20', 'Jouvet', 'Tom', 'tomtom', 'joujou', '1');
 INSERT INTO `Inscription` (`id`, `id_Classe`, `id_Personne`) VALUES ('1', '5', '1'), ('2', '3', '3');
 INSERT INTO `Enseignement` (`id`, `id_Classe`, `id_Discipline`, `id_Personne`) VALUES ('1', '5', '1', '4'), ('2', '3', '2', '2');
 INSERT INTO `Trimestre` (`id`, `numero`, `debut`, `fin`, `id_AnneeScolaire`) VALUES ('1', '1', '2018-09-01', '2018-12-15', '2018'), ('2', '2', '2018-12-15', '2019-03-15', '2019'), ('3', '3', '2019-03-15', '2019-06-15', '2019');
