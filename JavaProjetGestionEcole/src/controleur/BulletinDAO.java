@@ -27,7 +27,7 @@ public class BulletinDAO extends DAO<Bulletin> {
         try {
             // prefer prepareStatement as statement to avoid SQL injection
             PreparedStatement statement = this.connect.prepareStatement(
-                    "INSERT INTO Bulletin(id, nom, appreciation, id_Trimestre, id_Inscription) VALUES(?,?,?,?)"
+                    "INSERT INTO Bulletin(id, nom, appreciation, id_Trimestre, id_Inscription) VALUES(?,?,?,?,?)"
             );
             //Changer les ? par la valeur de l'objet créé pour adapter le java a la requette SQL.
             statement.setObject(1, obj.getId(), Types.INTEGER);
