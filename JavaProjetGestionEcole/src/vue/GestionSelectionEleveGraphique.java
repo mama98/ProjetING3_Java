@@ -232,7 +232,7 @@ public class GestionSelectionEleveGraphique extends javax.swing.JFrame {
 
     private void SelectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SelectButtonActionPerformed
         this.setVisible(false);
-      //  new GestionChoixModifGraphique(user, bulletin, id_eleve).setVisible(true); 
+        new GestionChoixModifGraphique(user, id_eleve, bulletin).setVisible(true); 
     }//GEN-LAST:event_SelectButtonActionPerformed
 
     private void searchFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchFieldKeyReleased
