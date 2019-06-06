@@ -185,11 +185,7 @@ public class ReportingEleveGraphique extends javax.swing.JFrame {
                 true, true, false);
         
         CategoryPlot plot = chart.getCategoryPlot();
-        plot.setRangeGridlinePaint(Color.black);
         
-        ChartFrame chartfrm = new ChartFrame("Notes de l'élève", chart, true);
-        chartfrm.setVisible(true);
-        chartfrm.setSize(500, 400);
         ChartPanel panel = new ChartPanel(chart);
         
         reportPanel.removeAll();
