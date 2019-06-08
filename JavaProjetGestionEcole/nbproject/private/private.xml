@@ -3,22 +3,17 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
             <file>file:/C:/Users/Kagounard/Documents/NetBeansProjects/ProjetING3_Java/JavaProjetGestionEcole/src/controleur/BulletinDAO.java</file>
             <file>file:/C:/Users/Kagounard/Documents/NetBeansProjects/ProjetING3_Java/JavaProjetGestionEcole/src/controleur/DAO_Factory.java</file>
-            <file>file:/C:/Users/Kagounard/Documents/NetBeansProjects/ProjetING3_Java/JavaProjetGestionEcole/src/vue/GestionSelectionEleveGraphique.java</file>
             <file>file:/C:/Users/Kagounard/Documents/NetBeansProjects/ProjetING3_Java/JavaProjetGestionEcole/src/modele/Personne.java</file>
             <file>file:/C:/Users/Kagounard/Documents/NetBeansProjects/ProjetING3_Java/JavaProjetGestionEcole/src/vue/ModifierBu_DB_EvGraphique.java</file>
             <file>file:/C:/Users/Kagounard/Documents/NetBeansProjects/ProjetING3_Java/JavaProjetGestionEcole/src/modele/Bulletin.java</file>
             <file>file:/C:/Users/Kagounard/Documents/NetBeansProjects/ProjetING3_Java/JavaProjetGestionEcole/src/vue/GestionChoixModifGraphique.java</file>
+            <file>file:/C:/Users/Kagounard/Documents/NetBeansProjects/ProjetING3_Java/JavaProjetGestionEcole/src/vue/ReportingEleveGraphique.java</file>
             <file>file:/C:/Users/Kagounard/Documents/NetBeansProjects/ProjetING3_Java/JavaProjetGestionEcole/src/controleur/DAO.java</file>
             <file>file:/C:/Users/Kagounard/Documents/NetBeansProjects/ProjetING3_Java/JavaProjetGestionEcole/src/controleur/EvaluationDAO.java</file>
             <file>file:/C:/Users/Kagounard/Documents/NetBeansProjects/ProjetING3_Java/JavaProjetGestionEcole/src/controleur/DetailBulletinDAO.java</file>
-=======
-            <file>file:/C:/Users/huber/Desktop/Projet%20Java/JavaProjetGestionEcole/src/vue/EnseignantGraphique.java</file>
-            <file>file:/C:/Users/huber/Desktop/Projet%20Java/JavaProjetGestionEcole/src/vue/ReportingEleveGraphique.java</file>
-            <file>file:/C:/Users/huber/Desktop/Projet%20Java/JavaProjetGestionEcole/src/vue/ReportingEnsGraphique.java</file>
->>>>>>> Reporting
+            <file>file:/C:/Users/Kagounard/Documents/NetBeansProjects/ProjetING3_Java/JavaProjetGestionEcole/src/vue/ReportingEnsGraphique.java</file>
         </group>
     </open-files>
 </project-private>

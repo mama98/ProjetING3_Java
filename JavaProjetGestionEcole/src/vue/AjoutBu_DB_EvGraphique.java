@@ -45,7 +45,7 @@ public class AjoutBu_DB_EvGraphique extends javax.swing.JFrame {
     private int idEnseignement;
 
     private int choice;
-    
+
     private void getIdEnseignement(){
         try {
             ResultSet result = RechercheGraphique.connect.createStatement(
@@ -114,7 +114,7 @@ public class AjoutBu_DB_EvGraphique extends javax.swing.JFrame {
             break;
             case 1:
             query = "SELECT * FROM Bulletin, Inscription i WHERE " +
-            "id_Inscription = i.id AND i.id_Personne = " + idEleve;
+            "id_Inscription = i.id AND i.id = " + idEleve;
             break;
             case 2:
             query = "SELECT * FROM DetailBulletin WHERE " +

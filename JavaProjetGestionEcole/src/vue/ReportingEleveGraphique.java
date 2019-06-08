@@ -5,7 +5,16 @@
  */
 package vue;
 
+import controleur.DAO_Factory;
 import java.awt.Color;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import modele.Personne;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartFrame;
@@ -22,14 +31,40 @@ import org.jfree.data.category.DefaultCategoryDataset;
 public class ReportingEleveGraphique extends javax.swing.JFrame {
 
     private Personne user;
+    private int idEleve;
+
+    protected static Connection connect = null;
+        static {
+            Connection tmp = null;
+
+            try {
+                Class.forName("com.mysql.jdbc.Driver");
+                tmp = DriverManager.getConnection("jdbc:mysql://localhost/gestionEcole", "root", "");
+            } catch (ClassNotFoundException | SQLException ex) {
+                Logger.getLogger(DAO_Factory.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            connect = tmp;
+        }
 
     /**
      * Creates new form ModifierInfosGraphique
      */
-    public ReportingEleveGraphique(Personne user) {
-        initComponents();
-        this.user = user;
-    }
+     public ReportingEleveGraphique(Personne user) {
+         initComponents();
+         try{
+             ResultSet result = this.connect.createStatement(
+             ResultSet.TYPE_SCROLL_INSENSITIVE,
+             ResultSet.CONCUR_READ_ONLY).executeQuery(
+             "SELECT id FROM Inscription WHERE id_Personne = " + user.getId()
+             );
+             if(result.first())
+             idEleve = result.getInt("id");
+         } catch(SQLException e) {
+             JOptionPane.showMessageDialog(null, e.getMessage());
+         }
+         this.user = user;
+         updateComboBox();
+     }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -45,8 +80,8 @@ public class ReportingEleveGraphique extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         returnButton = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         reportPanel = new javax.swing.JPanel();
+        jComboBoxBulletin = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -90,15 +125,14 @@ public class ReportingEleveGraphique extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Graphique");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        reportPanel.setBackground(new java.awt.Color(62, 83, 104));
+        reportPanel.setLayout(new javax.swing.BoxLayout(reportPanel, javax.swing.BoxLayout.LINE_AXIS));
+
+        jComboBoxBulletin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jComboBoxBulletinActionPerformed(evt);
             }
         });
-
-        reportPanel.setBackground(new java.awt.Color(52, 73, 94));
-        reportPanel.setLayout(new javax.swing.BoxLayout(reportPanel, javax.swing.BoxLayout.LINE_AXIS));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -110,22 +144,24 @@ public class ReportingEleveGraphique extends javax.swing.JFrame {
                     .addComponent(reportPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(returnButton, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(205, 205, 205)
-                        .addComponent(jButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 206, Short.MAX_VALUE)
-                        .addComponent(jButton1)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jComboBoxBulletin, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(reportPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE)
+                .addComponent(jComboBoxBulletin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(reportPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 358, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(returnButton)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(jButton1))
                 .addContainerGap())
         );
 
@@ -157,48 +193,99 @@ public class ReportingEleveGraphique extends javax.swing.JFrame {
         new ConnexionGraphique().setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        
-        dataset.addValue(100, "Note 1", "Mathématiques");
-        dataset.addValue(70, "Note 2", "Mathématiques");
-        dataset.addValue(87, "Note 3", "Mathématiques");
-        dataset.addValue(96, "Note 4", "Mathématiques");
-        
-        dataset.addValue(10, "Note 1", "Physique-Chimie");
-        dataset.addValue(95, "Note 2", "Physique-Chimie");
-        dataset.addValue(90, "Note 3", "Physique-Chimie");
-        
-        dataset.addValue(100, "Note 2", "Arts Plastiques");
-        dataset.addValue(50, "Note 3", "Arts Plastiques");
-        
-        dataset.addValue(55, "Note 1", "Informatique");
-        dataset.addValue(70, "Note 2", "Informatique");
-        dataset.addValue(35, "Note 3", "Informatique");
-        
-        JFreeChart chart = ChartFactory.createBarChart(
-                "Notes de l'élève", //Titre du graph
-                "Matière", // Légende axe des X
-                "Note sur 100", //Légende axe des Y
-                dataset,
-                PlotOrientation.VERTICAL, //Orientation des données
-                true, true, false);
-        
-        ChartPanel panel = new ChartPanel(chart);
-        
-        reportPanel.removeAll();
-        reportPanel.add(panel);
-        reportPanel.updateUI();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void updateComboBox(){
+        String query = "SELECT * FROM Bulletin b, Inscription i, Trimestre t "+
+        "WHERE b.id_Inscription=i.id AND t.id=b.id_Trimestre AND i.id= " + idEleve;
+        try{
+            ResultSet result = RechercheGraphique.connect.createStatement(
+            ResultSet.TYPE_SCROLL_INSENSITIVE,
+            ResultSet.CONCUR_READ_ONLY).executeQuery(query);
 
-    /**
-     * @param args the command line arguments
-     */
-    
+            while(result.next())
+                jComboBoxBulletin.addItem(result.getString("b.id") + "_" + result.getString("nom") + "_" + result.getString("t.numero"));
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+    }
+
+    private void displayStats(){
+        DefaultCategoryDataset dataSet = new DefaultCategoryDataset();
+        char idBulletin = jComboBoxBulletin.getSelectedItem().toString().charAt(0);
+        try {
+            ResultSet SQLMaxIdDiscipline = this.connect.createStatement(
+            ResultSet.TYPE_SCROLL_INSENSITIVE,
+            ResultSet.CONCUR_READ_ONLY).executeQuery(
+                "SELECT DISTINCT MAX(di.id) " +
+                "FROM Evaluation ev, DetailBulletin db, Bulletin b, Enseignement en, Discipline di " +
+                "WHERE b.id_Inscription = " + idEleve +
+                " AND db.id_Bulletin = " + idBulletin +
+                " AND b.id = " + idBulletin +
+                " AND ev.id_DetailBulletin = db.id" +
+                " AND en.id_Discipline= di.id AND db.id_Enseignement= en.id"
+            );
+
+            int maxDisc = 0;
+            if (SQLMaxIdDiscipline.first())
+                maxDisc = SQLMaxIdDiscipline.getInt("MAX(di.id)");
+
+            ResultSet result = this.connect.createStatement(
+            ResultSet.TYPE_SCROLL_INSENSITIVE,
+            ResultSet.CONCUR_READ_ONLY).executeQuery(
+            "SELECT DISTINCT ev.id, note, ev.appreciation, di.nom, di.id " +
+            "FROM Evaluation ev, DetailBulletin db, Bulletin b, Enseignement en, Discipline di " +
+            "WHERE b.id_Inscription = " + idEleve +
+            " AND db.id_Bulletin = " + idBulletin +
+            " AND b.id = " + idBulletin +
+            " AND ev.id_DetailBulletin = db.id" +
+            " AND en.id_Discipline= di.id AND db.id_Enseignement= en.id"
+            );
+
+            ArrayList<Integer> notes = new ArrayList<Integer>(maxDisc);
+            ArrayList<Integer> nbNotes = new ArrayList<Integer>(maxDisc);
+            ArrayList<String> disciplines = new ArrayList<String>(maxDisc);
+
+            for(int indexFill = 0; indexFill < maxDisc; indexFill++){
+                notes.add(0);
+                nbNotes.add(0);
+                disciplines.add("");
+            }
+
+            while(result.next()){
+                int index = result.getInt("di.id") - 1;
+                nbNotes.set(index, nbNotes.get(index) + 1);
+                notes.set(index, notes.get(index) + result.getInt("note"));
+                if(disciplines.get(index).isEmpty())
+                disciplines.set(index, result.getString("di.nom"));
+            }
+
+            for(int index = 0; index < maxDisc; index++)
+                dataSet.addValue(notes.get(index) / nbNotes.get(index), "Note", disciplines.get(index));
+
+            JFreeChart chart = ChartFactory.createBarChart(
+            "Notes de l'élève", //Titre du graph
+            "Matière", // Légende axe des X
+            "Note sur 20", //Légende axe des Y
+            dataSet,
+            PlotOrientation.VERTICAL, //Orientation des données
+            true, true, false);
+
+            ChartPanel panel = new ChartPanel(chart);
+
+            reportPanel.removeAll();
+            reportPanel.add(panel);
+            reportPanel.updateUI();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+    }
+
+    private void jComboBoxBulletinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxBulletinActionPerformed
+        displayStats();
+    }//GEN-LAST:event_jComboBoxBulletinActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JComboBox<String> jComboBoxBulletin;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

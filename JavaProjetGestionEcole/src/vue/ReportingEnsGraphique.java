@@ -5,6 +5,15 @@
  */
 package vue;
 
+import controleur.DAO_Factory;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import modele.Personne;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -13,18 +22,72 @@ import org.jfree.data.general.DefaultPieDataset;
 
 /**
  *
- * @author val_r
+ * @author kagounard
  */
 public class ReportingEnsGraphique extends javax.swing.JFrame {
 
     private Personne user;
+    protected static Connection connect = null;
+        static {
+            Connection tmp = null;
 
+            try {
+                Class.forName("com.mysql.jdbc.Driver");
+                tmp = DriverManager.getConnection("jdbc:mysql://localhost/gestionEcole", "root", "");
+            } catch (ClassNotFoundException | SQLException ex) {
+                Logger.getLogger(DAO_Factory.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            connect = tmp;
+        }
     /**
-     * Creates new form ModifierInfosGraphique
+     * Creates new form ReportingEnsGraphique
      */
     public ReportingEnsGraphique(Personne user) {
         initComponents();
         this.user = user;
+        displayStats();
+    }
+
+    private void displayStats(){
+        DefaultPieDataset dataSet = new DefaultPieDataset();
+        try {
+            ResultSet result = this.connect.createStatement(
+            ResultSet.TYPE_SCROLL_INSENSITIVE,
+            ResultSet.CONCUR_READ_ONLY).executeQuery(
+            "SELECT e.nom " +
+            "FROM Inscription i, Classe c, Ecole e " +
+            "WHERE i.id_Classe = c.id AND c.id_Ecole = e.id"
+            );
+
+            ArrayList<Integer> nbEleves = new ArrayList<Integer>();
+            ArrayList<String> nomEcoles = new ArrayList<String>();
+
+            while(result.next()){
+                if(nomEcoles.contains(result.getString("e.nom"))) {
+                    int index = nomEcoles.indexOf(result.getString("e.nom"));
+                    nbEleves.set(index, nbEleves.get(index) + 1);
+                } else {
+                    nomEcoles.add(result.getString("e.nom"));
+                    nbEleves.add(1);
+                }
+            }
+
+            for(int index = 0; index < nomEcoles.size(); index++)
+                dataSet.setValue(nomEcoles.get(index), nbEleves.get(index));
+
+            JFreeChart chart = ChartFactory.createPieChart(
+            "Répartition des étudiants", //Titre du graph
+            dataSet,
+            true, true, true);
+
+            ChartPanel panel = new ChartPanel(chart);
+
+            reportPanel.removeAll();
+            reportPanel.add(panel);
+            reportPanel.updateUI();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
     }
 
     /**
@@ -39,14 +102,13 @@ public class ReportingEnsGraphique extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
+        returnButton = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         reportPanel = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
-        returnButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(129, 207, 224));
+        jPanel1.setBackground(new java.awt.Color(46, 204, 113));
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Ebrima", 1, 24)); // NOI18N
@@ -60,7 +122,7 @@ public class ReportingEnsGraphique extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(288, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -72,23 +134,6 @@ public class ReportingEnsGraphique extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(52, 73, 94));
 
-        jButton1.setText("Graphique");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        reportPanel.setBackground(new java.awt.Color(52, 73, 94));
-        reportPanel.setLayout(new javax.swing.BoxLayout(reportPanel, javax.swing.BoxLayout.LINE_AXIS));
-
-        jButton2.setText("Deconnexion");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
         returnButton.setText("Retour");
         returnButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -96,32 +141,39 @@ public class ReportingEnsGraphique extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("Déconnexion");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        reportPanel.setBackground(new java.awt.Color(62, 83, 104));
+        reportPanel.setLayout(new javax.swing.BoxLayout(reportPanel, javax.swing.BoxLayout.LINE_AXIS));
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(reportPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(returnButton)
-                        .addGap(221, 221, 221)
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 239, Short.MAX_VALUE)
-                        .addComponent(jButton2)))
+                        .addComponent(returnButton, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(reportPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(reportPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(returnButton)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(jButton1))
                 .addContainerGap())
         );
 
@@ -130,9 +182,7 @@ public class ReportingEnsGraphique extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -144,46 +194,20 @@ public class ReportingEnsGraphique extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        DefaultPieDataset dataset = new DefaultPieDataset();
-        
-        dataset.setValue("Ece", 40);
-        dataset.setValue("Esce", 30);
-        dataset.setValue("Estaca", 15);
-        dataset.setValue("UBO", 10);
-        dataset.setValue("Autre", 5);
-        
-        JFreeChart chart = ChartFactory.createPieChart(
-                "Répartition des étudiants",
-                dataset,
-                true, true, true);
-        
-        ChartPanel panel = new ChartPanel(chart);
-        
-        reportPanel.removeAll();
-        reportPanel.add(panel);
-        reportPanel.updateUI();
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void returnButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_returnButtonActionPerformed
         this.setVisible(false);
         new EnseignantGraphique(user).setVisible(true);
     }//GEN-LAST:event_returnButtonActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         this.setVisible(false);
         new ConnexionGraphique().setVisible(true);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_jButton1ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
