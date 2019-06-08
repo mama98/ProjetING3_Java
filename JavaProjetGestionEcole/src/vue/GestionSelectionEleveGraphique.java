@@ -38,7 +38,8 @@ public class GestionSelectionEleveGraphique extends javax.swing.JFrame {
         initComponents();
         tableEleve.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
         public void valueChanged(ListSelectionEvent event) {
-            updateComboBox();
+            if (tableEleve.getSelectedRow() != -1)
+                updateComboBox();
         }
     });
         this.user = user;
@@ -319,19 +320,18 @@ public class GestionSelectionEleveGraphique extends javax.swing.JFrame {
         try {
             int column = 0;
             int row = tableEleve.getSelectedRow();
-            String selected_row = tableEleve.getModel().getValueAt(row, column).toString();
-            int selected_id = Integer.parseInt(selected_row);
-            String searchQuery = searchField.getText();
-            ResultSet result = RechercheGraphique.connect.createStatement(
+                String selected_row = tableEleve.getModel().getValueAt(row, column).toString();
+                int selected_id = Integer.parseInt(selected_row);
+                String searchQuery = searchField.getText();
+                ResultSet result = RechercheGraphique.connect.createStatement(
                 ResultSet.TYPE_SCROLL_INSENSITIVE,
                 ResultSet.CONCUR_READ_ONLY).executeQuery(
-                        "SELECT * FROM Bulletin b, Inscription i, Trimestre t WHERE b.id_Inscription=i.id AND t.id=b.id_Trimestre AND i.id="+ selected_id
+                "SELECT * FROM Bulletin b, Inscription i, Trimestre t WHERE b.id_Inscription=i.id AND t.id=b.id_Trimestre AND i.id="+ selected_id
                 );
-            while(result.next()){
-            jComboBoxBulletin.addItem(result.getString("b.id") + "_" + result.getString("nom") + "_" + result.getString("t.numero"));
-            id_eleve=result.getInt("i.id");
-            }
-
+                while(result.next()){
+                    jComboBoxBulletin.addItem(result.getString("b.id") + "_" + result.getString("nom") + "_" + result.getString("t.numero"));
+                    id_eleve=result.getInt("i.id");
+                }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Votre requête a échoué. Merci de réessayer");
         }

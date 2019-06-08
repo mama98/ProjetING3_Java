@@ -119,17 +119,19 @@ public class GestionChoixModifGraphique extends javax.swing.JFrame {
         String query = new String();
         switch(tablesComboBox.getSelectedIndex()){
             case 0:
-                query = "SELECT * FROM Bulletin WHERE id_Inscription = " + idEleve; //FIXME : Use Inscription instead;
+                query = "SELECT * FROM Bulletin WHERE id_Inscription = " + idEleve;
                 break;
             case 1:
                 query = "SELECT * FROM DetailBulletin db WHERE db.id_Bulletin = " + bulletin.getId() +
                  " AND db.id_Enseignement = " + idEnseignement;
                 break;
             case 2:
-                query = "SELECT * FROM Evaluation ev, DetailBulletin db, Bulletin b, Enseignement en " +
-                "WHERE ev.id_DetailBulletin = db.id AND en.id_Personne = " + enseignant.getId() +
-                " AND db.id_Enseignement = en.id" +
-                " AND b.id = " + idEleve; //FIXME
+                query = "SELECT DISTINCT ev.id, note, ev.appreciation FROM Evaluation ev, DetailBulletin db, Bulletin b, Enseignement en " +
+                "WHERE b.id_Inscription = " + idEleve +
+                " AND db.id_Bulletin = " + bulletin.getId() +
+                " AND b.id = " + bulletin.getId() +
+                " AND ev.id_DetailBulletin = db.id" +
+                " AND db.id_Enseignement = " + idEnseignement;
         }
         try {
             ResultSet result = RechercheGraphique.connect.createStatement(
@@ -151,6 +153,7 @@ public class GestionChoixModifGraphique extends javax.swing.JFrame {
                 }
                 modelResultTables.addRow(rowToInsert);
                 ++resultCount;
+                System.out.println(resultCount);
             }
         } catch (SQLException e){
             //JOptionPane.showMessageDialog(null, "Votre requête a échoué. Merci de réessayer");

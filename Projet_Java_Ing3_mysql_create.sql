@@ -89,46 +89,34 @@ CREATE TABLE `Evaluation` (
 	PRIMARY KEY (`id`)
 );
 
-ALTER TABLE `Ecole` ENGINE = INNODB; 
-ALTER TABLE `AnneeScolaire` ENGINE = INNODB; 
-ALTER TABLE `Trimestre` ENGINE = INNODB; 
-ALTER TABLE `Niveau` ENGINE = INNODB; 
-ALTER TABLE `Classe` ENGINE = INNODB; 
-ALTER TABLE `Inscription` ENGINE = INNODB; 
-ALTER TABLE `Bulletin` ENGINE = INNODB; 
-ALTER TABLE `Discipline` ENGINE = INNODB; 
+ALTER TABLE `Ecole` ENGINE = INNODB;
+ALTER TABLE `AnneeScolaire` ENGINE = INNODB;
+ALTER TABLE `Trimestre` ENGINE = INNODB;
+ALTER TABLE `Niveau` ENGINE = INNODB;
+ALTER TABLE `Classe` ENGINE = INNODB;
+ALTER TABLE `Inscription` ENGINE = INNODB;
+ALTER TABLE `Bulletin` ENGINE = INNODB;
+ALTER TABLE `Discipline` ENGINE = INNODB;
 ALTER TABLE `Personne` ENGINE = INNODB;
-ALTER TABLE `Enseignement` ENGINE = INNODB; 
-ALTER TABLE `DetailBulletin` ENGINE = INNODB; 
-ALTER TABLE `Evaluation` ENGINE = INNODB; 
+ALTER TABLE `Enseignement` ENGINE = INNODB;
+ALTER TABLE `DetailBulletin` ENGINE = INNODB;
+ALTER TABLE `Evaluation` ENGINE = INNODB;
 
-ALTER TABLE `Trimestre` ADD CONSTRAINT `Trimestre_fk0` FOREIGN KEY (`id_AnneeScolaire`) REFERENCES `AnneeScolaire`(`id`);
-
-ALTER TABLE `Classe` ADD CONSTRAINT `Classe_fk0` FOREIGN KEY (`id_AnneeScolaire`) REFERENCES `AnneeScolaire`(`id`);
-
-ALTER TABLE `Classe` ADD CONSTRAINT `Classe_fk1` FOREIGN KEY (`id_Ecole`) REFERENCES `Ecole`(`id`);
-
-ALTER TABLE `Classe` ADD CONSTRAINT `Classe_fk2` FOREIGN KEY (`id_Niveau`) REFERENCES `Niveau`(`id`);
-
-ALTER TABLE `Inscription` ADD CONSTRAINT `Inscription_fk0` FOREIGN KEY (`id_Classe`) REFERENCES `Classe`(`id`);
-
-ALTER TABLE `Inscription` ADD CONSTRAINT `Inscription_fk1` FOREIGN KEY (`id_Personne`) REFERENCES `Personne`(`id`);
-
-ALTER TABLE `Bulletin` ADD CONSTRAINT `Bulletin_fk0` FOREIGN KEY (`id_Trimestre`) REFERENCES `Trimestre`(`id`);
-
-ALTER TABLE `Bulletin` ADD CONSTRAINT `Bulletin_fk1` FOREIGN KEY (`id_Inscription`) REFERENCES `Inscription`(`id`);
-
-ALTER TABLE `Enseignement` ADD CONSTRAINT `Enseignement_fk0` FOREIGN KEY (`id_Classe`) REFERENCES `Classe`(`id`);
-
-ALTER TABLE `Enseignement` ADD CONSTRAINT `Enseignement_fk1` FOREIGN KEY (`id_Discipline`) REFERENCES `Discipline`(`id`);
-
-ALTER TABLE `Enseignement` ADD CONSTRAINT `Enseignement_fk2` FOREIGN KEY (`id_Personne`) REFERENCES `Personne`(`id`);
-
-ALTER TABLE `DetailBulletin` ADD CONSTRAINT `DetailBulletin_fk0` FOREIGN KEY (`id_Bulletin`) REFERENCES `Bulletin`(`id`);
-
-ALTER TABLE `DetailBulletin` ADD CONSTRAINT `DetailBulletin_fk1` FOREIGN KEY (`id_Enseignement`) REFERENCES `Enseignement`(`id`);
-
-ALTER TABLE `Evaluation` ADD CONSTRAINT `Evaluation_fk0` FOREIGN KEY (`id_DetailBulletin`) REFERENCES `DetailBulletin`(`id`);
+/*FIXME*/
+ALTER TABLE `Trimestre` ADD CONSTRAINT `Trimestre_fk0` FOREIGN KEY (`id_AnneeScolaire`) REFERENCES `AnneeScolaire`(`id`) ON DELETE CASCADE;
+ALTER TABLE `Classe` ADD CONSTRAINT `Classe_fk0` FOREIGN KEY (`id_AnneeScolaire`) REFERENCES `AnneeScolaire`(`id`) ON DELETE CASCADE;
+ALTER TABLE `Classe` ADD CONSTRAINT `Classe_fk1` FOREIGN KEY (`id_Ecole`) REFERENCES `Ecole`(`id`) ON DELETE CASCADE;
+ALTER TABLE `Classe` ADD CONSTRAINT `Classe_fk2` FOREIGN KEY (`id_Niveau`) REFERENCES `Niveau`(`id`) ON DELETE CASCADE;
+ALTER TABLE `Inscription` ADD CONSTRAINT `Inscription_fk0` FOREIGN KEY (`id_Classe`) REFERENCES `Classe`(`id`) ON DELETE CASCADE;
+ALTER TABLE `Inscription` ADD CONSTRAINT `Inscription_fk1` FOREIGN KEY (`id_Personne`) REFERENCES `Personne`(`id`) ON DELETE CASCADE;
+ALTER TABLE `Bulletin` ADD CONSTRAINT `Bulletin_fk0` FOREIGN KEY (`id_Trimestre`) REFERENCES `Trimestre`(`id`) ON DELETE CASCADE;
+ALTER TABLE `Bulletin` ADD CONSTRAINT `Bulletin_fk1` FOREIGN KEY (`id_Inscription`) REFERENCES `Inscription`(`id`) ON DELETE CASCADE;
+ALTER TABLE `Enseignement` ADD CONSTRAINT `Enseignement_fk0` FOREIGN KEY (`id_Classe`) REFERENCES `Classe`(`id`) ON DELETE CASCADE;
+ALTER TABLE `Enseignement` ADD CONSTRAINT `Enseignement_fk1` FOREIGN KEY (`id_Discipline`) REFERENCES `Discipline`(`id`) ON DELETE CASCADE;
+ALTER TABLE `Enseignement` ADD CONSTRAINT `Enseignement_fk2` FOREIGN KEY (`id_Personne`) REFERENCES `Personne`(`id`) ON DELETE CASCADE;
+ALTER TABLE `DetailBulletin` ADD CONSTRAINT `DetailBulletin_fk0` FOREIGN KEY (`id_Bulletin`) REFERENCES `Bulletin`(`id`) ON DELETE CASCADE;
+ALTER TABLE `DetailBulletin` ADD CONSTRAINT `DetailBulletin_fk1` FOREIGN KEY (`id_Enseignement`) REFERENCES `Enseignement`(`id`) ON DELETE CASCADE;
+ALTER TABLE `Evaluation` ADD CONSTRAINT `Evaluation_fk0` FOREIGN KEY (`id_DetailBulletin`) REFERENCES `DetailBulletin`(`id`) ON DELETE CASCADE;
 
 INSERT INTO `AnneeScolaire` (`id`) VALUES ('2018'), ('2019');
 INSERT INTO `Ecole` (`id`, `nom`) VALUES ('1', 'ECE'), ('2', 'EPITA'), ('3', 'ESTACA'), ('4', 'ESILV');

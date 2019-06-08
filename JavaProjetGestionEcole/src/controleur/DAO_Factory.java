@@ -41,7 +41,7 @@ import java.util.logging.Logger;
                 // gestionEcole est le nom de la BDD
                 // le second paramètre est l'id pour se connecter à sa BDD en passant par PHPMyAdmin
                 // le troisième est vide car c'est le mot de passe pour se connecter à phpMyAdmin en root user.
-                tmp = DriverManager.getConnection("jdbc:mysql://localhost/gestionEcole", "root", "");
+                tmp = DriverManager.getConnection("jdbc:mysql://localhost/gestionEcole?allowMultipleQueries=true", "root", "");
             } catch (ClassNotFoundException | SQLException ex) {
                 Logger.getLogger(DAO_Factory.class.getName()).log(Level.SEVERE, null, ex);
             }
