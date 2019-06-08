@@ -27,13 +27,14 @@ public class BulletinDAO extends DAO<Bulletin> {
         try {
             // prefer prepareStatement as statement to avoid SQL injection
             PreparedStatement statement = this.connect.prepareStatement(
-                    "INSERT INTO Bulletin(id, appreciation, id_Trimestre, id_Inscription) VALUES(?,?,?,?)"
+                    "INSERT INTO Bulletin(id, nom, appreciation, id_Trimestre, id_Inscription) VALUES(?,?,?,?,?)"
             );
             //Changer les ? par la valeur de l'objet créé pour adapter le java a la requette SQL.
             statement.setObject(1, obj.getId(), Types.INTEGER);
-            statement.setObject(2, obj.getAppreciation(), Types.VARCHAR);
-            statement.setObject(3, obj.getId_Trimestre(), Types.INTEGER);
-            statement.setObject(4, obj.getId_Inscription(), Types.INTEGER);
+            statement.setObject(2, obj.getNom(), Types.VARCHAR);
+            statement.setObject(3, obj.getAppreciation(), Types.VARCHAR);
+            statement.setObject(4, obj.getId_Trimestre(), Types.INTEGER);
+            statement.setObject(5, obj.getId_Inscription(), Types.INTEGER);
 
             statement.executeUpdate(); //execute update for change in DB and executeQuery for select
 
@@ -66,11 +67,12 @@ public class BulletinDAO extends DAO<Bulletin> {
                 try {
             // prefer prepareStatement as statement to avoid SQL injection
             PreparedStatement statement = this.connect.prepareStatement(
-                    "UPDATE Bulletin SET appreciation=?, WHERE id=?"
+                    "UPDATE Bulletin SET appreciation=?, nom=? WHERE id=?"
             );
             //insert param to change the ? into data
-            statement.setObject(2, obj.getAppreciation(), Types.VARCHAR);
-            statement.setObject(1, obj.getId(), Types.INTEGER);
+            statement.setObject(1, obj.getAppreciation(), Types.VARCHAR);
+            statement.setObject(2, obj.getNom(), Types.VARCHAR);
+            statement.setObject(3, obj.getId(), Types.INTEGER);
             statement.executeUpdate(); //execute update for change in DB and executeQuery for select
 
     } catch (SQLException e) {
@@ -91,6 +93,7 @@ public class BulletinDAO extends DAO<Bulletin> {
       if(result.first())
         bulletin = new Bulletin(
           id_bulletin,
+          result.getString("nom"),
           result.getString("appreciation"),
           result.getInt("id_Trimestre"),
           result.getInt("id_Inscription")

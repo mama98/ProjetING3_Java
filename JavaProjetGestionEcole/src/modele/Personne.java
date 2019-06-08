@@ -17,7 +17,7 @@ public class Personne{
     private String prenom;
     private String login;
     private String password;
-    private boolean type_Enseignant;
+    private int type_Enseignant;
 
     public Personne(){
         id = 0;
@@ -25,15 +25,16 @@ public class Personne{
         prenom = null;
         login = null;
         password = null;
-        type_Enseignant=false;
+        type_Enseignant=0;
     }
 
-    public Personne(int id, String nom, String prenom, String login, String password, boolean type_Enseignant){
+    public Personne(int id, String nom, String prenom, String login, String password, int type_Enseignant){
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
         this.login = login;
         this.password = password;
+        this.type_Enseignant = type_Enseignant;
     }
 
     public int getId(){
@@ -72,7 +73,7 @@ public class Personne{
         return this.password;
     }
     public boolean getType_Enseignant(){
-        return this.type_Enseignant;
+        return (this.type_Enseignant == 1);
     }
     
     public void setPassword(String password){
@@ -80,7 +81,10 @@ public class Personne{
     }
 
     public void setType_Enseignant(boolean type_Enseignant) {
-        this.type_Enseignant = type_Enseignant;
+        if(type_Enseignant)
+            this.type_Enseignant = 1;
+        else
+            this.type_Enseignant = 0;
     }
     
 }

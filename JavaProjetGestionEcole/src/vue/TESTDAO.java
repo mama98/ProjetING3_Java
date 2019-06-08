@@ -55,7 +55,7 @@ public class TESTDAO {
 
             DAO<Bulletin> dao = DAO_Factory.getBulletinDAO();
 
-            Bulletin new_bulletin = new Bulletin(1, "DAO_test_bulletin()", 1, 1);
+            Bulletin new_bulletin = new Bulletin(1, "DAO BULLETIN", "DAO_test_bulletin()", 1, 1);
 
             try {
                 dao.create(new_bulletin);
@@ -225,7 +225,7 @@ public class TESTDAO {
             DAO<Personne> dao = DAO_Factory.getPersonneDAO();
 
             Personne new_T = new Personne(1, "Spoutnik", "Danu",
-                            "schtoblyat", "op@chki", true);
+                            "schtoblyat", "op@chki", 0);
 
             try {
                 dao.create(new_T);
@@ -284,7 +284,7 @@ public class TESTDAO {
 
         //FIXME : Ajout de tests pour les classes ?
 
-        public static void main(String[] args){
+        public static void tests(String[] args){
             dao_test_suite();
         }
 }

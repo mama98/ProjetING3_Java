@@ -24,7 +24,7 @@ public class EvaluationDAO extends DAO<Evaluation> {
 
     @Override
     public boolean create(Evaluation obj) {
-        
+
      try {
             // prefer prepareStatement as statement to avoid SQL injection
             PreparedStatement statement = this.connect.prepareStatement(
@@ -46,7 +46,7 @@ public class EvaluationDAO extends DAO<Evaluation> {
 
     @Override
     public boolean delete(Evaluation obj) {
-        
+
      try {
             // prefer prepareStatement as statement to avoid SQL injection
             PreparedStatement statement = this.connect.prepareStatement(
@@ -64,17 +64,17 @@ public class EvaluationDAO extends DAO<Evaluation> {
 
     @Override
     public boolean update(Evaluation obj) {
-        
+
     try {
             // prefer prepareStatement as statement to avoid SQL injection
             PreparedStatement statement = this.connect.prepareStatement(
-                    "UPDATE Evaluation SET note=?, appreciation=?, WHERE id=?"
+                    "UPDATE Evaluation SET note=?, appreciation=? WHERE id=?"
             );
             //insert param to change the ? into data
-            statement.setObject(2, obj.getNote(), Types.VARCHAR);
-            statement.setObject(3, obj.getAppreciation(), Types.VARCHAR);
-            statement.setObject(1, obj.getId(), Types.INTEGER);
-            
+            statement.setObject(1, obj.getNote(), Types.VARCHAR);
+            statement.setObject(2, obj.getAppreciation(), Types.VARCHAR);
+            statement.setObject(3, obj.getId(), Types.INTEGER);
+
             statement.executeUpdate(); //execute update for change in DB and executeQuery for select
 
     } catch (SQLException e) {
@@ -85,9 +85,9 @@ public class EvaluationDAO extends DAO<Evaluation> {
 
     @Override
     public Evaluation find(int id_evaluation) {
-        
-        Evaluation evaluation = new Evaluation();      
-      
+
+        Evaluation evaluation = new Evaluation();
+
     try {
       ResultSet result = this.connect.createStatement(
         ResultSet.TYPE_SCROLL_INSENSITIVE,
@@ -97,12 +97,12 @@ public class EvaluationDAO extends DAO<Evaluation> {
           id_evaluation,
           result.getInt("note"),
           result.getString("appreciation"),
-          result.getInt("id_DetailBulletin")    
-        );         
+          result.getInt("id_DetailBulletin")
+        );
     } catch (SQLException e) {
       e.printStackTrace();
     }
     return evaluation;
     }
-    
+
 }
