@@ -139,9 +139,31 @@ INSERT INTO `Classe` (`id`, `nom`, `id_AnneeScolaire`, `id_Ecole`, `id_Niveau`) 
 INSERT INTO `Personne` (`id`, `nom`, `prenom`, `login`, `password`, `type_Enseignant`) VALUES ('1', 'Beurotte', 'Marine', 'mama', 'beubeu', '0'), ('2', 'Ricout', 'Valentine', 'vava', 'riri', '1'), ('3', 'Hubert', 'Philippe', 'phiphi', 'huhu', '0'), ('4', 'Cohen', 'Arthur', 'arar', 'coco', '1'), ('5', 'Afkir', 'Sophia', 'soso', 'afaf', '0'), ('6', 'Poissonnier', 'Terence', 'tete', 'poipoi', '1'), ('7', 'Chamouard', 'Laure', 'lolo', 'chacha', '0'),
  ('8', 'Rossignol', 'Paul-Louis', 'popo', 'roro', '1'), ('9', 'Le Du', 'Laure', 'laulau', 'lele', '0'), ('10', 'Planchard', 'Malo', 'malo', 'coco', '1'), ('11', 'Rabillard', 'Paul', 'paul', 'rara', '0'), ('12', 'Lemercier', 'Thomas', 'toto', 'lele', '1'), ('13', 'Montoute', 'Kerwan', 'keke', 'monmon', '0'), ('14', 'Lenclud', 'Gregoire', 'greg', 'lele', '1'), ('15', 'Jogarajah', 'Kishor', 'kiki', 'jojo', '0'), ('16', 'Devincre', 'Leonard', 'leo', 'dede', '1'),
  ('17', 'Corbet', 'Alexandre', 'alex', 'coco', '0'), ('18', 'Chhem', 'Serina', 'sese', 'cheche', '1'), ('19', 'Carlier', 'Helene', 'hehe', 'caca', '0'), ('20', 'Jouvet', 'Tom', 'tomtom', 'joujou', '1');
-INSERT INTO `Inscription` (`id`, `id_Classe`, `id_Personne`) VALUES ('1', '5', '1'), ('2', '3', '3');
+INSERT INTO `Inscription` (`id`, `id_Classe`, `id_Personne`) VALUES ('1', '5', '1'), ('2', '3', '3'), ('3', '1', '5'), ('4', '1', '7'), ('5', '2', '9'), ('6', '4', '11'), ('7', '4', '13'), ('8', '6', '15'), ('9', '5', '17'), ('10', '3', '19');
 INSERT INTO `Enseignement` (`id`, `id_Classe`, `id_Discipline`, `id_Personne`) VALUES ('1', '5', '1', '4'), ('2', '3', '2', '2');
 INSERT INTO `Trimestre` (`id`, `numero`, `debut`, `fin`, `id_AnneeScolaire`) VALUES ('1', '1', '2018-09-01', '2018-12-15', '2018'), ('2', '2', '2018-12-15', '2019-03-15', '2019'), ('3', '3', '2019-03-15', '2019-06-15', '2019');
-INSERT INTO `Bulletin` (`id`, `nom`, `appreciation`, `id_Trimestre`, `id_Inscription`) VALUES ('1', 'Bulletin 2018', 'Très bon trimestre, continuez comme ça!', '1', '1'), ('2', 'Bulletin 2019', 'Quelques lacunes en mathématiques veuillez poursuivre vos efforts.', '2', '1'), ('3', 'Bulletin 2019', 'Bon trimestre dans l\'ensemble.', '3', '1'), ('4', 'Bulletin 2019', 'Quelques lacunes en électronique, poursuivez vos efforts!', '2', '2');
+INSERT INTO `Bulletin` (`id`, `nom`, `appreciation`, `id_Trimestre`, `id_Inscription`) VALUES 
+('1', 'Bulletin 2018', 'Très bon trimestre, continuez comme ça!', '1', '1'), 
+('2', 'Bulletin 2019', 'Quelques lacunes en mathématiques veuillez poursuivre vos efforts.', '2', '1'), 
+('3', 'Bulletin 2019', 'Bon trimestre dans l'ensemble.', '3', '1'), 
+('4', 'Bulletin 2019', 'Quelques lacunes en électronique, poursuivez vos efforts!', '2', '2'),
+('5', 'Bulletin 2017', 'Mauvais trimestre ! Les soirées ne sont pas plus importantes que le travail.', '3', '2'),
+('6', 'Bulletin 2017', 'Des difficultés en physique. Il faut persévérer.', '1', '3'),
+('7', 'Bulletin 2018', 'Trimestre correct.', '2', '3'),
+('8', 'Bulletin 2018', 'Excellent travail !', '1', '4'),
+('9', 'Bulletin 2018', 'Très bon trimestre. Petit relachement en mathématiques.', '2', '4'),
+('10', 'Bulletin 2015', 'Bon travail dans l'ensemble.', '1', '5'),
+('11', 'Bulletin 2016', 'Trop d'absences ce semestre.', '2', '5'),
+('12', 'Bulletin 2017', 'Très bon travail, continuez !', '3', '6'),
+('13', 'Bulletin 2019', 'Des lacunes en informatique. Bon travail en physique.', '1', '6'),
+('14', 'Bulletin 2018', 'Bon travail dans l'ensemble.', '1', '7'),
+('15', 'Bulletin 2018', 'Ensemble fragile. Poursuivez vos efforts !', '3', '7'),
+('16', 'Bulletin 2015', 'Attention aux bavardages !', '2', '8'),
+('17', 'Bulletin 2016', 'Ne pas se laisser embarquer par l'embiance peu sérieuse de la classe.', '2', '8'),
+('18', 'Bulletin 2015', 'Soyez plus attentif en cours.', '1', '9'),
+('19', 'Bulletin 2016', 'Manque de travail.', '2', '9'), 
+('20', 'Bulletin 2018', 'Bon trimestre sauf en électronique.', '1', '10'), 
+('21', 'Bulletin 2018', 'Des progrès en informatique ! Continuez comme ça.', '2', '10'), 
+('22', 'Bulletin 2019', 'Bon trimestre !', '3', '10');
 INSERT INTO `DetailBulletin` (`id`, `appreciation`, `id_Bulletin`, `id_Enseignement`) VALUES ('1', 'Bon niveau en informatique, élève très motivée ', '1', '1'), ('2', 'Niveau satisfaisant en mathématique, continuez vos efforts', '1', '2');
 INSERT INTO `Evaluation` (`id`, `note`, `appreciation`, `id_DetailBulletin`) VALUES ('1', '15', 'TP 1 Qestion 6: non respect de la consigne', '1'), ('2', '17', 'Projet Web Dynamique complet, manque les ventes flash', '1'), ('3', '12', 'Satisfaisant', '2'), ('4', '13', 'Bien', '2');
