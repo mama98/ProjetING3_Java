@@ -212,5 +212,5 @@ INSERT INTO `Evaluation` (`id`, `note`, `appreciation`, `id_DetailBulletin`) VAL
  ('10', '14', 'Article de recherche', '4'), ('11', '13', 'NS1', '6'), ('12', '15', 'DS1', '6'),
 
  ('13', '18', 'TP 4 Qestion 10: pourcentage mal affiché', '7'), ('14', '17', 'DS POO Java', '7'), ('15', '14', 'NS1:Bon travail', '8'), ('16', '11', 'DS: Assez bien', '8')
-, ('17', '9', 'DS Thermodynamique: Juste', '9'), ('18', '12', 'NS1', '9'), ('19', '15', 'Written paper', '10'), ('20', '19', 'Oral presentation', '10'), ('21', '15', 'TP noté Elec 2', '11'),
- ('22', '17', 'Projet IA', '11'), ('23', '14', 'presentacion', '12'), ('24', '15', 'Primavera de las languas', '12'); 
+, ('17', '9.1', 'DS Thermodynamique: Juste', '9'), ('18', '12', 'NS1', '9'), ('19', '15.5', 'Written paper', '10'), ('20', '19', 'Oral presentation', '10'), ('21', '15', 'TP noté Elec 2', '11'),
+ ('22', '17', 'Projet IA', '11'), ('23', '14.5', 'presentacion', '12'), ('24', '15', 'Primavera de las languas', '12'); 

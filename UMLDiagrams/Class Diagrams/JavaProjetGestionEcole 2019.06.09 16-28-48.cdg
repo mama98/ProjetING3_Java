@@ -1,0 +1,1547 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ClassDiagram name="JavaProjetGestionEcole">
+  <ClassDiagramComponents>
+    <Class name="AnneeScolaireDAO" package="controleur" visibility="public" xPosition="20.0" yPosition="20.0">
+      <Fields/>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="Connection" name="conn"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="create" returnType="boolean" visibility="public">
+          <Argument type="AnneeScolaire" name="obj"/>
+        </Method>
+        <Method name="delete" returnType="boolean" visibility="public">
+          <Argument type="AnneeScolaire" name="obj"/>
+        </Method>
+        <Method name="update" returnType="boolean" visibility="public">
+          <Argument type="AnneeScolaire" name="obj"/>
+        </Method>
+        <Method name="find" returnType="AnneeScolaire" visibility="public">
+          <Argument type="int" name="id_annee_scolaire"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="BulletinDAO" package="controleur" visibility="public" xPosition="320.0" yPosition="20.0">
+      <Fields/>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="Connection" name="conn"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="create" returnType="boolean" visibility="public">
+          <Argument type="Bulletin" name="obj"/>
+        </Method>
+        <Method name="delete" returnType="boolean" visibility="public">
+          <Argument type="Bulletin" name="obj"/>
+        </Method>
+        <Method name="update" returnType="boolean" visibility="public">
+          <Argument type="Bulletin" name="obj"/>
+        </Method>
+        <Method name="find" returnType="Bulletin" visibility="public">
+          <Argument type="int" name="id_bulletin"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="ClasseDAO" package="controleur" visibility="public" xPosition="620.0" yPosition="20.0">
+      <Fields/>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="Connection" name="conn"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="create" returnType="boolean" visibility="public">
+          <Argument type="Classe" name="obj"/>
+        </Method>
+        <Method name="delete" returnType="boolean" visibility="public">
+          <Argument type="Classe" name="obj"/>
+        </Method>
+        <Method name="update" returnType="boolean" visibility="public">
+          <Argument type="Classe" name="obj"/>
+        </Method>
+        <Method name="find" returnType="Classe" visibility="public">
+          <Argument type="int" name="id"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="ConnectException" package="controleur" visibility="public" xPosition="920.0" yPosition="20.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="getMessage" returnType="String" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="DAO" package="controleur" visibility="public" isAbstract="true" xPosition="1220.0" yPosition="20.0">
+      <Fields>
+        <Field name="connect" type="Connection" visibility="protected"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="Connection" name="conn"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="create" returnType="boolean" visibility="public" isAbstract="true">
+          <Argument type="T" name="obj"/>
+        </Method>
+        <Method name="delete" returnType="boolean" visibility="public" isAbstract="true">
+          <Argument type="T" name="obj"/>
+        </Method>
+        <Method name="update" returnType="boolean" visibility="public" isAbstract="true">
+          <Argument type="T" name="obj"/>
+        </Method>
+        <Method name="find" returnType="T" visibility="public" isAbstract="true">
+          <Argument type="int" name="id"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="DAO_Factory" package="controleur" visibility="public" xPosition="1520.0" yPosition="20.0">
+      <Fields>
+        <Field name="conn" type="Connection" visibility="protected" isStatic="true" isFinal="true"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="getAnneeScolaireDAO" returnType="DAO" visibility="public" isStatic="true"/>
+        <Method name="getBulletinDAO" returnType="DAO" visibility="public" isStatic="true"/>
+        <Method name="getClasseDAO" returnType="DAO" visibility="public" isStatic="true"/>
+        <Method name="getDetailBulletinDAO" returnType="DAO" visibility="public" isStatic="true"/>
+        <Method name="getDisciplineDAO" returnType="DAO" visibility="public" isStatic="true"/>
+        <Method name="getEcoleDAO" returnType="DAO" visibility="public" isStatic="true"/>
+        <Method name="getEnseignementDAO" returnType="DAO" visibility="public" isStatic="true"/>
+        <Method name="getEvaluationDAO" returnType="DAO" visibility="public" isStatic="true"/>
+        <Method name="getInscriptionDAO" returnType="DAO" visibility="public" isStatic="true"/>
+        <Method name="getNiveauDAO" returnType="DAO" visibility="public" isStatic="true"/>
+        <Method name="getPersonneDAO" returnType="DAO" visibility="public" isStatic="true"/>
+        <Method name="getTrimestreDAO" returnType="DAO" visibility="public" isStatic="true"/>
+      </Methods>
+    </Class>
+    <Class name="DetailBulletinDAO" package="controleur" visibility="public" xPosition="1820.0" yPosition="20.0">
+      <Fields/>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="Connection" name="conn"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="create" returnType="boolean" visibility="public">
+          <Argument type="DetailBulletin" name="obj"/>
+        </Method>
+        <Method name="delete" returnType="boolean" visibility="public">
+          <Argument type="DetailBulletin" name="obj"/>
+        </Method>
+        <Method name="update" returnType="boolean" visibility="public">
+          <Argument type="DetailBulletin" name="obj"/>
+        </Method>
+        <Method name="find" returnType="DetailBulletin" visibility="public">
+          <Argument type="int" name="id_detailbulletin"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="DisciplineDAO" package="controleur" visibility="public" xPosition="2120.0" yPosition="20.0">
+      <Fields/>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="Connection" name="conn"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="create" returnType="boolean" visibility="public">
+          <Argument type="Discipline" name="obj"/>
+        </Method>
+        <Method name="delete" returnType="boolean" visibility="public">
+          <Argument type="Discipline" name="obj"/>
+        </Method>
+        <Method name="update" returnType="boolean" visibility="public">
+          <Argument type="Discipline" name="obj"/>
+        </Method>
+        <Method name="find" returnType="Discipline" visibility="public">
+          <Argument type="int" name="id"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="EcoleDAO" package="controleur" visibility="public" xPosition="20.0" yPosition="420.0">
+      <Fields/>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="Connection" name="conn"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="create" returnType="boolean" visibility="public">
+          <Argument type="Ecole" name="obj"/>
+        </Method>
+        <Method name="delete" returnType="boolean" visibility="public">
+          <Argument type="Ecole" name="obj"/>
+        </Method>
+        <Method name="update" returnType="boolean" visibility="public">
+          <Argument type="Ecole" name="obj"/>
+        </Method>
+        <Method name="find" returnType="Ecole" visibility="public">
+          <Argument type="int" name="id_ecole"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="EnseignementDAO" package="controleur" visibility="public" xPosition="320.0" yPosition="420.0">
+      <Fields/>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="Connection" name="conn"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="create" returnType="boolean" visibility="public">
+          <Argument type="Enseignement" name="obj"/>
+        </Method>
+        <Method name="delete" returnType="boolean" visibility="public">
+          <Argument type="Enseignement" name="obj"/>
+        </Method>
+        <Method name="update" returnType="boolean" visibility="public">
+          <Argument type="Enseignement" name="obj"/>
+        </Method>
+        <Method name="find" returnType="Enseignement" visibility="public">
+          <Argument type="int" name="id"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="EvaluationDAO" package="controleur" visibility="public" xPosition="620.0" yPosition="420.0">
+      <Fields/>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="Connection" name="conn"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="create" returnType="boolean" visibility="public">
+          <Argument type="Evaluation" name="obj"/>
+        </Method>
+        <Method name="delete" returnType="boolean" visibility="public">
+          <Argument type="Evaluation" name="obj"/>
+        </Method>
+        <Method name="update" returnType="boolean" visibility="public">
+          <Argument type="Evaluation" name="obj"/>
+        </Method>
+        <Method name="find" returnType="Evaluation" visibility="public">
+          <Argument type="int" name="id_evaluation"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="InscriptionDAO" package="controleur" visibility="public" xPosition="920.0" yPosition="420.0">
+      <Fields/>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="Connection" name="conn"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="create" returnType="boolean" visibility="public">
+          <Argument type="Inscription" name="obj"/>
+        </Method>
+        <Method name="delete" returnType="boolean" visibility="public">
+          <Argument type="Inscription" name="obj"/>
+        </Method>
+        <Method name="update" returnType="boolean" visibility="public">
+          <Argument type="Inscription" name="obj"/>
+        </Method>
+        <Method name="find" returnType="Inscription" visibility="public">
+          <Argument type="int" name="id"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="NiveauDAO" package="controleur" visibility="public" xPosition="1220.0" yPosition="420.0">
+      <Fields/>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="Connection" name="conn"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="create" returnType="boolean" visibility="public">
+          <Argument type="Niveau" name="obj"/>
+        </Method>
+        <Method name="delete" returnType="boolean" visibility="public">
+          <Argument type="Niveau" name="obj"/>
+        </Method>
+        <Method name="update" returnType="boolean" visibility="public">
+          <Argument type="Niveau" name="obj"/>
+        </Method>
+        <Method name="find" returnType="Niveau" visibility="public">
+          <Argument type="int" name="id"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="PersonneDAO" package="controleur" visibility="public" xPosition="1520.0" yPosition="420.0">
+      <Fields/>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="Connection" name="conn"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="create" returnType="boolean" visibility="public">
+          <Argument type="Personne" name="obj"/>
+        </Method>
+        <Method name="delete" returnType="boolean" visibility="public">
+          <Argument type="Personne" name="obj"/>
+        </Method>
+        <Method name="update" returnType="boolean" visibility="public">
+          <Argument type="Personne" name="obj"/>
+        </Method>
+        <Method name="find" returnType="Personne" visibility="public">
+          <Argument type="int" name="id"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="TrimestreDAO" package="controleur" visibility="public" xPosition="1820.0" yPosition="420.0">
+      <Fields/>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="Connection" name="conn"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="create" returnType="boolean" visibility="public">
+          <Argument type="Trimestre" name="obj"/>
+        </Method>
+        <Method name="delete" returnType="boolean" visibility="public">
+          <Argument type="Trimestre" name="obj"/>
+        </Method>
+        <Method name="update" returnType="boolean" visibility="public">
+          <Argument type="Trimestre" name="obj"/>
+        </Method>
+        <Method name="find" returnType="Trimestre" visibility="public">
+          <Argument type="int" name="id_trimestre"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="AnneeScolaire" package="modele" visibility="public" xPosition="2120.0" yPosition="420.0">
+      <Fields>
+        <Field name="id" type="int" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+        <Constructor visibility="public">
+          <Argument type="int" name="id"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getId" returnType="int" visibility="public"/>
+        <Method name="setId" returnType="void" visibility="public">
+          <Argument type="int" name="id"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Bulletin" package="modele" visibility="public" xPosition="20.0" yPosition="820.0">
+      <Fields>
+        <Field name="id" type="int" visibility="private"/>
+        <Field name="nom" type="String" visibility="private"/>
+        <Field name="appreciation" type="String" visibility="private"/>
+        <Field name="id_Trimestre" type="int" visibility="private"/>
+        <Field name="id_Inscription" type="int" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+        <Constructor visibility="public">
+          <Argument type="int" name="id"/>
+          <Argument type="String" name="nom"/>
+          <Argument type="String" name="appreciation"/>
+          <Argument type="int" name="id_Trimestre"/>
+          <Argument type="int" name="id_Inscription"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getNom" returnType="String" visibility="public"/>
+        <Method name="getId" returnType="int" visibility="public"/>
+        <Method name="getAppreciation" returnType="String" visibility="public"/>
+        <Method name="getId_Trimestre" returnType="int" visibility="public"/>
+        <Method name="getId_Inscription" returnType="int" visibility="public"/>
+        <Method name="setId" returnType="void" visibility="public">
+          <Argument type="int" name="id"/>
+        </Method>
+        <Method name="setAppreciation" returnType="void" visibility="public">
+          <Argument type="String" name="appreciation"/>
+        </Method>
+        <Method name="setId_Trimestre" returnType="void" visibility="public">
+          <Argument type="int" name="id_Trimestre"/>
+        </Method>
+        <Method name="setId_Inscription" returnType="void" visibility="public">
+          <Argument type="int" name="id_Inscription"/>
+        </Method>
+        <Method name="setNom" returnType="void" visibility="public">
+          <Argument type="String" name="nom"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Classe" package="modele" visibility="public" xPosition="320.0" yPosition="820.0">
+      <Fields>
+        <Field name="id" type="int" visibility="private"/>
+        <Field name="nom" type="String" visibility="private"/>
+        <Field name="id_AnneeScolaire" type="int" visibility="private"/>
+        <Field name="id_Ecole" type="int" visibility="private"/>
+        <Field name="id_Niveau" type="int" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+        <Constructor visibility="public">
+          <Argument type="int" name="id"/>
+          <Argument type="String" name="nom"/>
+          <Argument type="int" name="id_AnneeScolaire"/>
+          <Argument type="int" name="id_Ecole"/>
+          <Argument type="int" name="id_Niveau"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getId" returnType="int" visibility="public"/>
+        <Method name="getNom" returnType="String" visibility="public"/>
+        <Method name="getId_AnneeScolaire" returnType="int" visibility="public"/>
+        <Method name="getId_Ecole" returnType="int" visibility="public"/>
+        <Method name="getId_Niveau" returnType="int" visibility="public"/>
+        <Method name="setId" returnType="void" visibility="public">
+          <Argument type="int" name="id"/>
+        </Method>
+        <Method name="setNom" returnType="void" visibility="public">
+          <Argument type="String" name="nom"/>
+        </Method>
+        <Method name="setId_AnneeScolaire" returnType="void" visibility="public">
+          <Argument type="int" name="id_AnneeScolaire"/>
+        </Method>
+        <Method name="setId_Ecole" returnType="void" visibility="public">
+          <Argument type="int" name="id_Ecole"/>
+        </Method>
+        <Method name="setId_Niveau" returnType="void" visibility="public">
+          <Argument type="int" name="id_Niveau"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="DetailBulletin" package="modele" visibility="public" xPosition="620.0" yPosition="820.0">
+      <Fields>
+        <Field name="id" type="int" visibility="private"/>
+        <Field name="appreciation" type="String" visibility="private"/>
+        <Field name="id_Bulletin" type="int" visibility="private"/>
+        <Field name="id_Enseignement" type="int" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+        <Constructor visibility="public">
+          <Argument type="int" name="id"/>
+          <Argument type="String" name="appreciation"/>
+          <Argument type="int" name="id_Bulletin"/>
+          <Argument type="int" name="id_Enseignement"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getId" returnType="int" visibility="public"/>
+        <Method name="setId" returnType="void" visibility="public">
+          <Argument type="int" name="id"/>
+        </Method>
+        <Method name="getAppreciation" returnType="String" visibility="public"/>
+        <Method name="setAppreciation" returnType="void" visibility="public">
+          <Argument type="String" name="appreciation"/>
+        </Method>
+        <Method name="getId_Bulletin" returnType="int" visibility="public"/>
+        <Method name="setId_Bulletin" returnType="void" visibility="public">
+          <Argument type="int" name="id_Bulletin"/>
+        </Method>
+        <Method name="getId_Enseignement" returnType="int" visibility="public"/>
+        <Method name="setId_Enseignement" returnType="void" visibility="public">
+          <Argument type="int" name="id_Enseignement"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Discipline" package="modele" visibility="public" xPosition="920.0" yPosition="820.0">
+      <Fields>
+        <Field name="id" type="int" visibility="private"/>
+        <Field name="nom" type="String" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+        <Constructor visibility="public">
+          <Argument type="int" name="id"/>
+          <Argument type="String" name="nom"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getId" returnType="int" visibility="public"/>
+        <Method name="setId" returnType="void" visibility="public">
+          <Argument type="int" name="id"/>
+        </Method>
+        <Method name="getNom" returnType="String" visibility="public"/>
+        <Method name="setNom" returnType="void" visibility="public">
+          <Argument type="String" name="nom"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Ecole" package="modele" visibility="public" xPosition="1220.0" yPosition="820.0">
+      <Fields>
+        <Field name="id" type="int" visibility="private"/>
+        <Field name="nom" type="String" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+        <Constructor visibility="public">
+          <Argument type="int" name="id"/>
+          <Argument type="String" name="nom"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getId" returnType="int" visibility="public"/>
+        <Method name="getNom" returnType="String" visibility="public"/>
+        <Method name="setId" returnType="void" visibility="public">
+          <Argument type="int" name="id"/>
+        </Method>
+        <Method name="setNom" returnType="void" visibility="public">
+          <Argument type="String" name="nom"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Enseignement" package="modele" visibility="public" xPosition="1520.0" yPosition="820.0">
+      <Fields>
+        <Field name="id" type="int" visibility="private"/>
+        <Field name="id_Classe" type="int" visibility="private"/>
+        <Field name="id_Discipline" type="int" visibility="private"/>
+        <Field name="id_Personne" type="int" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+        <Constructor visibility="public">
+          <Argument type="int" name="id"/>
+          <Argument type="int" name="id_Classe"/>
+          <Argument type="int" name="id_Discipline"/>
+          <Argument type="int" name="id_Personne"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getId" returnType="int" visibility="public"/>
+        <Method name="setId" returnType="void" visibility="public">
+          <Argument type="int" name="id"/>
+        </Method>
+        <Method name="getId_Classe" returnType="int" visibility="public"/>
+        <Method name="setId_Classe" returnType="void" visibility="public">
+          <Argument type="int" name="id_Classe"/>
+        </Method>
+        <Method name="getId_Discipline" returnType="int" visibility="public"/>
+        <Method name="setId_Discipline" returnType="void" visibility="public">
+          <Argument type="int" name="id_Discipline"/>
+        </Method>
+        <Method name="getId_Personne" returnType="int" visibility="public"/>
+        <Method name="setId_Personne" returnType="void" visibility="public">
+          <Argument type="int" name="id_Personne"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Evaluation" package="modele" visibility="public" xPosition="1820.0" yPosition="820.0">
+      <Fields>
+        <Field name="id" type="int" visibility="private"/>
+        <Field name="note" type="int" visibility="private"/>
+        <Field name="appreciation" type="String" visibility="private"/>
+        <Field name="id_DetailBulletin" type="int" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+        <Constructor visibility="public">
+          <Argument type="int" name="id"/>
+          <Argument type="int" name="note"/>
+          <Argument type="String" name="appreciation"/>
+          <Argument type="int" name="id_DetailBulletin"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getId" returnType="int" visibility="public"/>
+        <Method name="getNote" returnType="int" visibility="public"/>
+        <Method name="getAppreciation" returnType="String" visibility="public"/>
+        <Method name="getId_DetailBulletin" returnType="int" visibility="public"/>
+        <Method name="setId" returnType="void" visibility="public">
+          <Argument type="int" name="id"/>
+        </Method>
+        <Method name="setNote" returnType="void" visibility="public">
+          <Argument type="int" name="note"/>
+        </Method>
+        <Method name="setAppreciation" returnType="void" visibility="public">
+          <Argument type="String" name="appreciation"/>
+        </Method>
+        <Method name="setId_DetailBulletin" returnType="void" visibility="public">
+          <Argument type="int" name="id_DetailBulletin"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Inscription" package="modele" visibility="public" xPosition="2120.0" yPosition="820.0">
+      <Fields>
+        <Field name="id" type="int" visibility="private"/>
+        <Field name="id_Classe" type="int" visibility="private"/>
+        <Field name="id_Personne" type="int" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+        <Constructor visibility="public">
+          <Argument type="int" name="id"/>
+          <Argument type="int" name="id_Classe"/>
+          <Argument type="int" name="id_Personne"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getId" returnType="int" visibility="public"/>
+        <Method name="getId_Classe" returnType="int" visibility="public"/>
+        <Method name="getId_Personne" returnType="int" visibility="public"/>
+        <Method name="setId" returnType="void" visibility="public">
+          <Argument type="int" name="id"/>
+        </Method>
+        <Method name="setId_Classe" returnType="void" visibility="public">
+          <Argument type="int" name="id_Classe"/>
+        </Method>
+        <Method name="setId_Personne" returnType="void" visibility="public">
+          <Argument type="int" name="id_Personne"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Niveau" package="modele" visibility="public" xPosition="20.0" yPosition="1220.0">
+      <Fields>
+        <Field name="id" type="int" visibility="private"/>
+        <Field name="nom" type="String" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+        <Constructor visibility="public">
+          <Argument type="int" name="id"/>
+          <Argument type="String" name="nom"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getId" returnType="int" visibility="public"/>
+        <Method name="getNom" returnType="String" visibility="public"/>
+        <Method name="setId" returnType="void" visibility="public">
+          <Argument type="int" name="id"/>
+        </Method>
+        <Method name="setNom" returnType="void" visibility="public">
+          <Argument type="String" name="nom"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Personne" package="modele" visibility="public" xPosition="320.0" yPosition="1220.0">
+      <Fields>
+        <Field name="id" type="int" visibility="private"/>
+        <Field name="nom" type="String" visibility="private"/>
+        <Field name="prenom" type="String" visibility="private"/>
+        <Field name="login" type="String" visibility="private"/>
+        <Field name="password" type="String" visibility="private"/>
+        <Field name="type_Enseignant" type="int" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+        <Constructor visibility="public">
+          <Argument type="int" name="id"/>
+          <Argument type="String" name="nom"/>
+          <Argument type="String" name="prenom"/>
+          <Argument type="String" name="login"/>
+          <Argument type="String" name="password"/>
+          <Argument type="int" name="type_Enseignant"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getId" returnType="int" visibility="public"/>
+        <Method name="setId" returnType="void" visibility="public">
+          <Argument type="int" name="id"/>
+        </Method>
+        <Method name="getNom" returnType="String" visibility="public"/>
+        <Method name="setNom" returnType="void" visibility="public">
+          <Argument type="String" name="nom"/>
+        </Method>
+        <Method name="getPrenom" returnType="String" visibility="public"/>
+        <Method name="setPrenom" returnType="void" visibility="public">
+          <Argument type="String" name="prenom"/>
+        </Method>
+        <Method name="getLogin" returnType="String" visibility="public"/>
+        <Method name="setLogin" returnType="void" visibility="public">
+          <Argument type="String" name="login"/>
+        </Method>
+        <Method name="getPassword" returnType="String" visibility="public"/>
+        <Method name="getType_Enseignant" returnType="boolean" visibility="public"/>
+        <Method name="setPassword" returnType="void" visibility="public">
+          <Argument type="String" name="password"/>
+        </Method>
+        <Method name="setType_Enseignant" returnType="void" visibility="public">
+          <Argument type="boolean" name="type_Enseignant"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Trimestre" package="modele" visibility="public" xPosition="620.0" yPosition="1220.0">
+      <Fields>
+        <Field name="id" type="int" visibility="private"/>
+        <Field name="numero" type="int" visibility="private"/>
+        <Field name="debut" type="int" visibility="private"/>
+        <Field name="fin" type="int" visibility="private"/>
+        <Field name="id_AnneeScolaire" type="int" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+        <Constructor visibility="public">
+          <Argument type="int" name="id"/>
+          <Argument type="int" name="numero"/>
+          <Argument type="int" name="debut"/>
+          <Argument type="int" name="fin"/>
+          <Argument type="int" name="id_AnneeScolaire"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getId" returnType="int" visibility="public"/>
+        <Method name="getNumero" returnType="int" visibility="public"/>
+        <Method name="getDebut" returnType="int" visibility="public"/>
+        <Method name="getFin" returnType="int" visibility="public"/>
+        <Method name="getId_AnneeScolaire" returnType="int" visibility="public"/>
+        <Method name="setId" returnType="void" visibility="public">
+          <Argument type="int" name="id"/>
+        </Method>
+        <Method name="setNumero" returnType="void" visibility="public">
+          <Argument type="int" name="numero"/>
+        </Method>
+        <Method name="setDebut" returnType="void" visibility="public">
+          <Argument type="int" name="debut"/>
+        </Method>
+        <Method name="setFin" returnType="void" visibility="public">
+          <Argument type="int" name="fin"/>
+        </Method>
+        <Method name="setId_AnneeScolaire" returnType="void" visibility="public">
+          <Argument type="int" name="id_AnneeScolaire"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="AccesNotes" package="vue" visibility="public" xPosition="920.0" yPosition="1220.0">
+      <Fields>
+        <Field name="user" type="Personne" visibility="private"/>
+        <Field name="jButton1" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jButton2" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jLabel1" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jPanel1" type="javax.swing.JPanel" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="Personne" name="user"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="initComponents" returnType="// &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;Generated Code&quot;&gt;//GEN-BEGIN:initComponents
+void" visibility="private"/>
+        <Method name="jButton1ActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jButton2ActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="AjoutBu_DB_EvGraphique" package="vue" visibility="public" xPosition="1220.0" yPosition="1220.0">
+      <Fields>
+        <Field name="idEleve" type="int" visibility="private"/>
+        <Field name="enseignant" type="Personne" visibility="private"/>
+        <Field name="bulletin" type="Bulletin" visibility="private"/>
+        <Field name="bulletinChoix" type="Bulletin" visibility="private"/>
+        <Field name="detailBulletinChoix" type="DetailBulletin" visibility="private"/>
+        <Field name="evaluationChoix" type="Evaluation" visibility="private"/>
+        <Field name="idChoix" type="int" visibility="private"/>
+        <Field name="idEnseignement" type="int" visibility="private"/>
+        <Field name="choice" type="int" visibility="private"/>
+        <Field name="connect" type="Connection" visibility="protected" isStatic="true"/>
+        <Field name="jButton1" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jButtonValider" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jComboBoxID" type="javax.swing.JComboBox&lt;String&gt;" visibility="private"/>
+        <Field name="jLabel1" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel2" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel4" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabelCat" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jPanel3" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jPanel5" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jTextField1" type="javax.swing.JTextField" visibility="private"/>
+        <Field name="jTextField2" type="javax.swing.JTextField" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="Personne" name="enseignant"/>
+          <Argument type="int" name="idEleve"/>
+          <Argument type="Bulletin" name="bulletin"/>
+          <Argument type="int" name="choice"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getIdEnseignement" returnType="void" visibility="private"/>
+        <Method name="populateComboBox" returnType="void" visibility="private"/>
+        <Method name="initComponents" returnType="// &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;Generated Code&quot;&gt;//GEN-BEGIN:initComponents
+void" visibility="private"/>
+        <Method name="jButton1ActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jComboBoxIDActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jButtonValiderActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="AjouterNote" package="vue" visibility="public" xPosition="1520.0" yPosition="1220.0">
+      <Fields>
+        <Field name="user" type="Personne" visibility="private"/>
+        <Field name="eleve" type="Personne" visibility="private"/>
+        <Field name="eval" type="Evaluation" visibility="private"/>
+        <Field name="dis" type="Discipline" visibility="private"/>
+        <Field name="id_eleve" type="int" visibility="private"/>
+        <Field name="jButton6" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jButton7" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jLabel1" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel12" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel14" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel15" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jPanel1" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jPanel5" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jTextField14" type="javax.swing.JTextField" visibility="private"/>
+        <Field name="jTextField15" type="javax.swing.JTextField" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="Personne" name="user"/>
+          <Argument type="int" name="id_eleve"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="initComponents" returnType="// &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;Generated Code&quot;&gt;//GEN-BEGIN:initComponents
+void" visibility="private"/>
+        <Method name="jButton6ActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jButton7ActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="BulletinGraphique" package="vue" visibility="public" xPosition="1820.0" yPosition="1220.0">
+      <Fields>
+        <Field name="user" type="Personne" visibility="private"/>
+        <Field name="bulletin" type="Bulletin" visibility="private"/>
+        <Field name="modelChoix" type="DefaultComboBoxModel" visibility="private"/>
+        <Field name="connect" type="Connection" visibility="protected" isStatic="true"/>
+        <Field name="choixBulletinComboBox" type="javax.swing.JComboBox" visibility="private"/>
+        <Field name="detailBulletinButton" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jButton1" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jLabel1" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jPanel1" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jPanel2" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jScrollPane1" type="javax.swing.JScrollPane" visibility="private"/>
+        <Field name="nomLabel" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="resultArea" type="javax.swing.JTextArea" visibility="private"/>
+        <Field name="returnButton" type="javax.swing.JButton" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="Personne" name="user"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="initComponents" returnType="// &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;Generated Code&quot;&gt;//GEN-BEGIN:initComponents
+void" visibility="private"/>
+        <Method name="jButton1ActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="choixBulletinComboBoxActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="detailBulletinButtonActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="returnButtonActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="populateModel" returnType="void" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="ConnexionGraphique" package="vue" visibility="public" xPosition="2120.0" yPosition="1220.0">
+      <Fields>
+        <Field name="connect" type="Connection" visibility="protected" isStatic="true"/>
+        <Field name="jButton1" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jButton2" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jLabel1" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel2" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel4" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jPanel1" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jPanel2" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jPasswordField1" type="javax.swing.JPasswordField" visibility="private"/>
+        <Field name="jTextField1" type="javax.swing.JTextField" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="initComponents" returnType="// &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;Generated Code&quot;&gt;//GEN-BEGIN:initComponents
+void" visibility="private"/>
+        <Method name="connect" returnType="Personne" visibility="public">
+          <Argument type="String" name="login"/>
+          <Argument type="String" name="passw"/>
+        </Method>
+        <Method name="jButton1ActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jButton2ActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="CreationCompte" package="vue" visibility="public" xPosition="20.0" yPosition="1620.0">
+      <Fields>
+        <Field name="jButton1" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jButton4" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jCheckBox1" type="javax.swing.JCheckBox" visibility="private"/>
+        <Field name="jLabel1" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel3" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel5" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel6" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel7" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel8" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jPanel1" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jPanel3" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jTextField3" type="javax.swing.JTextField" visibility="private"/>
+        <Field name="jTextField4" type="javax.swing.JTextField" visibility="private"/>
+        <Field name="jTextField5" type="javax.swing.JTextField" visibility="private"/>
+        <Field name="jTextField6" type="javax.swing.JTextField" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="initComponents" returnType="// &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;Generated Code&quot;&gt;//GEN-BEGIN:initComponents
+void" visibility="private"/>
+        <Method name="jButton4ActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jButton1ActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="DetailBulletinGraphique" package="vue" visibility="public" xPosition="320.0" yPosition="1620.0">
+      <Fields>
+        <Field name="user" type="Personne" visibility="private"/>
+        <Field name="bulletin" type="Bulletin" visibility="private"/>
+        <Field name="modelChoix" type="DefaultComboBoxModel" visibility="private"/>
+        <Field name="cols" type="Object[]" visibility="private" isStatic="true" isFinal="true"/>
+        <Field name="modelTable" type="DefaultTableModel" visibility="private"/>
+        <Field name="connect" type="Connection" visibility="protected" isStatic="true"/>
+        <Field name="choixDisciplineComboBox" type="javax.swing.JComboBox" visibility="private"/>
+        <Field name="jButton1" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jLabel1" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabelAppreciation" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jPanel1" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jPanel2" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jScrollPane1" type="javax.swing.JScrollPane" visibility="private"/>
+        <Field name="jScrollPane2" type="javax.swing.JScrollPane" visibility="private"/>
+        <Field name="jTableNotes" type="javax.swing.JTable" visibility="private"/>
+        <Field name="jTexteAppreciation" type="javax.swing.JTextArea" visibility="private"/>
+        <Field name="nomLabel" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="returnButton" type="javax.swing.JButton" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="Personne" name="user"/>
+          <Argument type="Bulletin" name="bulletin"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="initComponents" returnType="// &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;Generated Code&quot;&gt;//GEN-BEGIN:initComponents
+void" visibility="private"/>
+        <Method name="jButton1ActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="choixDisciplineComboBoxActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="returnButtonActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="populateModel" returnType="void" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="EditerBulletin" package="vue" visibility="public" xPosition="620.0" yPosition="1620.0">
+      <Fields>
+        <Field name="user" type="Personne" visibility="private"/>
+        <Field name="jButton1" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jLabel1" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jPanel1" type="javax.swing.JPanel" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="Personne" name="user"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="initComponents" returnType="// &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;Generated Code&quot;&gt;//GEN-BEGIN:initComponents
+void" visibility="private"/>
+        <Method name="jButton1ActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="EleveGraphique" package="vue" visibility="public" xPosition="920.0" yPosition="1620.0">
+      <Fields>
+        <Field name="user" type="Personne" visibility="private"/>
+        <Field name="jButton1" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jButton2" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jButton3" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jButton4" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jButton6" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jLabel1" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel2" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jPanel1" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jPanel2" type="javax.swing.JPanel" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="Personne" name="user"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="initComponents" returnType="// &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;Generated Code&quot;&gt;//GEN-BEGIN:initComponents
+void" visibility="private"/>
+        <Method name="jButton1ActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jButton2ActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jButton4ActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jButton3ActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jButton6ActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="EnseignantGraphique" package="vue" visibility="public" xPosition="1220.0" yPosition="1620.0">
+      <Fields>
+        <Field name="user" type="Personne" visibility="private"/>
+        <Field name="jButton1" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jButton2" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jButton3" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jButton4" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jButton5" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jLabel1" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel2" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jPanel1" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jPanel2" type="javax.swing.JPanel" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="Personne" name="user"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="initComponents" returnType="// &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;Generated Code&quot;&gt;//GEN-BEGIN:initComponents
+void" visibility="private"/>
+        <Method name="jButton1ActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jButton2ActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jButton4ActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jButton5ActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jButton3ActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="EnseignementGraphique" package="vue" visibility="public" xPosition="1520.0" yPosition="1620.0">
+      <Fields>
+        <Field name="user" type="Personne" visibility="private"/>
+        <Field name="jButton1" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jButton3" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jButton5" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jLabel1" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel2" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jPanel1" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jPanel2" type="javax.swing.JPanel" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="Personne" name="user"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="initComponents" returnType="// &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;Generated Code&quot;&gt;//GEN-BEGIN:initComponents
+void" visibility="private"/>
+        <Method name="jButton1ActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jButton3ActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jButton5ActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="EnsRechercheEleve" package="vue" visibility="public" xPosition="1820.0" yPosition="1620.0">
+      <Fields>
+        <Field name="user" type="Personne" visibility="private"/>
+        <Field name="eleve" type="Personne" visibility="private"/>
+        <Field name="id_eleve" type="int" visibility="private"/>
+        <Field name="login" type="String" visibility="private"/>
+        <Field name="connect" type="Connection" visibility="protected" isStatic="true"/>
+        <Field name="jButton1" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jButton6" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jButton7" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jLabel1" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel11" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jPanel1" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jPanel5" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jTextField11" type="javax.swing.JTextField" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="Personne" name="user"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="connect" returnType="DetailBulletin" visibility="public">
+          <Argument type="String" name="login"/>
+        </Method>
+        <Method name="initComponents" returnType="// &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;Generated Code&quot;&gt;//GEN-BEGIN:initComponents
+void" visibility="private"/>
+        <Method name="jButton6ActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jButton7ActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jButton1ActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="GestionChoixModifGraphique" package="vue" visibility="public" xPosition="2120.0" yPosition="1620.0">
+      <Fields>
+        <Field name="idEleve" type="int" visibility="private"/>
+        <Field name="enseignant" type="Personne" visibility="private"/>
+        <Field name="bulletin" type="Bulletin" visibility="private"/>
+        <Field name="idEnseignement" type="int" visibility="private"/>
+        <Field name="tables" type="String[]" visibility="private" isStatic="true"/>
+        <Field name="tablesCols" type="String[][]" visibility="private" isStatic="true"/>
+        <Field name="modelComboBox" type="DefaultComboBoxModel" visibility="private" isFinal="true"/>
+        <Field name="modelResultTables" type="DefaultTableModel" visibility="private"/>
+        <Field name="connect" type="Connection" visibility="protected" isStatic="true"/>
+        <Field name="jButtonAjouter" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jButtonModifier" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jButtonSupprimer" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jLabel2" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel3" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel4" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jPanel2" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jPanel3" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jPanel4" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jPanel5" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jScrollPane2" type="javax.swing.JScrollPane" visibility="private"/>
+        <Field name="retourButton" type="javax.swing.JButton" visibility="private"/>
+        <Field name="tableResult" type="javax.swing.JTable" visibility="private"/>
+        <Field name="tablesComboBox" type="javax.swing.JComboBox&lt;String&gt;" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="Personne" name="enseignant"/>
+          <Argument type="int" name="idEleve"/>
+          <Argument type="Bulletin" name="bulletin"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getIdEnseignement" returnType="void" visibility="private"/>
+        <Method name="appendValue" returnType="Object[]" visibility="private">
+          <Argument type="Object[]" name="obj"/>
+          <Argument type="Object" name="newObj"/>
+        </Method>
+        <Method name="displayTable" returnType="void" visibility="public"/>
+        <Method name="initComponents" returnType="// &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;Generated Code&quot;&gt;//GEN-BEGIN:initComponents
+void" visibility="private"/>
+        <Method name="tablesComboBoxActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="retourButtonActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jButtonAjouterActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jButtonModifierActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jButtonSupprimerActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="GestionSelectionEleveGraphique" package="vue" visibility="public" xPosition="20.0" yPosition="2020.0">
+      <Fields>
+        <Field name="user" type="Personne" visibility="private"/>
+        <Field name="bulletin" type="Bulletin" visibility="private"/>
+        <Field name="id_eleve" type="int" visibility="private"/>
+        <Field name="connect" type="Connection" visibility="protected" isStatic="true"/>
+        <Field name="SelectButton" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jComboBoxBulletin" type="javax.swing.JComboBox" visibility="private"/>
+        <Field name="jLabel2" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabelSelect" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jPanel1" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jPanel3" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jScrollPane2" type="javax.swing.JScrollPane" visibility="private"/>
+        <Field name="retourButton" type="javax.swing.JButton" visibility="private"/>
+        <Field name="searchField" type="javax.swing.JTextField" visibility="private"/>
+        <Field name="tableEleve" type="javax.swing.JTable" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="Personne" name="user"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="initComponents" returnType="// &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;Generated Code&quot;&gt;//GEN-BEGIN:initComponents
+void" visibility="private"/>
+        <Method name="retourButtonActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="SelectButtonActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="searchFieldKeyReleased" returnType="void" visibility="private">
+          <Argument type="java.awt.event.KeyEvent" name="evt"/>
+        </Method>
+        <Method name="jComboBoxBulletinActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jComboBoxBulletinMouseClicked" returnType="void" visibility="private">
+          <Argument type="java.awt.event.MouseEvent" name="evt"/>
+        </Method>
+        <Method name="jComboBoxBulletinMousePressed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.MouseEvent" name="evt"/>
+        </Method>
+        <Method name="appendValue" returnType="Object[]" visibility="private">
+          <Argument type="Object[]" name="obj"/>
+          <Argument type="Object" name="newObj"/>
+        </Method>
+        <Method name="displayTable" returnType="void" visibility="public"/>
+        <Method name="updateComboBox" returnType="void" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="ModifierBu_DB_EvGraphique" package="vue" visibility="public" xPosition="320.0" yPosition="2020.0">
+      <Fields>
+        <Field name="idEleve" type="int" visibility="private"/>
+        <Field name="idItem" type="int" visibility="private"/>
+        <Field name="enseignant" type="Personne" visibility="private"/>
+        <Field name="bulletin" type="Bulletin" visibility="private"/>
+        <Field name="bulletinChoix" type="Bulletin" visibility="private"/>
+        <Field name="detailBulletinChoix" type="DetailBulletin" visibility="private"/>
+        <Field name="evaluationChoix" type="Evaluation" visibility="private"/>
+        <Field name="idChoix" type="int" visibility="private"/>
+        <Field name="idEnseignement" type="int" visibility="private"/>
+        <Field name="choice" type="int" visibility="private"/>
+        <Field name="connect" type="Connection" visibility="protected" isStatic="true"/>
+        <Field name="jButton1" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jButtonValider" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jLabel1" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel2" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel4" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jPanel3" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jPanel5" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jTextField1" type="javax.swing.JTextField" visibility="private"/>
+        <Field name="jTextField2" type="javax.swing.JTextField" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="Personne" name="enseignant"/>
+          <Argument type="int" name="idEleve"/>
+          <Argument type="Bulletin" name="bulletin"/>
+          <Argument type="int" name="idItem"/>
+          <Argument type="int" name="choice"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getIdEnseignement" returnType="void" visibility="private"/>
+        <Method name="initComponents" returnType="// &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;Generated Code&quot;&gt;//GEN-BEGIN:initComponents
+void" visibility="private"/>
+        <Method name="jButton1ActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jButtonValiderActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="ModifierInfosGraphique" package="vue" visibility="public" xPosition="620.0" yPosition="2020.0">
+      <Fields>
+        <Field name="user" type="Personne" visibility="private"/>
+        <Field name="jButton1" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jButton4" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jLabel1" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel3" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel5" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel7" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel8" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jPanel1" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jPanel3" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jTextField3" type="javax.swing.JTextField" visibility="private"/>
+        <Field name="jTextField4" type="javax.swing.JTextField" visibility="private"/>
+        <Field name="jTextField5" type="javax.swing.JTextField" visibility="private"/>
+        <Field name="jTextField6" type="javax.swing.JTextField" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="Personne" name="user"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="initComponents" returnType="// &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;Generated Code&quot;&gt;//GEN-BEGIN:initComponents
+void" visibility="private"/>
+        <Method name="jButton4ActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jButton1ActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="RechercheGraphique" package="vue" visibility="public" xPosition="920.0" yPosition="2020.0">
+      <Fields>
+        <Field name="user" type="Personne" visibility="private"/>
+        <Field name="tables" type="String[]" visibility="private" isStatic="true"/>
+        <Field name="tablesCols" type="String[][]" visibility="private" isStatic="true"/>
+        <Field name="modelTables" type="DefaultComboBoxModel" visibility="private" isFinal="true"/>
+        <Field name="modelCols" type="DefaultComboBoxModel" visibility="private"/>
+        <Field name="modelTable" type="DefaultTableModel" visibility="private"/>
+        <Field name="connect" type="Connection" visibility="protected" isStatic="true"/>
+        <Field name="jLabel1" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jPanel1" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jPanel3" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jScrollPane2" type="javax.swing.JScrollPane" visibility="private"/>
+        <Field name="retourButton" type="javax.swing.JButton" visibility="private"/>
+        <Field name="searchField" type="javax.swing.JTextField" visibility="private"/>
+        <Field name="tableResult" type="javax.swing.JTable" visibility="private"/>
+        <Field name="tablesColsComboBox" type="javax.swing.JComboBox&lt;String&gt;" visibility="private"/>
+        <Field name="tablesComboBox" type="javax.swing.JComboBox&lt;String&gt;" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="Personne" name="user"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="appendValue" returnType="Object[]" visibility="private">
+          <Argument type="Object[]" name="obj"/>
+          <Argument type="Object" name="newObj"/>
+        </Method>
+        <Method name="displayTable" returnType="void" visibility="public"/>
+        <Method name="initComponents" returnType="// &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;Generated Code&quot;&gt;//GEN-BEGIN:initComponents
+void" visibility="private"/>
+        <Method name="searchFieldKeyReleased" returnType="void" visibility="private">
+          <Argument type="java.awt.event.KeyEvent" name="evt"/>
+        </Method>
+        <Method name="tablesComboBoxActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="retourButtonActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="ReportingEleveGraphique" package="vue" visibility="public" xPosition="1220.0" yPosition="2020.0">
+      <Fields>
+        <Field name="user" type="Personne" visibility="private"/>
+        <Field name="idEleve" type="int" visibility="private"/>
+        <Field name="connect" type="Connection" visibility="protected" isStatic="true"/>
+        <Field name="jButton1" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jComboBoxBulletin" type="javax.swing.JComboBox&lt;String&gt;" visibility="private"/>
+        <Field name="jLabel1" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jPanel1" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jPanel2" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="reportPanel" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="returnButton" type="javax.swing.JButton" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="Personne" name="user"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="initComponents" returnType="// &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;Generated Code&quot;&gt;//GEN-BEGIN:initComponents
+void" visibility="private"/>
+        <Method name="returnButtonActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jButton1ActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="updateComboBox" returnType="void" visibility="private"/>
+        <Method name="displayStats" returnType="void" visibility="private"/>
+        <Method name="jComboBoxBulletinActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="ReportingEnsGraphique" package="vue" visibility="public" xPosition="1520.0" yPosition="2020.0">
+      <Fields>
+        <Field name="user" type="Personne" visibility="private"/>
+        <Field name="connect" type="Connection" visibility="protected" isStatic="true"/>
+        <Field name="jButton1" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jLabel1" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jPanel1" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jPanel2" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="reportPanel" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="returnButton" type="javax.swing.JButton" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="Personne" name="user"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="displayStats" returnType="void" visibility="private"/>
+        <Method name="initComponents" returnType="// &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;Generated Code&quot;&gt;//GEN-BEGIN:initComponents
+void" visibility="private"/>
+        <Method name="returnButtonActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jButton1ActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="TestConnexion" package="vue" visibility="public" xPosition="1820.0" yPosition="2020.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="main" returnType="void" visibility="public" isStatic="true">
+          <Argument type="String[]" name="args"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="TESTDAO" package="vue" visibility="public" xPosition="2120.0" yPosition="2020.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="test_dao_ecole" returnType="void" visibility="public" isStatic="true"/>
+        <Method name="test_dao_anneescolaire" returnType="void" visibility="public" isStatic="true"/>
+        <Method name="test_dao_bulletin" returnType="void" visibility="public" isStatic="true"/>
+        <Method name="test_dao_classe" returnType="void" visibility="public" isStatic="true"/>
+        <Method name="test_dao_detailbulletin" returnType="void" visibility="public" isStatic="true"/>
+        <Method name="test_dao_discipline" returnType="void" visibility="public" isStatic="true"/>
+        <Method name="test_dao_enseignement" returnType="void" visibility="public" isStatic="true"/>
+        <Method name="test_dao_evaluation" returnType="void" visibility="public" isStatic="true"/>
+        <Method name="test_dao_inscription" returnType="void" visibility="public" isStatic="true"/>
+        <Method name="test_dao_niveau" returnType="void" visibility="public" isStatic="true"/>
+        <Method name="test_dao_personne" returnType="void" visibility="public" isStatic="true"/>
+        <Method name="test_dao_trimestre" returnType="void" visibility="public" isStatic="true"/>
+        <Method name="dao_test_suite" returnType="void" visibility="public" isStatic="true"/>
+        <Method name="tests" returnType="void" visibility="public" isStatic="true">
+          <Argument type="String[]" name="args"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="UnitTest" package="vue" visibility="public" xPosition="20.0" yPosition="2420.0">
+      <Fields>
+        <Field name="alert_msg" type="String" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+        <Constructor visibility="public">
+          <Argument type="String" name="alert_msg"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="success" returnType="void" visibility="public"/>
+        <Method name="error" returnType="void" visibility="public"/>
+        <Method name="assert_int" returnType="void" visibility="public">
+          <Argument type="int" name="left"/>
+          <Argument type="int" name="right"/>
+        </Method>
+        <Method name="assert_char" returnType="void" visibility="public">
+          <Argument type="char" name="left"/>
+          <Argument type="char" name="right"/>
+        </Method>
+        <Method name="assert_boolean" returnType="void" visibility="public">
+          <Argument type="boolean" name="left"/>
+          <Argument type="boolean" name="right"/>
+        </Method>
+        <Method name="assert_double" returnType="void" visibility="public">
+          <Argument type="double" name="left"/>
+          <Argument type="double" name="right"/>
+        </Method>
+        <Method name="assert_String" returnType="void" visibility="public">
+          <Argument type="String" name="left"/>
+          <Argument type="String" name="right"/>
+        </Method>
+      </Methods>
+    </Class>
+  </ClassDiagramComponents>
+  <ClassDiagramRelations>
+    <IsRelation name="is" source="controleur.PersonneDAO" target="controleur.DAO"/>
+    <UseRelation source="controleur.InscriptionDAO" target="modele.Inscription" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="user" source="vue.GestionSelectionEleveGraphique" target="modele.Personne" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="bulletin" source="vue.GestionChoixModifGraphique" target="modele.Bulletin" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="user" source="vue.EditerBulletin" target="modele.Personne" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="bulletinChoix" source="vue.ModifierBu_DB_EvGraphique" target="modele.Bulletin" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="controleur.ClasseDAO" target="modele.Classe" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="controleur.TrimestreDAO" target="modele.Trimestre" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="vue.EnsRechercheEleve" target="modele.DetailBulletin" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="controleur.EvaluationDAO" target="modele.Evaluation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="vue.ConnexionGraphique" target="modele.Personne" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="user" source="vue.EnsRechercheEleve" target="modele.Personne" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="controleur.EcoleDAO" target="modele.Ecole" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <IsRelation name="is" source="controleur.DetailBulletinDAO" target="controleur.DAO"/>
+    <IsRelation name="is" source="controleur.EvaluationDAO" target="controleur.DAO"/>
+    <HasRelation name="user" source="vue.ReportingEleveGraphique" target="modele.Personne" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="user" source="vue.RechercheGraphique" target="modele.Personne" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <IsRelation name="is" source="controleur.BulletinDAO" target="controleur.DAO"/>
+    <HasRelation name="user" source="vue.AccesNotes" target="modele.Personne" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="user" source="vue.ReportingEnsGraphique" target="modele.Personne" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="enseignant" source="vue.GestionChoixModifGraphique" target="modele.Personne" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="controleur.DetailBulletinDAO" target="modele.DetailBulletin" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="user" source="vue.EleveGraphique" target="modele.Personne" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="bulletin" source="vue.BulletinGraphique" target="modele.Bulletin" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="user" source="vue.BulletinGraphique" target="modele.Personne" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <IsRelation name="is" source="controleur.InscriptionDAO" target="controleur.DAO"/>
+    <HasRelation name="bulletin" source="vue.AjoutBu_DB_EvGraphique" target="modele.Bulletin" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="dis" source="vue.AjouterNote" target="modele.Discipline" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="user" source="vue.DetailBulletinGraphique" target="modele.Personne" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="controleur.DisciplineDAO" target="modele.Discipline" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="bulletin" source="vue.DetailBulletinGraphique" target="modele.Bulletin" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <IsRelation name="is" source="controleur.EnseignementDAO" target="controleur.DAO"/>
+    <HasRelation name="detailBulletinChoix" source="vue.AjoutBu_DB_EvGraphique" target="modele.DetailBulletin" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="controleur.EnseignementDAO" target="modele.Enseignement" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <IsRelation name="is" source="controleur.TrimestreDAO" target="controleur.DAO"/>
+    <UseRelation source="controleur.DAO_Factory" target="controleur.DAO" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="evaluationChoix" source="vue.AjoutBu_DB_EvGraphique" target="modele.Evaluation" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="controleur.NiveauDAO" target="modele.Niveau" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <IsRelation name="is" source="controleur.DisciplineDAO" target="controleur.DAO"/>
+    <IsRelation name="is" source="controleur.NiveauDAO" target="controleur.DAO"/>
+    <IsRelation name="is" source="controleur.ClasseDAO" target="controleur.DAO"/>
+    <HasRelation name="enseignant" source="vue.ModifierBu_DB_EvGraphique" target="modele.Personne" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="controleur.PersonneDAO" target="modele.Personne" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="bulletin" source="vue.ModifierBu_DB_EvGraphique" target="modele.Bulletin" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="evaluationChoix" source="vue.ModifierBu_DB_EvGraphique" target="modele.Evaluation" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="bulletin" source="vue.GestionSelectionEleveGraphique" target="modele.Bulletin" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="eleve" source="vue.EnsRechercheEleve" target="modele.Personne" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="user" source="vue.AjouterNote" target="modele.Personne" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="detailBulletinChoix" source="vue.ModifierBu_DB_EvGraphique" target="modele.DetailBulletin" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="user" source="vue.ModifierInfosGraphique" target="modele.Personne" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <IsRelation name="is" source="controleur.AnneeScolaireDAO" target="controleur.DAO"/>
+    <HasRelation name="bulletinChoix" source="vue.AjoutBu_DB_EvGraphique" target="modele.Bulletin" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="eleve" source="vue.AjouterNote" target="modele.Personne" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="controleur.AnneeScolaireDAO" target="modele.AnneeScolaire" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <IsRelation name="is" source="controleur.EcoleDAO" target="controleur.DAO"/>
+    <UseRelation source="controleur.BulletinDAO" target="modele.Bulletin" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="enseignant" source="vue.AjoutBu_DB_EvGraphique" target="modele.Personne" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="user" source="vue.EnseignementGraphique" target="modele.Personne" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="user" source="vue.EnseignantGraphique" target="modele.Personne" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="eval" source="vue.AjouterNote" target="modele.Evaluation" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+  </ClassDiagramRelations>
+</ClassDiagram>
