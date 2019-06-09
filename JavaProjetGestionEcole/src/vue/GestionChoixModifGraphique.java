@@ -27,7 +27,7 @@ import modele.Evaluation;
 import static vue.ConnexionGraphique.connect;
 
 /**
- *
+ * Interface permettant le choix de l'element (Bulletin, DetailBulletin ou Evaluation) a modifier
  * @author Marine
  */
 public class GestionChoixModifGraphique extends javax.swing.JFrame {
@@ -84,6 +84,9 @@ public class GestionChoixModifGraphique extends javax.swing.JFrame {
         return temp.toArray();
     }
 
+    /**
+     * Connecte le programme a la base de donnees
+     */
     protected static Connection connect = null;
         static {
             Connection tmp = null;
@@ -98,7 +101,10 @@ public class GestionChoixModifGraphique extends javax.swing.JFrame {
         }
 
     /**
-     * Creates new form GestionChoixModifGraphique
+     * Crees une nouvelle JForm GestionChoixModifGraphique
+     * @param enseignant
+     * @param idEleve
+     * @param bulletin
      */
     public GestionChoixModifGraphique(Personne enseignant, int idEleve, Bulletin bulletin) {
         this.idEleve = idEleve;
@@ -108,8 +114,12 @@ public class GestionChoixModifGraphique extends javax.swing.JFrame {
         tablesComboBox.setModel(modelComboBox);
         tableResult.setModel(modelResultTables);
         getIdEnseignement();
+        displayTable();
     }
 
+    /**
+     *
+     */
     public void displayTable(){
         modelResultTables.setColumnCount(0);
         modelResultTables.setRowCount(0);
@@ -128,9 +138,9 @@ public class GestionChoixModifGraphique extends javax.swing.JFrame {
             case 2:
                 query = "SELECT DISTINCT ev.id, note, ev.appreciation FROM Evaluation ev, DetailBulletin db, Bulletin b, Enseignement en " +
                 "WHERE b.id_Inscription = " + idEleve +
-                " AND db.id_Bulletin = " + bulletin.getId() +
                 " AND b.id = " + bulletin.getId() +
                 " AND ev.id_DetailBulletin = db.id" +
+                " AND db.id_Bulletin = b.id" +
                 " AND db.id_Enseignement = " + idEnseignement;
         }
         try {
@@ -153,7 +163,6 @@ public class GestionChoixModifGraphique extends javax.swing.JFrame {
                 }
                 modelResultTables.addRow(rowToInsert);
                 ++resultCount;
-                System.out.println(resultCount);
             }
         } catch (SQLException e){
             //JOptionPane.showMessageDialog(null, "Votre requête a échoué. Merci de réessayer");
@@ -376,7 +385,6 @@ public class GestionChoixModifGraphique extends javax.swing.JFrame {
     }//GEN-LAST:event_tablesComboBoxActionPerformed
 
     private void retourButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_retourButtonActionPerformed
-        //FIXME
         this.setVisible(false);
         new GestionSelectionEleveGraphique(enseignant).setVisible(true);
     }//GEN-LAST:event_retourButtonActionPerformed

@@ -20,7 +20,7 @@ import modele.Personne;
 import modele.Bulletin;
 
 /**
- *
+ * Donne des informations detaillees sur le bulletin d'un eleve
  * @author Marine
  */
 public class DetailBulletinGraphique extends javax.swing.JFrame {
@@ -31,7 +31,10 @@ public class DetailBulletinGraphique extends javax.swing.JFrame {
     private final static Object[] cols = new Object[]{"Note", "Appréciation"};
     private DefaultTableModel modelTable = new DefaultTableModel(cols, 0);
 
-        protected static Connection connect = null;
+    /**
+     * Connecte le programme a la base de donnees
+     */
+    protected static Connection connect = null;
         static {
             Connection tmp = null;
 
@@ -44,7 +47,9 @@ public class DetailBulletinGraphique extends javax.swing.JFrame {
             connect = tmp;
         }
     /**
-     * Creates new form DetailBulletinGraphique
+     * Crees une nouvelle JForm DetailBulletinGraphique
+     * @param user Personne connectee
+     * @param bulletin
      */
     public DetailBulletinGraphique(Personne user, Bulletin bulletin) {
         initComponents();
@@ -223,6 +228,9 @@ public class DetailBulletinGraphique extends javax.swing.JFrame {
         new BulletinGraphique(user).setVisible(true);
     }//GEN-LAST:event_returnButtonActionPerformed
 
+    /**
+     *
+     */
     public void populateModel(){
         modelTable.setRowCount(0);
         try{

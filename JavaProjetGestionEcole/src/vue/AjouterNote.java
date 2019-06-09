@@ -15,7 +15,7 @@ import controleur.*;
 
 
 /**
- *
+ * Permet d'ajouter une note a un eleve
  * @author val_r
  */
 public class AjouterNote extends javax.swing.JFrame {
@@ -25,10 +25,12 @@ public class AjouterNote extends javax.swing.JFrame {
     private Evaluation eval;
     private Discipline dis;
     private int id_eleve;
-    
+
 
     /**
-     * Creates new form ModifierInfosGraphique
+     * Crees une nouvelle JForm ModifierInfosGraphique
+     * @param user Personne connectee
+     * @param id_eleve
      */
     public AjouterNote(Personne user, int id_eleve) {
         initComponents();
@@ -37,7 +39,7 @@ public class AjouterNote extends javax.swing.JFrame {
         eleve = new Personne();
         eval = new Evaluation();
         dis = new Discipline();
-        
+
     }
 
     /**
@@ -196,22 +198,8 @@ public class AjouterNote extends javax.swing.JFrame {
             DAO<Personne> dao = DAO_Factory.getPersonneDAO();
             DAO<Personne> dao2 = DAO_Factory.getEvaluationDAO();
             DAO<Personne> dao3 = DAO_Factory.getDisciplineDAO();
-            //eleve.getNom();
-            //eleve.getPrenom();
-            //eval.setNote(jTextField14.getText());
             eval.setAppreciation(jTextField15.getText());
 
-            /*boolean update = dao.update(user);
-            if (update) {
-                JOptionPane.showMessageDialog(null, "Informations modifiées avec succès");
-                this.setVisible(false);
-                if (user.getType_Enseignant())
-                new EnseignantGraphique(user).setVisible(true);
-                else
-                new EleveGraphique(user).setVisible(true);
-            } else {
-                JOptionPane.showMessageDialog(null, "Une erreur est survenue. Merci de vérifier vos informations et de réessayer");
-            }*/
         }
     }//GEN-LAST:event_jButton6ActionPerformed
 
@@ -219,8 +207,6 @@ public class AjouterNote extends javax.swing.JFrame {
         this.setVisible(false);
         new EnseignementGraphique(user).setVisible(true);
     }//GEN-LAST:event_jButton7ActionPerformed
-
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton6;

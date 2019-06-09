@@ -22,7 +22,8 @@ public class EditerBulletin extends javax.swing.JFrame {
     private Personne user;
 
     /**
-     * Creates new form ModifierInfosGraphique
+     * Crees une nouvelle JForm ModifierInfosGraphique
+     * @param user Personne connectee
      */
     public EditerBulletin(Personne user) {
         initComponents();
@@ -101,10 +102,6 @@ public class EditerBulletin extends javax.swing.JFrame {
         this.setVisible(false);
         new EnseignementGraphique(user).setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

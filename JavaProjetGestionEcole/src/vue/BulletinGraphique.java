@@ -18,7 +18,7 @@ import modele.Personne;
 import modele.Bulletin;
 
 /**
- *
+ * Permet d'afficher les informations sur le bulletin d'un eleve
  * @author val_r
  */
 public class BulletinGraphique extends javax.swing.JFrame {
@@ -27,6 +27,9 @@ public class BulletinGraphique extends javax.swing.JFrame {
     private Bulletin bulletin = null;
     private DefaultComboBoxModel modelChoix = new DefaultComboBoxModel();
 
+    /**
+     * Connecte le programme a la base de donnees
+     */
     protected static Connection connect = null;
         static {
             Connection tmp = null;
@@ -41,7 +44,8 @@ public class BulletinGraphique extends javax.swing.JFrame {
         }
 
     /**
-     * Creates new form ModifierInfosGraphique
+     * Crees une nouvelle JForm ModifierInfosGraphique
+     * @param user Personne connectee
      */
     public BulletinGraphique(Personne user) {
         initComponents();
@@ -218,6 +222,9 @@ public class BulletinGraphique extends javax.swing.JFrame {
 
     }//GEN-LAST:event_returnButtonActionPerformed
 
+    /**
+     *
+     */
     public void populateModel(){
         try{
             ResultSet result = BulletinGraphique.connect.createStatement(
@@ -238,12 +245,12 @@ public class BulletinGraphique extends javax.swing.JFrame {
             while(result.next())
                 if (choix.equals(result.getString("nom") + " Trimestre " + result.getString("b.id_Trimestre"))){
                     appreciation = result.getString("appreciation");
-                    this.bulletin = new Bulletin(result.getInt("b.id"), 
+                    this.bulletin = new Bulletin(result.getInt("b.id"),
                                                 result.getString("nom"),
                                                 appreciation,
                                                 result.getInt("id_Trimestre"),
                                                 result.getInt("id_Inscription"));
-                    
+
                     resultArea.setText(appreciation);
                 }
 

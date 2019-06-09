@@ -13,15 +13,16 @@ import javax.swing.JOptionPane;
 import modele.Personne;
 
 /**
- *
- * @author Marine <ECE>
+ * Interface pour modifier ses informations personnelles
+ * @author Marine
  */
 public class ModifierInfosGraphique extends javax.swing.JFrame {
-    
+
     private Personne user;
 
     /**
-     * Creates new form ModifierInfosGraphique
+     * Crees une nouvelle JForm ModifierInfosGraphique
+     * @param user Personne connectee
      */
     public ModifierInfosGraphique(Personne user) {
         initComponents();
@@ -206,7 +207,7 @@ public class ModifierInfosGraphique extends javax.swing.JFrame {
             user.setPrenom(jTextField4.getText());
             user.setLogin(jTextField5.getText());
             user.setPassword(jTextField6.getText());
-   
+
             boolean update = dao.update(user);
             if (update) {
                 JOptionPane.showMessageDialog(null, "Informations modifiées avec succès");

@@ -25,8 +25,10 @@ public class EnsRechercheEleve extends javax.swing.JFrame {
     private Personne eleve;
     private int id_eleve;
     private String login;
-    
-    
+
+    /**
+     * Connecte le programme a la base de donnees
+     */
     protected static Connection connect = null;
     static {
             Connection tmp = null;
@@ -46,11 +48,12 @@ public class EnsRechercheEleve extends javax.swing.JFrame {
             }
             connect = tmp;
         }
-    
-    
-    
+
+
+
     /**
-     * Creates new form DetailBulletinGraphique
+     * Crees une nouvelle JForm DetailBulletinGraphique
+     * @param user Personne connectee
      */
     public EnsRechercheEleve(Personne user) {
         initComponents();
@@ -59,12 +62,17 @@ public class EnsRechercheEleve extends javax.swing.JFrame {
         login = null;
         id_eleve = 0;
     }
-    
-    
+
+    /**
+     *
+     * @param login
+     *
+     * @throws ConnectException
+     */
     public DetailBulletin connect(String login) throws ConnectException {
-        
-        DetailBulletin det = new DetailBulletin();    
-      
+
+        DetailBulletin det = new DetailBulletin();
+
         try {
           ResultSet result = this.connect.createStatement(
             ResultSet.TYPE_SCROLL_INSENSITIVE,
@@ -75,18 +83,18 @@ public class EnsRechercheEleve extends javax.swing.JFrame {
                 result.getInt("id"),
                 result.getString("appreciation"),
                 result.getInt("id_Bulletin"),
-                result.getInt("id_Enseignement")                
+                result.getInt("id_Enseignement")
             );
           else{
-              throw new ConnectException();         
+              throw new ConnectException();
           }
         } catch (SQLException e) {
           e.printStackTrace();
         }
         return det;
-        
+
     }
-    
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -219,39 +227,27 @@ public class EnsRechercheEleve extends javax.swing.JFrame {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         if (jTextField11.getText().isEmpty() )
-            JOptionPane.showMessageDialog(null, "Merci de remplir le champ.");
+        JOptionPane.showMessageDialog(null, "Merci de remplir le champ.");
         else{
             DAO<Personne> dao = DAO_Factory.getPersonneDAO();
             DAO<Personne> dao2 = DAO_Factory.getDetailBulletinDAO();
             login = jTextField11.getText();
-            
+
             try {
                 ResultSet result = this.connect.createStatement(
                 ResultSet.TYPE_SCROLL_INSENSITIVE,
                 ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT id FROM Inscription WHERE login = '" + login + "'");
                 if(result.first()) {
-                  id_eleve = result.getInt("id");
-                  new AjouterNote(user, id_eleve).setVisible(true);
+                    id_eleve = result.getInt("id");
+                    new AjouterNote(user, id_eleve).setVisible(true);
                 }
                 else{
-                    throw new ConnectException();         
-                } 
-                
+                    throw new ConnectException();
+                }
+
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "Ce compte n'existe pas. Merci de réessayer.");
             }
-
-            /*boolean update = dao.update(user);
-            if (update) {
-                JOptionPane.showMessageDialog(null, "Informations modifiées avec succès");
-                this.setVisible(false);
-                if (user.getType_Enseignant())
-                new EnseignantGraphique(user).setVisible(true);
-                else
-                new EleveGraphique(user).setVisible(true);
-            } else {
-                JOptionPane.showMessageDialog(null, "Une erreur est survenue. Merci de vérifier vos informations et de réessayer");
-            }*/
         }
     }//GEN-LAST:event_jButton6ActionPerformed
 
@@ -264,11 +260,6 @@ public class EnsRechercheEleve extends javax.swing.JFrame {
         this.setVisible(false);
         new ConnexionGraphique().setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

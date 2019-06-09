@@ -8,15 +8,16 @@ package vue;
 import modele.Personne;
 
 /**
- *
- * @author Marine <ECE>
+ * Portail eleve, ou differentes options sont disponibles
+ * @author Marine
  */
 public class EleveGraphique extends javax.swing.JFrame {
-    
+
     private Personne user;
 
     /**
-     * Creates new form EnseignantGraphique
+     * Crees une nouvelle JForm EnseignantGraphique
+     * @param user Personne connectee
      */
     public EleveGraphique(Personne user) {
         initComponents();
@@ -171,7 +172,7 @@ public class EleveGraphique extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         this.setVisible(false);
         new ConnexionGraphique().setVisible(true);
-        
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -179,7 +180,7 @@ public class EleveGraphique extends javax.swing.JFrame {
         new ModifierInfosGraphique(user).setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
-   
+
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         this.setVisible(false);
         new RechercheGraphique(user).setVisible(true);

@@ -12,22 +12,27 @@ import java.sql.Types;
 import modele.DetailBulletin;
 
 /**
- *
- * @author Marine <ECE>
+ * Classe permettant l'interface entre les details des bulletins de la base de donnees et
+ * la classe DetailBulletin en Java
+ * @author Marine
  */
 public class DetailBulletinDAO extends DAO<DetailBulletin> {
 
+    /**
+     * Cree une nouvelle instance de la classe et connecte a la base de donnees
+     * @param conn Connexion etablie avec la base de donnees MySQL
+     */
     public DetailBulletinDAO(Connection conn) {
         super(conn);
     }
 
     @Override
     public boolean create(DetailBulletin obj) {
-                
+
         try {
             // prefer prepareStatement as statement to avoid SQL injection
             PreparedStatement statement = this.connect.prepareStatement(
-                    "INSERT INTO DetailBulletin(id, appreciation, id_Bulletin, id_Enseignement) VALUES(?,?,?,?)"
+            "INSERT INTO DetailBulletin(id, appreciation, id_Bulletin, id_Enseignement) VALUES(?,?,?,?)"
             );
             //Changer les ? par la valeur de l'objet créé pour adapter le java a la requette SQL.
             statement.setObject(1, obj.getId(), Types.INTEGER);
@@ -37,15 +42,16 @@ public class DetailBulletinDAO extends DAO<DetailBulletin> {
 
             statement.executeUpdate(); //execute update for change in DB and executeQuery for select
 
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
         return true;
     }
 
     @Override
     public boolean delete(DetailBulletin obj) {
-                
+
         try {
             // prefer prepareStatement as statement to avoid SQL injection
             PreparedStatement statement = this.connect.prepareStatement(
@@ -64,7 +70,7 @@ public class DetailBulletinDAO extends DAO<DetailBulletin> {
 
     @Override
     public boolean update(DetailBulletin obj) {
-     
+
         try {
             // prefer prepareStatement as statement to avoid SQL injection
             PreparedStatement statement = this.connect.prepareStatement(
@@ -83,9 +89,9 @@ public class DetailBulletinDAO extends DAO<DetailBulletin> {
 
     @Override
     public DetailBulletin find(int id_detailbulletin) {
-        
-                    DetailBulletin detailbulletin = new DetailBulletin();      
-      
+
+                    DetailBulletin detailbulletin = new DetailBulletin();
+
     try {
       ResultSet result = this.connect.createStatement(
         ResultSet.TYPE_SCROLL_INSENSITIVE,
@@ -96,11 +102,11 @@ public class DetailBulletinDAO extends DAO<DetailBulletin> {
           result.getString("appreciation"),
           result.getInt("id_Bulletin"),
           result.getInt("id_Enseignement")
-        );         
+        );
     } catch (SQLException e) {
       e.printStackTrace();
     }
     return detailbulletin;
     }
-    
+
 }

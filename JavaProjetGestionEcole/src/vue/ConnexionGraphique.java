@@ -19,13 +19,13 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import modele.Personne;
 /**
- *
- * @author Marine <ECE>
+ * Interface de connexion pour un utilisateur, prof ou eleve
+ * @author Marine
  */
 public class ConnexionGraphique extends javax.swing.JFrame {
 
     /**
-     * Creates new form Connexion
+     * Crees une nouvelle JForm Connexion
      */
     protected static Connection connect = null;
     static {
@@ -46,6 +46,10 @@ public class ConnexionGraphique extends javax.swing.JFrame {
             }
             connect = tmp;
         }
+
+    /**
+     *
+     */
     public ConnexionGraphique() {
         initComponents();
     }
@@ -183,10 +187,17 @@ public class ConnexionGraphique extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     *
+     * @param login
+     * @param passw
+     * @return
+     * @throws ConnectException
+     */
     public Personne connect(String login, String passw) throws ConnectException {
-        
-        Personne personne = new Personne();      
-      
+
+        Personne personne = new Personne();
+
         try {
           ResultSet result = this.connect.createStatement(
             ResultSet.TYPE_SCROLL_INSENSITIVE,
@@ -201,18 +212,18 @@ public class ConnexionGraphique extends javax.swing.JFrame {
                 result.getInt("type_Enseignant")
             );
           else{
-              throw new ConnectException();         
+              throw new ConnectException();
           }
         } catch (SQLException e) {
           e.printStackTrace();
         }
         return personne;
-        
+
     }
-    
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String jlogin = jTextField1.getText();
-        String jpassw = jPasswordField1.getText(); 
+        String jpassw = jPasswordField1.getText();
 
         try {
             Personne user = connect(jlogin, jpassw);
@@ -230,10 +241,6 @@ public class ConnexionGraphique extends javax.swing.JFrame {
         this.setVisible(false);
         new CreationCompte().setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

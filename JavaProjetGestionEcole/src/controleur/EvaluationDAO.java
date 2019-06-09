@@ -13,11 +13,16 @@ import modele.Ecole;
 import modele.Evaluation;
 
 /**
- *
- * @author Marine <ECE>
+ * Classe permettant l'interface entre les evaluations de la base de donnees et
+ * la classe Evaluation en Java
+ * @author Marine
  */
 public class EvaluationDAO extends DAO<Evaluation> {
 
+    /**
+     * Cree une nouvelle instance de la classe et connecte a la base de donnees
+     * @param conn Connexion etablie avec la base de donnees MySQL
+     */
     public EvaluationDAO(Connection conn) {
         super(conn);
     }
@@ -32,7 +37,7 @@ public class EvaluationDAO extends DAO<Evaluation> {
             );
             //Changer les ? par la valeur de l'objet créé pour adapter le java a la requette SQL.
             statement.setObject(1, obj.getId(), Types.INTEGER);
-            statement.setObject(2, obj.getNote(), Types.INTEGER);
+            statement.setObject(2, obj.getNote(), Types.FLOAT);
             statement.setObject(3, obj.getAppreciation(), Types.VARCHAR);
             statement.setObject(4, obj.getId_DetailBulletin(), Types.INTEGER);
 
@@ -65,21 +70,22 @@ public class EvaluationDAO extends DAO<Evaluation> {
     @Override
     public boolean update(Evaluation obj) {
 
-    try {
+        try {
             // prefer prepareStatement as statement to avoid SQL injection
             PreparedStatement statement = this.connect.prepareStatement(
-                    "UPDATE Evaluation SET note=?, appreciation=? WHERE id=?"
+            "UPDATE Evaluation SET note=?, appreciation=? WHERE id=?"
             );
             //insert param to change the ? into data
-            statement.setObject(1, obj.getNote(), Types.VARCHAR);
+            statement.setObject(1, obj.getNote(), Types.FLOAT);
             statement.setObject(2, obj.getAppreciation(), Types.VARCHAR);
             statement.setObject(3, obj.getId(), Types.INTEGER);
 
             statement.executeUpdate(); //execute update for change in DB and executeQuery for select
 
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
         return true;
     }
 
@@ -95,7 +101,7 @@ public class EvaluationDAO extends DAO<Evaluation> {
       if(result.first())
         evaluation = new Evaluation(
           id_evaluation,
-          result.getInt("note"),
+          result.getFloat("note"),
           result.getString("appreciation"),
           result.getInt("id_DetailBulletin")
         );

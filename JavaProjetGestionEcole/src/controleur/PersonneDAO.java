@@ -15,11 +15,16 @@ import modele.Personne;
 
 
 /**
- *
+ * Classe permettant l'interface entre les personnes de la base de donnees et
+ * la classe Personne en Java
  * @author val_r
  */
 public class PersonneDAO extends DAO<Personne>{
 
+    /**
+     * Cree une nouvelle instance de la classe et connecte a la base de donnees
+     * @param conn Connexion etablie avec la base de donnees MySQL
+     */
     public PersonneDAO(Connection conn) {
         super(conn);
     }
@@ -50,7 +55,7 @@ public class PersonneDAO extends DAO<Personne>{
 
     @Override
     public boolean delete(Personne obj) {
-        
+
         try {
             // prefer prepareStatement as statement to avoid SQL injection
             PreparedStatement statement = this.connect.prepareStatement(
@@ -64,18 +69,18 @@ public class PersonneDAO extends DAO<Personne>{
           return false;
         }
         return true;
-        
+
     }
 
     @Override
     public boolean update(Personne obj) {
-        
+
         try {
             // prefer prepareStatement as statement to avoid SQL injection
             PreparedStatement statement = this.connect.prepareStatement(
                     "UPDATE Personne SET nom=?, prenom=?, login=?, password=?, type_Enseignant=? WHERE id=?"
             );
-            
+
             //insert param to change the ? into data
             statement.setObject(1, obj.getNom(), Types.VARCHAR);
             statement.setObject(2, obj.getPrenom(), Types.VARCHAR);
@@ -89,34 +94,34 @@ public class PersonneDAO extends DAO<Personne>{
           return false;
         }
         return true;
-        
+
     }
 
     @Override
     public Personne find(int id) {
-        
-        Personne personne = new Personne();      
-      
+
+        Personne personne = new Personne();
+
         try {
           ResultSet result = this.connect.createStatement(
             ResultSet.TYPE_SCROLL_INSENSITIVE,
             ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM Personne WHERE id = " + id);
           if(result.first())
             personne = new Personne(
-                id, 
+                id,
                 result.getString("nom"),
                 result.getString("prenom"),
                 result.getString("login"),
                 result.getString("password"),
                 result.getInt("type_Enseignant")
-            );         
+            );
         } catch (SQLException e) {
           return null;
         }
         return personne;
-        
+
     }
-    
-    
-    
+
+
+
 }

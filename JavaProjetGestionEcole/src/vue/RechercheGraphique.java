@@ -22,8 +22,8 @@ import modele.Personne;
 import static vue.ConnexionGraphique.connect;
 
 /**
- *
- * @author Marine <ECE>
+ * Permet la recherche d'un element dans la base de donnees, peut importe lequel.
+ * @author Marine
  */
 public class RechercheGraphique extends javax.swing.JFrame {
 
@@ -112,6 +112,9 @@ public class RechercheGraphique extends javax.swing.JFrame {
         return temp.toArray();
     }
 
+    /**
+     * Connecte le programme a la base de donnees
+     */
     protected static Connection connect = null;
         static {
             Connection tmp = null;
@@ -126,7 +129,8 @@ public class RechercheGraphique extends javax.swing.JFrame {
         }
 
     /**
-     * Creates new form RechercheGraphique
+     * Crees une nouvelle JForm RechercheGraphique
+     * @param user Personne connectee
      */
     public RechercheGraphique(Personne user) {
         this.user = user;
@@ -135,6 +139,9 @@ public class RechercheGraphique extends javax.swing.JFrame {
         tablesColsComboBox.setModel(modelCols);
     }
 
+    /**
+     *
+     */
     public void displayTable(){
         modelTable.setColumnCount(0);
         modelTable.setRowCount(0);
@@ -164,7 +171,7 @@ public class RechercheGraphique extends javax.swing.JFrame {
                 for (int indexCol = 0; indexCol < tablesCols[tablesComboBox.getSelectedIndex()].length; indexCol++) {
                     strToInsert = result.getString(tablesCols[tablesComboBox.getSelectedIndex()][indexCol])
                                         .replaceAll(searchQuery, "<b><font color=\"rgb(159,90,253)\">" + searchQuery + "</b></font>");
-                    rowToInsert = appendValue(rowToInsert, "<html>" + strToInsert);    
+                    rowToInsert = appendValue(rowToInsert, "<html>" + strToInsert);
                 }
                 modelTable.addRow(rowToInsert);
                 ++resultCount;

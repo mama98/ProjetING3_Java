@@ -9,10 +9,14 @@ import modele.*;
 
 /**
  *
- * @author Marine <ECE>
+ * @author Marine
  */
 public class TESTDAO {
-        public static void test_dao_ecole(){
+
+    /**
+     *
+     */
+    public static void test_dao_ecole(){
             UnitTest test = new UnitTest("test_dao_ecole");
 
             DAO<Ecole> dao = DAO_Factory.getEcoleDAO();
@@ -30,7 +34,10 @@ public class TESTDAO {
             test.success();
         }
 
-        public static void test_dao_anneescolaire(){
+    /**
+     *
+     */
+    public static void test_dao_anneescolaire(){
             UnitTest test = new UnitTest("test_dao_anneescolaire");
 
             DAO<AnneeScolaire> dao = DAO_Factory.getAnneeScolaireDAO();
@@ -50,7 +57,10 @@ public class TESTDAO {
             test.success();
         }
 
-        public static void test_dao_bulletin(){
+    /**
+     *
+     */
+    public static void test_dao_bulletin(){
             UnitTest test = new UnitTest("test_dao_bulletin()");
 
             DAO<Bulletin> dao = DAO_Factory.getBulletinDAO();
@@ -71,7 +81,10 @@ public class TESTDAO {
             test.success();
         }
 
-        public static void test_dao_classe(){
+    /**
+     *
+     */
+    public static void test_dao_classe(){
             UnitTest test = new UnitTest("test_dao_classe()");
 
             DAO<Classe> dao = DAO_Factory.getClasseDAO();
@@ -93,7 +106,10 @@ public class TESTDAO {
             test.success();
         }
 
-        public static void test_dao_detailbulletin(){
+    /**
+     *
+     */
+    public static void test_dao_detailbulletin(){
             UnitTest test = new UnitTest("test_dao_detailbulletin()");
 
             DAO<DetailBulletin> dao = DAO_Factory.getDetailBulletinDAO();
@@ -114,7 +130,10 @@ public class TESTDAO {
             test.success();
         }
 
-        public static void test_dao_discipline(){
+    /**
+     *
+     */
+    public static void test_dao_discipline(){
             UnitTest test = new UnitTest("test_dao_discipline()");
 
             DAO<Discipline> dao = DAO_Factory.getDisciplineDAO();
@@ -134,7 +153,10 @@ public class TESTDAO {
             test.success();
         }
 
-        public static void test_dao_enseignement(){
+    /**
+     *
+     */
+    public static void test_dao_enseignement(){
             UnitTest test = new UnitTest("test_dao_enseignement()");
 
             DAO<Enseignement> dao = DAO_Factory.getEnseignementDAO();
@@ -156,7 +178,10 @@ public class TESTDAO {
             test.success();
         }
 
-        public static void test_dao_evaluation(){
+    /**
+     *
+     */
+    public static void test_dao_evaluation(){
             UnitTest test = new UnitTest("test_dao_evaluation()");
 
             DAO<Evaluation> dao = DAO_Factory.getEvaluationDAO();
@@ -167,7 +192,7 @@ public class TESTDAO {
                 dao.create(new_T);
 
                 Evaluation T = dao.find(1);
-                test.assert_int(T.getNote(), 1);
+                test.assert_double(T.getNote(), 1);
                 test.assert_String(T.getAppreciation(), "DAO_test_evaluation()");
                 test.assert_int(T.getId_DetailBulletin(), 1);
                 test.assert_int(T.getId(), 1);
@@ -178,7 +203,10 @@ public class TESTDAO {
             test.success();
         }
 
-        public static void test_dao_inscription(){
+    /**
+     *
+     */
+    public static void test_dao_inscription(){
             UnitTest test = new UnitTest("test_dao_inscription()");
 
             DAO<Inscription> dao = DAO_Factory.getInscriptionDAO();
@@ -199,7 +227,10 @@ public class TESTDAO {
             test.success();
         }
 
-        public static void test_dao_niveau(){
+    /**
+     *
+     */
+    public static void test_dao_niveau(){
             UnitTest test = new UnitTest("test_dao_niveau()");
 
             DAO<Niveau> dao = DAO_Factory.getNiveauDAO();
@@ -219,7 +250,10 @@ public class TESTDAO {
             test.success();
         }
 
-        public static void test_dao_personne(){
+    /**
+     *
+     */
+    public static void test_dao_personne(){
             UnitTest test = new UnitTest("test_dao_personne()");
 
             DAO<Personne> dao = DAO_Factory.getPersonneDAO();
@@ -244,7 +278,10 @@ public class TESTDAO {
             test.success();
         }
 
-        public static void test_dao_trimestre(){
+    /**
+     *
+     */
+    public static void test_dao_trimestre(){
             UnitTest test = new UnitTest("test_dao_trimestre()");
 
             DAO<Trimestre> dao = DAO_Factory.getTrimestreDAO();
@@ -267,7 +304,10 @@ public class TESTDAO {
             test.success();
         }
 
-        public static void dao_test_suite(){
+    /**
+     *
+     */
+    public static void dao_test_suite(){
             test_dao_ecole();
             test_dao_anneescolaire();
             test_dao_niveau();
@@ -282,9 +322,11 @@ public class TESTDAO {
             test_dao_evaluation();
         }
 
-        //FIXME : Ajout de tests pour les classes ?
-
-        public static void tests(String[] args){
+    /**
+     *
+     * @param args
+     */
+    public static void tests(String[] args){
             dao_test_suite();
         }
 }

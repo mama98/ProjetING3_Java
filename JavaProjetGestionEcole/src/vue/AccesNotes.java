@@ -8,7 +8,7 @@ package vue;
 import modele.Personne;
 
 /**
- *
+ * Permet d'acceder aux notes d'un eleve
  * @author val_r
  */
 public class AccesNotes extends javax.swing.JFrame {
@@ -16,7 +16,8 @@ public class AccesNotes extends javax.swing.JFrame {
     private Personne user;
 
     /**
-     * Creates new form ModifierInfosGraphique
+     * Crees une nouvelle JForm ModifierInfosGraphique
+     * @param user Personne connectee
      */
     public AccesNotes(Personne user) {
         initComponents();
@@ -118,8 +119,6 @@ public class AccesNotes extends javax.swing.JFrame {
         this.setVisible(false);
         new BulletinGraphique(user).setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
-
-   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

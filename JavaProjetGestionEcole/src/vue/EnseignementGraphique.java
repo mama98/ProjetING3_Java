@@ -17,7 +17,8 @@ public class EnseignementGraphique extends javax.swing.JFrame {
     private Personne user;
 
     /**
-     * Creates new form ModifierInfosGraphique
+     * Crees une nouvelle JForm ModifierInfosGraphique
+     * @param user Personne connectee
      */
     public EnseignementGraphique(Personne user) {
         initComponents();

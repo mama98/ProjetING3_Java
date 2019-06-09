@@ -15,18 +15,23 @@ import modele.Inscription;
 
 
 /**
- *
+ * Classe permettant l'interface entre les inscriptions de la base de donnees et
+ * la classe Inscription en Java
  * @author val_r
  */
 public class InscriptionDAO extends DAO<Inscription> {
 
+    /**
+     * Cree une nouvelle instance de la classe et connecte a la base de donnees
+     * @param conn Connexion etablie avec la base de donnees MySQL
+     */
     public InscriptionDAO(Connection conn) {
         super(conn);
     }
 
     @Override
     public boolean create(Inscription obj) {
-        
+
         try {
             // prefer prepareStatement as statement to avoid SQL injection
             PreparedStatement statement = this.connect.prepareStatement(
@@ -43,12 +48,12 @@ public class InscriptionDAO extends DAO<Inscription> {
           e.printStackTrace();
         }
         return true;
-        
+
     }
 
     @Override
     public boolean delete(Inscription obj) {
-        
+
         try {
             // prefer prepareStatement as statement to avoid SQL injection
             PreparedStatement statement = this.connect.prepareStatement(
@@ -62,12 +67,12 @@ public class InscriptionDAO extends DAO<Inscription> {
           e.printStackTrace();
         }
         return true;
-        
+
     }
 
     @Override
     public boolean update(Inscription obj) {
-        
+
         try {
             // prefer prepareStatement as statement to avoid SQL injection
             PreparedStatement statement = this.connect.prepareStatement(
@@ -83,30 +88,30 @@ public class InscriptionDAO extends DAO<Inscription> {
           e.printStackTrace();
         }
         return true;
-        
+
     }
 
     @Override
     public Inscription find(int id) {
-        
-        Inscription ins = new Inscription();      
-      
+
+        Inscription ins = new Inscription();
+
         try {
           ResultSet result = this.connect.createStatement(
             ResultSet.TYPE_SCROLL_INSENSITIVE,
             ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM Inscription WHERE id = " + id);
           if(result.first())
             ins = new Inscription(
-                id, 
+                id,
                 result.getInt("id_Classe"),
                 result.getInt("id_Personne")
 
-            );         
+            );
         } catch (SQLException e) {
           e.printStackTrace();
         }
         return ins;
-        
+
     }
-    
+
 }

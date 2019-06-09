@@ -28,7 +28,7 @@ import modele.Evaluation;
 import static vue.ConnexionGraphique.connect;
 
 /**
- *
+ * Permet l'ajout d'un Bulletin, DetailBulletin ou Evaluation a la base de donnees
  * @author Marine
  */
 public class AjoutBu_DB_EvGraphique extends javax.swing.JFrame {
@@ -59,6 +59,10 @@ public class AjoutBu_DB_EvGraphique extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
+
+    /**
+     * Connecte le programme a la base de donnees
+     */
     protected static Connection connect = null;
         static {
             Connection tmp = null;
@@ -73,7 +77,11 @@ public class AjoutBu_DB_EvGraphique extends javax.swing.JFrame {
         }
 
     /**
-     * Creates new form AjoutBu_DB_EvGraphique
+     * Crees une nouvelle JForm AjoutBu_DB_EvGraphique
+     * @param enseignant Enseignant connecte
+     * @param choice Choix de l'enseignant : 0 - Bulletin, 1 - DetailBulletin, 2 - Evaluation
+     * @param bulletin Bulletin de l'eleve selectionne
+     * @param idEleve Id d'inscription de l'eleve selectionne
      */
     public AjoutBu_DB_EvGraphique(Personne enseignant,
                                   int idEleve,
@@ -103,10 +111,10 @@ public class AjoutBu_DB_EvGraphique extends javax.swing.JFrame {
                 break;
         }
         populateComboBox();
-        getIdEnseignement();
     }
 
     private void populateComboBox(){
+        getIdEnseignement();
         String query = new String();
         switch(choice){
             case 0:
@@ -118,7 +126,8 @@ public class AjoutBu_DB_EvGraphique extends javax.swing.JFrame {
             break;
             case 2:
             query = "SELECT * FROM DetailBulletin WHERE " +
-            "id_Bulletin = " + bulletin.getId();
+            "id_Bulletin = " + bulletin.getId() +
+            " AND id_Enseignement = " + idEnseignement;
             break;
         }
 
@@ -128,10 +137,17 @@ public class AjoutBu_DB_EvGraphique extends javax.swing.JFrame {
             ResultSet.CONCUR_READ_ONLY).executeQuery(query);
 
             while(result.next())
-                if(choice == 1)
-                    jComboBoxID.addItem(result.getString("id") + "_" + result.getString("nom"));
-                else
-                    jComboBoxID.addItem(result.getString("id"));
+                switch(choice) {
+                    case 0:
+                        jComboBoxID.addItem(result.getString("id") + "_Trimestre_" + result.getString("numero"));
+                        break;
+                    case 1:
+                        jComboBoxID.addItem(result.getString("id") + "_" + result.getString("nom"));
+                        break;
+                    case 2:
+                        jComboBoxID.addItem(result.getString("id") + "_DetailBulletin_" + result.getString("id_Enseignement"));
+                        break;
+                }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
@@ -286,20 +302,22 @@ public class AjoutBu_DB_EvGraphique extends javax.swing.JFrame {
 
     private void jComboBoxIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxIDActionPerformed
         String query = new String();
+        String parts[] = jComboBoxID.getSelectedItem().toString().split("_");
+        String idComboBox = parts[0];
         switch(choice) {
             case 0:
             query = "SELECT id FROM Trimestre WHERE " +
-            "id = " + jComboBoxID.getSelectedItem().toString();
+            "id = " + idComboBox;
             break;
             case 1:
             query = "SELECT b.id FROM Bulletin b, Inscription i WHERE " +
-            "b.id = '" + jComboBoxID.getSelectedItem().toString().charAt(0) + "' AND " +
+            "b.id = '" + idComboBox + "' AND " +
             "i.id = " + idEleve + " AND " +
             "id_Inscription = i.id";
             break;
             case 2:
             query = "SELECT id FROM DetailBulletin WHERE " +
-            "id = " + jComboBoxID.getSelectedItem().toString();
+            "id = " + idComboBox;
             break;
         }
         try {
@@ -315,7 +333,6 @@ public class AjoutBu_DB_EvGraphique extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(null, "Une erreur s'est produite.");
             }
-            System.out.println(idChoix);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
@@ -323,51 +340,55 @@ public class AjoutBu_DB_EvGraphique extends javax.swing.JFrame {
 
     private void jButtonValiderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonValiderActionPerformed
         if(jTextField1.getText().isEmpty() ||
-           (jTextField2.isVisible() &&
-           jTextField2.getText().isEmpty()))
-           JOptionPane.showMessageDialog(null, "Merci de remplir tous les champs");
+        (jTextField2.isVisible() &&
+        jTextField2.getText().isEmpty()))
+        JOptionPane.showMessageDialog(null, "Merci de remplir tous les champs");
 
         switch(choice){
-            case 0:
-                DAO<Bulletin> dao_b = DAO_Factory.getBulletinDAO();
-                Bulletin newBulletin = new Bulletin(0,
-                    jTextField1.getText(),
-                    jTextField2.getText(),
-                    idChoix,
-                    idEleve);
-                if(dao_b.create(newBulletin))
-                    JOptionPane.showMessageDialog(null, "Bulletin ajouté avec succès");
-                else
-                    JOptionPane.showMessageDialog(null, "Une erreur s'est produite");
-                break;
-            case 1:
-                DAO<DetailBulletin> dao_db = DAO_Factory.getDetailBulletinDAO();
-                DetailBulletin newDB = new DetailBulletin(0,
-                                                          jTextField1.getText(),
-                                                          idChoix,
-                                                          idEnseignement);
-                if(dao_db.create(newDB))
-                    JOptionPane.showMessageDialog(null, "Détail Bulletin ajouté avec succès");
-                else
-                    JOptionPane.showMessageDialog(null, "Une erreur s'est produite");
-                break;
-            case 2:
-                DAO<Evaluation> dao_ev = DAO_Factory.getEvaluationDAO();
-                int note;
-                try {
-                    note = Integer.parseInt(jTextField1.getText());
+        case 0:
+            DAO<Bulletin> dao_b = DAO_Factory.getBulletinDAO();
+            Bulletin newBulletin = new Bulletin(0,
+            jTextField1.getText(),
+            jTextField2.getText(),
+            idChoix,
+            idEleve);
+            if(dao_b.create(newBulletin))
+            JOptionPane.showMessageDialog(null, "Bulletin ajouté avec succès");
+            else
+            JOptionPane.showMessageDialog(null, "Une erreur s'est produite");
+            break;
+        case 1:
+            DAO<DetailBulletin> dao_db = DAO_Factory.getDetailBulletinDAO();
+            DetailBulletin newDB = new DetailBulletin(0,
+            jTextField1.getText(),
+            idChoix,
+            idEnseignement);
+            if(dao_db.create(newDB))
+            JOptionPane.showMessageDialog(null, "Détail Bulletin ajouté avec succès");
+            else
+            JOptionPane.showMessageDialog(null, "Une erreur s'est produite");
+            break;
+        case 2:
+            DAO<Evaluation> dao_ev = DAO_Factory.getEvaluationDAO();
+            float note;
+            try {
+                note = Float.parseFloat(jTextField1.getText());
+                if(note > 20 || note < 0) {
+                    JOptionPane.showMessageDialog(null, "Veuillez entrer une note comprise entre 0 et 20");
+                } else {
                     Evaluation newEvaluation = new Evaluation(0,
-                                                          note,
-                                                          jTextField2.getText(),
-                                                          idChoix);
-                if(dao_ev.create(newEvaluation))
+                    note,
+                    jTextField2.getText(),
+                    idChoix);
+                    if(dao_ev.create(newEvaluation))
                     JOptionPane.showMessageDialog(null, "Evaluation ajoutée avec succès");
-                else
+                    else
                     JOptionPane.showMessageDialog(null, "Une erreur s'est produite");
-                } catch (NumberFormatException e) {
-                    JOptionPane.showMessageDialog(null, "Veuillez entrer la note correctement");
                 }
-                break;
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Veuillez entrer la note correctement");
+            }
+            break;
         }
     }//GEN-LAST:event_jButtonValiderActionPerformed
 

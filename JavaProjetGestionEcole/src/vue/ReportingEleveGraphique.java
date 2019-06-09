@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package vue;
-
 import controleur.DAO_Factory;
 import java.awt.Color;
 import java.sql.Connection;
@@ -25,7 +24,7 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 
 /**
- *
+ * Statistiques de l'eleve connecte
  * @author val_r
  */
 public class ReportingEleveGraphique extends javax.swing.JFrame {
@@ -33,6 +32,9 @@ public class ReportingEleveGraphique extends javax.swing.JFrame {
     private Personne user;
     private int idEleve;
 
+    /**
+     * Connecte le programme a la base de donnees
+     */
     protected static Connection connect = null;
         static {
             Connection tmp = null;
@@ -47,7 +49,8 @@ public class ReportingEleveGraphique extends javax.swing.JFrame {
         }
 
     /**
-     * Creates new form ModifierInfosGraphique
+     * Crees une nouvelle JForm ModifierInfosGraphique
+     * @param user Personne connectee
      */
      public ReportingEleveGraphique(Personne user) {
          initComponents();
@@ -210,7 +213,8 @@ public class ReportingEleveGraphique extends javax.swing.JFrame {
 
     private void displayStats(){
         DefaultCategoryDataset dataSet = new DefaultCategoryDataset();
-        char idBulletin = jComboBoxBulletin.getSelectedItem().toString().charAt(0);
+        String parts[] = jComboBoxBulletin.getSelectedItem().toString().split("_");
+        String idBulletin = parts[0];
         try {
             ResultSet SQLMaxIdDiscipline = this.connect.createStatement(
             ResultSet.TYPE_SCROLL_INSENSITIVE,
@@ -240,12 +244,12 @@ public class ReportingEleveGraphique extends javax.swing.JFrame {
             " AND en.id_Discipline= di.id AND db.id_Enseignement= en.id"
             );
 
-            ArrayList<Integer> notes = new ArrayList<Integer>(maxDisc);
+            ArrayList<Float> notes = new ArrayList<Float>(maxDisc);
             ArrayList<Integer> nbNotes = new ArrayList<Integer>(maxDisc);
             ArrayList<String> disciplines = new ArrayList<String>(maxDisc);
 
             for(int indexFill = 0; indexFill < maxDisc; indexFill++){
-                notes.add(0);
+                notes.add(0f);
                 nbNotes.add(0);
                 disciplines.add("");
             }
@@ -253,7 +257,7 @@ public class ReportingEleveGraphique extends javax.swing.JFrame {
             while(result.next()){
                 int index = result.getInt("di.id") - 1;
                 nbNotes.set(index, nbNotes.get(index) + 1);
-                notes.set(index, notes.get(index) + result.getInt("note"));
+                notes.set(index, notes.get(index) + result.getFloat("note"));
                 if(disciplines.get(index).isEmpty())
                 disciplines.set(index, result.getString("di.nom"));
             }

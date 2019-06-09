@@ -15,18 +15,24 @@ import modele.Classe;
 
 
 /**
- *
+ * Classe permettant l'interface entre les classes de la base de donnees et
+ * la classe Classe en Java
  * @author val_r
  */
 public class ClasseDAO extends DAO<Classe> {
 
+    /**
+    * Cree une nouvelle instance de la classe et connecte a la base de donnees
+    *
+    * @param conn Connexion etablie avec la base de donnees MySQL
+    */
     public ClasseDAO(Connection conn) {
         super(conn);
     }
 
     @Override
     public boolean create(Classe obj) {
-        
+
         try {
             // prefer prepareStatement as statement to avoid SQL injection
             PreparedStatement statement = this.connect.prepareStatement(
@@ -45,12 +51,12 @@ public class ClasseDAO extends DAO<Classe> {
           e.printStackTrace();
         }
         return true;
-        
+
     }
 
     @Override
     public boolean delete(Classe obj) {
-        
+
         try {
             // prefer prepareStatement as statement to avoid SQL injection
             PreparedStatement statement = this.connect.prepareStatement(
@@ -64,12 +70,12 @@ public class ClasseDAO extends DAO<Classe> {
           e.printStackTrace();
         }
         return true;
-        
+
     }
 
     @Override
     public boolean update(Classe obj) {
-        
+
         try {
             // prefer prepareStatement as statement to avoid SQL injection
             PreparedStatement statement = this.connect.prepareStatement(
@@ -87,32 +93,32 @@ public class ClasseDAO extends DAO<Classe> {
           e.printStackTrace();
         }
         return true;
-        
+
     }
 
     @Override
     public Classe find(int id) {
-        
-        Classe classe = new Classe();      
-      
+
+        Classe classe = new Classe();
+
         try {
           ResultSet result = this.connect.createStatement(
             ResultSet.TYPE_SCROLL_INSENSITIVE,
             ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM Classe WHERE id = " + id);
           if(result.first())
             classe = new Classe(
-                id, 
+                id,
                 result.getString("nom"),
                 result.getInt("id_AnneeScolaire"),
                 result.getInt("id_Ecole"),
                 result.getInt("id_Niveau")
 
-            );         
+            );
         } catch (SQLException e) {
           e.printStackTrace();
         }
         return classe;
-        
+
     }
-    
+
 }

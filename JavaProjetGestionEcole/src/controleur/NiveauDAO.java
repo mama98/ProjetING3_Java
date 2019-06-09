@@ -14,18 +14,23 @@ import java.sql.Types;
 import modele.Niveau;
 
 /**
- *
+ * Classe permettant l'interface entre les niveaux de la base de donnees et
+ * la classe Niveau en Java
  * @author val_r
  */
 public class NiveauDAO extends DAO<Niveau>{
 
+    /**
+     * Cree une nouvelle instance de la classe et connecte a la base de donnees
+     * @param conn Connexion etablie avec la base de donnees MySQL
+     */
     public NiveauDAO(Connection conn) {
         super(conn);
     }
 
     @Override
     public boolean create(Niveau obj) {
-        
+
         try {
             // prefer prepareStatement as statement to avoid SQL injection
             PreparedStatement statement = this.connect.prepareStatement(
@@ -39,8 +44,8 @@ public class NiveauDAO extends DAO<Niveau>{
     } catch (SQLException e) {
       e.printStackTrace();
     }
-        return true;    
-    
+        return true;
+
     }
 
     @Override
@@ -80,24 +85,24 @@ public class NiveauDAO extends DAO<Niveau>{
 
     @Override
     public Niveau find(int id) {
-        
-        Niveau niv = new Niveau();      
-      
+
+        Niveau niv = new Niveau();
+
     try {
       ResultSet result = this.connect.createStatement(
         ResultSet.TYPE_SCROLL_INSENSITIVE,
         ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM Niveau WHERE id = " + id);
       if(result.first())
         niv = new Niveau(
-            id, 
+            id,
             result.getString("nom")
-        );         
+        );
     } catch (SQLException e) {
       e.printStackTrace();
     }
     return niv;
     }
 
-   
-    
+
+
 }

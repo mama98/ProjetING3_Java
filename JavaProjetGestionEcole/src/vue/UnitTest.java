@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Marine <ECE>
+ * @author Marine 
  */
 public class UnitTest{
 
@@ -35,43 +35,81 @@ public class UnitTest{
  */
     private String alert_msg;
 
+    /**
+     *
+     */
     public UnitTest(){
         alert_msg = null;
     }
 
+    /**
+     *
+     * @param alert_msg
+     */
     public UnitTest(String alert_msg){
         this.alert_msg = alert_msg;
     }
 
+    /**
+     *
+     */
     public void success(){
         System.out.println("Test passed : " + this.alert_msg);
     }
 
+    /**
+     *
+     */
     public void error(){
         System.out.println("TEST FAILED : " + this.alert_msg);
         System.exit(1);
     }
 
+    /**
+     *
+     * @param left
+     * @param right
+     */
     public void assert_int(int left, int right){
         if (left != right)
             error();
     }
 
+    /**
+     *
+     * @param left
+     * @param right
+     */
     public void assert_char(char left, char right){
         if (left != right)
             error();
     }
 
+    /**
+     *
+     * @param left
+     * @param right
+     */
     public void assert_boolean(boolean left, boolean right){
         if (left != right)
             error();
     }
 
+    /**
+     *
+     * @param left
+     * @param right
+     */
     public void assert_double(double left, double right){
         if (left != right)
             error();
     }
 
+    /**
+     *
+     * @param left
+     * @param right
+     */
     public void assert_String(String left, String right){
         if (!left.equals(right))
             error();

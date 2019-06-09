@@ -6,40 +6,66 @@
 package modele;
 
 /**
- *
- * @author Marine <ECE>
+ * Classe representant un des membres de la table Niveau dans la base de donnees
+ * @author Marine
  */
 public class Niveau {
-    
+
     private int id;
     private String nom;
 
+    /**
+     *
+     */
     public Niveau()
     {
         id=0;
         nom=null;
     }
+
+    /**
+     *
+     * @param id
+     * @param nom
+     */
     public Niveau(int id, String nom) {
         this.id = id;
         this.nom=nom;
     }
 
+    /**
+     *
+     *
+     */
     public int getId() {
         return id;
     }
+
+    /**
+     *
+     *
+     */
     public String getNom() {
         return nom;
     }
-    
+
+    /**
+     *
+     * @param id
+     */
     public void setId(int id) {
         this.id = id;
     }
 
+    /**
+     *
+     * @param nom
+     */
     public void setNom(String nom) {
         this.nom = nom;
     }
 
 
-    
-    
+
+
 }

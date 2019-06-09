@@ -21,8 +21,9 @@ import javax.swing.table.DefaultTableModel;
 import modele.Personne;
 import modele.Bulletin;
 /**
- *
- * @author Marine <ECE>
+ * Interface permettant de selectionner l'eleve dont on veut modifier le Bulletin, DetailBulletin ou Evaluation.
+ * Permet aussi la selection du bulletin que nous allons modifier.
+ * @author Marine
  */
 public class GestionSelectionEleveGraphique extends javax.swing.JFrame {
 
@@ -32,20 +33,25 @@ public class GestionSelectionEleveGraphique extends javax.swing.JFrame {
 
 
     /**
-     * Creates new form GestionSelectionEleveGraphique
+     * Crees une nouvelle JForm GestionSelectionEleveGraphique
+     * @param user Personne connectee Personne connecteeUtilisateur necessaire a la creation de la forme
      */
     public GestionSelectionEleveGraphique(Personne user) {
         initComponents();
         tableEleve.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
         public void valueChanged(ListSelectionEvent event) {
             if (tableEleve.getSelectedRow() != -1)
+                getIdEleve();
                 updateComboBox();
         }
     });
         this.user = user;
     }
 
-        protected static Connection connect = null;
+    /**
+     * Connecte le programme a la base de donnees
+     */
+    protected static Connection connect = null;
         static {
             Connection tmp = null;
 
@@ -242,10 +248,11 @@ public class GestionSelectionEleveGraphique extends javax.swing.JFrame {
 
     private void jComboBoxBulletinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxBulletinActionPerformed
               try {
+            String parts[] = jComboBoxBulletin.getSelectedItem().toString().split("_");
             ResultSet result = RechercheGraphique.connect.createStatement(
                 ResultSet.TYPE_SCROLL_INSENSITIVE,
                 ResultSet.CONCUR_READ_ONLY).executeQuery(
-                        "SELECT * FROM  Bulletin b, Inscription i WHERE i.id=b.id_Inscription AND b.id='" + jComboBoxBulletin.getSelectedItem().toString().charAt(0) + "'"
+                        "SELECT * FROM  Bulletin b, Inscription i WHERE i.id=b.id_Inscription AND b.id='" + parts[0] + "'"
                 );
 
             if(result.first()){
@@ -270,6 +277,9 @@ public class GestionSelectionEleveGraphique extends javax.swing.JFrame {
         return temp.toArray();
     }
 
+    /**
+     *
+     */
     public void displayTable(){
         DefaultTableModel tableModel = (DefaultTableModel) tableEleve.getModel();
         tableModel.setRowCount(0);
@@ -312,28 +322,34 @@ public class GestionSelectionEleveGraphique extends javax.swing.JFrame {
         }
     }
 
+    /**
+     *
+     */
+    public void getIdEleve() {
+            int column = 0;
+            int row = tableEleve.getSelectedRow();
+            String selected_row = tableEleve.getModel().getValueAt(row, column).toString();
+            this.id_eleve = Integer.parseInt(selected_row);
+    }
 
+    /**
+     *
+     */
     public void updateComboBox()
     {
         //jComboBoxBulletin.removeAll();
         jComboBoxBulletin.setModel(new DefaultComboBoxModel());
         try {
-            int column = 0;
-            int row = tableEleve.getSelectedRow();
-                String selected_row = tableEleve.getModel().getValueAt(row, column).toString();
-                int selected_id = Integer.parseInt(selected_row);
                 String searchQuery = searchField.getText();
                 ResultSet result = RechercheGraphique.connect.createStatement(
                 ResultSet.TYPE_SCROLL_INSENSITIVE,
                 ResultSet.CONCUR_READ_ONLY).executeQuery(
-                "SELECT * FROM Bulletin b, Inscription i, Trimestre t WHERE b.id_Inscription=i.id AND t.id=b.id_Trimestre AND i.id="+ selected_id
+                "SELECT * FROM Bulletin b, Trimestre t WHERE b.id_Inscription = " + this.id_eleve + " AND t.id=b.id_Trimestre"
                 );
-                while(result.next()){
+                while(result.next())
                     jComboBoxBulletin.addItem(result.getString("b.id") + "_" + result.getString("nom") + "_" + result.getString("t.numero"));
-                    id_eleve=result.getInt("i.id");
-                }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Votre requête a échoué. Merci de réessayer");
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
 

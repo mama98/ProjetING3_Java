@@ -19,9 +19,13 @@ import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-    public class DAO_Factory {
+/**
+ *
+ * @author Marine
+ */
+public class DAO_Factory {
 
-            /**
+        /**
          * constante static containing the connection variable of the class
          */
         protected static final Connection conn;
@@ -48,52 +52,99 @@ import java.util.logging.Logger;
             conn = tmp;
         }
 
-        public static DAO getAnneeScolaireDAO() {
+    /**
+     * Initialise la DAO en fonction du type specifique
+     * @return nouvelle instance de la classe DAO creee
+     */
+    public static DAO getAnneeScolaireDAO() {
             return new AnneeScolaireDAO(conn);
         }
 
-        public static DAO getBulletinDAO() {
+    /**
+     * Initialise la DAO en fonction du type specifique
+     * @return nouvelle instance de la classe DAO creee
+     */
+    public static DAO getBulletinDAO() {
             return new BulletinDAO(conn);
         }
 
-        public static DAO getClasseDAO() {
+    /**
+     * Initialise la DAO en fonction du type specifique
+     * @return nouvelle instance de la classe DAO creee
+     */
+    public static DAO getClasseDAO() {
             return new ClasseDAO(conn);
         }
 
-        public static DAO getDetailBulletinDAO() {
+    /**
+     * Initialise la DAO en fonction du type specifique
+     * @return nouvelle instance de la classe DAO creee
+     */
+    public static DAO getDetailBulletinDAO() {
             return new DetailBulletinDAO(conn);
         }
 
-        public static DAO getDisciplineDAO() {
+    /**
+     * Initialise la DAO en fonction du type specifique
+     * @return nouvelle instance de la classe DAO creee
+     */
+    public static DAO getDisciplineDAO() {
             return new DisciplineDAO(conn);
         }
 
-        public static DAO getEcoleDAO() {
+    /**
+     * Initialise la DAO en fonction du type specifique
+     * @return nouvelle instance de la classe DAO creee
+     */
+    public static DAO getEcoleDAO() {
             return new EcoleDAO(conn);
         }
 
-        public static DAO getEnseignementDAO() {
+    /**
+     * Initialise la DAO en fonction du type specifique
+     * @return nouvelle instance de la classe DAO creee
+     */
+    public static DAO getEnseignementDAO() {
             return new EnseignementDAO(conn);
         }
 
-        public static DAO getEvaluationDAO() {
+    /**
+     * Initialise la DAO en fonction du type specifique
+     * @return nouvelle instance de la classe DAO creee
+     */
+    public static DAO getEvaluationDAO() {
             return new EvaluationDAO(conn);
         }
 
-        public static DAO getInscriptionDAO() {
+    /**
+     * Initialise la DAO en fonction du type specifique
+     * @return nouvelle instance de la classe DAO creee
+     */
+    public static DAO getInscriptionDAO() {
             return new InscriptionDAO(conn);
         }
 
-        public static DAO getNiveauDAO() {
+    /**
+     * Initialise la DAO en fonction du type specifique
+     * @return nouvelle instance de la classe DAO creee
+     */
+    public static DAO getNiveauDAO() {
             return new NiveauDAO(conn);
         }
 
-        public static DAO getPersonneDAO() {
+    /**
+     * Initialise la DAO en fonction du type specifique
+     * @return nouvelle instance de la classe DAO creee
+     */
+    public static DAO getPersonneDAO() {
             return new PersonneDAO(conn);
         }
 
-        public static DAO getTrimestreDAO() {
+    /**
+     * Initialise la DAO en fonction du type specifique
+     * @return nouvelle instance de la classe DAO creee
+     */
+    public static DAO getTrimestreDAO() {
             return new TrimestreDAO(conn);
         }
-    
     }

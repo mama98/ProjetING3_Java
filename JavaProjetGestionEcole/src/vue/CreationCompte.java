@@ -7,21 +7,79 @@ package vue;
 
 import controleur.DAO;
 import controleur.DAO_Factory;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import modele.Enseignement;
+import modele.Inscription;
 import modele.Personne;
 
 /**
- *
- * @author Marine <ECE>
+ * Permet l'ajout d'un utilisateur a la base de donnees
+ * @author Marine
  */
 public class CreationCompte extends javax.swing.JFrame {
 
     /**
-     * Creates new form CreationCompte
+     * Crees une nouvelle JForm CreationCompte
      */
     public CreationCompte() {
         initComponents();
+        jLabelDiscipline.setVisible(false);
+        jComboBoxDiscipline.setVisible(false);
+        populateComboBoxes();
     }
+
+    /**
+     * Connecte le programme a la base de donnees
+     */
+    protected static Connection connect = null;
+        static {
+            Connection tmp = null;
+
+            try {
+                Class.forName("com.mysql.jdbc.Driver");
+                tmp = DriverManager.getConnection("jdbc:mysql://localhost/gestionEcole", "root", "");
+            } catch (ClassNotFoundException | SQLException ex) {
+                Logger.getLogger(DAO_Factory.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            connect = tmp;
+        }
+
+    /**
+     *
+     */
+    public void populateComboBoxes(){
+            try {
+                ResultSet result = this.connect.createStatement(
+                ResultSet.TYPE_SCROLL_INSENSITIVE,
+                ResultSet.CONCUR_READ_ONLY).executeQuery(
+                "SELECT id, nom, id_AnneeScolaire FROM Classe"
+                );
+                while(result.next()) {
+                    jComboBoxClasse.addItem(result.getString("id") + "_" +
+                    result.getString("nom") + "_" +
+                    result.getString("id_AnneeScolaire"));
+                }
+            } catch(SQLException e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+            } try {
+                ResultSet result = this.connect.createStatement(
+                ResultSet.TYPE_SCROLL_INSENSITIVE,
+                ResultSet.CONCUR_READ_ONLY).executeQuery(
+                "SELECT id, nom FROM Discipline"
+                );
+                while(result.next()) {
+                    jComboBoxDiscipline.addItem(result.getString("id") + "_" + result.getString("nom"));
+                }
+            } catch(SQLException e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+            }
+        }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -35,18 +93,22 @@ public class CreationCompte extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jButton4 = new javax.swing.JButton();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jLabel6 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        jTextFieldLogin = new javax.swing.JTextField();
+        jTextFieldPrenom = new javax.swing.JTextField();
+        jButtonValider = new javax.swing.JButton();
+        jCheckBoxEnseignant = new javax.swing.JCheckBox();
+        jTextFieldPassword = new javax.swing.JTextField();
+        jButtonRetour = new javax.swing.JButton();
+        jLabelNom = new javax.swing.JLabel();
+        jLabelPrenom = new javax.swing.JLabel();
+        jTextFieldNom = new javax.swing.JTextField();
+        jLabelEnseignantCheck = new javax.swing.JLabel();
+        jLabelDiscipline = new javax.swing.JLabel();
+        jLabelLogin = new javax.swing.JLabel();
+        jLabelPassword = new javax.swing.JLabel();
+        jComboBoxClasse = new javax.swing.JComboBox<>();
+        jLabelClasse = new javax.swing.JLabel();
+        jComboBoxDiscipline = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -59,54 +121,53 @@ public class CreationCompte extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(52, 73, 94));
 
-        jLabel3.setBackground(new java.awt.Color(239, 239, 237));
-        jLabel3.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(239, 239, 237));
-        jLabel3.setText("Nom :");
+        jTextFieldLogin.setBackground(new java.awt.Color(228, 233, 237));
 
-        jLabel5.setBackground(new java.awt.Color(239, 239, 237));
-        jLabel5.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(239, 239, 237));
-        jLabel5.setText("Mot de passe :");
+        jTextFieldPrenom.setBackground(new java.awt.Color(228, 233, 237));
 
-        jTextField3.setBackground(new java.awt.Color(228, 233, 237));
-
-        jTextField4.setBackground(new java.awt.Color(228, 233, 237));
-
-        jButton4.setText("Valider");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        jButtonValider.setText("Valider");
+        jButtonValider.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                jButtonValiderActionPerformed(evt);
             }
         });
 
-        jCheckBox1.setForeground(new java.awt.Color(52, 73, 94));
-
-        jLabel6.setBackground(new java.awt.Color(239, 239, 237));
-        jLabel6.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(239, 239, 237));
-        jLabel6.setText("Enseignant :");
-
-        jTextField5.setBackground(new java.awt.Color(228, 233, 237));
-
-        jTextField6.setBackground(new java.awt.Color(228, 233, 237));
-
-        jLabel7.setBackground(new java.awt.Color(239, 239, 237));
-        jLabel7.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(239, 239, 237));
-        jLabel7.setText("Prénom :");
-
-        jLabel8.setBackground(new java.awt.Color(239, 239, 237));
-        jLabel8.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(239, 239, 237));
-        jLabel8.setText("Identifiant :");
-
-        jButton1.setText("Retour");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jCheckBoxEnseignant.setForeground(new java.awt.Color(52, 73, 94));
+        jCheckBoxEnseignant.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jCheckBoxEnseignantActionPerformed(evt);
             }
         });
+
+        jTextFieldPassword.setBackground(new java.awt.Color(228, 233, 237));
+
+        jButtonRetour.setText("Retour");
+        jButtonRetour.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonRetourActionPerformed(evt);
+            }
+        });
+
+        jLabelNom.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelNom.setText("Nom :");
+
+        jLabelPrenom.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelPrenom.setText("Prenom :");
+
+        jLabelEnseignantCheck.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelEnseignantCheck.setText("Enseignant :");
+
+        jLabelDiscipline.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelDiscipline.setText("Discipline :");
+
+        jLabelLogin.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelLogin.setText("Login :");
+
+        jLabelPassword.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelPassword.setText("Password :");
+
+        jLabelClasse.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelClasse.setText("Classe :");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -115,58 +176,67 @@ public class CreationCompte extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(83, 83, 83)
+                        .addGap(243, 243, 243)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel8))
-                        .addGap(30, 30, 30)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jCheckBox1)
-                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jButtonRetour, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonValider, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(205, 205, 205)
+                        .addGap(190, 190, 190)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabelNom)
+                            .addComponent(jLabelPrenom)
+                            .addComponent(jLabelEnseignantCheck)
+                            .addComponent(jLabelDiscipline)
+                            .addComponent(jLabelLogin)
+                            .addComponent(jLabelPassword)
+                            .addComponent(jLabelClasse))
+                        .addGap(18, 18, 18)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(jTextFieldLogin, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
+                            .addComponent(jTextFieldPrenom, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
+                            .addComponent(jCheckBoxEnseignant)
+                            .addComponent(jTextFieldPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
+                            .addComponent(jTextFieldNom)
+                            .addComponent(jComboBoxClasse, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jComboBoxDiscipline, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(127, 127, 127)
-                        .addComponent(jLabel3))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(61, 61, 61)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextFieldNom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelNom))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(22, 22, 22)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldPrenom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelPrenom))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelLogin))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextFieldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelPassword))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBoxClasse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelClasse))
+                .addGap(13, 13, 13)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelDiscipline)
+                    .addComponent(jComboBoxDiscipline, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jCheckBox1)
-                    .addComponent(jLabel6))
+                    .addComponent(jLabelEnseignantCheck)
+                    .addComponent(jCheckBoxEnseignant))
                 .addGap(18, 18, 18)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
-                .addContainerGap(86, Short.MAX_VALUE))
+                .addComponent(jButtonValider, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButtonRetour)
+                .addContainerGap(51, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -176,7 +246,7 @@ public class CreationCompte extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addComponent(jLabel1)
-                .addContainerGap(391, Short.MAX_VALUE))
+                .addContainerGap(422, Short.MAX_VALUE))
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
@@ -204,51 +274,104 @@ public class CreationCompte extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        System.out.println("Creation d'un compte");
-        if (jTextField3.getText().isEmpty() ||
-                jTextField4.getText().isEmpty() ||
-                jTextField5.getText().isEmpty() ||
- jTextField6.getText().isEmpty())
+    private void jButtonValiderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonValiderActionPerformed
+        if (jTextFieldLogin.getText().isEmpty() ||
+                jTextFieldPrenom.getText().isEmpty() ||
+                jTextFieldPassword.getText().isEmpty() ||
+                jComboBoxClasse.getSelectedIndex() == -1 ||
+                (jComboBoxDiscipline.getSelectedIndex() == -1 &&
+                jCheckBoxEnseignant.isSelected()))
             JOptionPane.showMessageDialog(null, "Merci de remplir tous les champs");
-        else {
-            int type = 0;
-            if (jCheckBox1.isSelected()) {
-                type = 1;
-            }
-            DAO<Personne> dao = DAO_Factory.getPersonneDAO();
-            Personne newUser = new Personne(0, jTextField3.getText(), jTextField4.getText(),
-                    jTextField5.getText(), jTextField6.getText(), type);
-            boolean create = dao.create(newUser);
-            if (create) {
+            else {
+                int type = 0;
+                if (jCheckBoxEnseignant.isSelected())
+                    type = 1;
+                DAO<Personne> daoP = DAO_Factory.getPersonneDAO();
+
+                Personne newUser = new Personne(0, jTextFieldNom.getText(),
+                                                   jTextFieldPrenom.getText(),
+                                                   jTextFieldLogin.getText(),
+                                                   jTextFieldPassword.getText(),
+                                                   type);
+                if(!daoP.create(newUser)) {
+                    JOptionPane.showMessageDialog(null, "Une erreur est survenue");
+                    this.setVisible(false);
+                    new CreationCompte().setVisible(true);
+                }
+
+                int newUserId = 0;
+                try {
+                    ResultSet result = this.connect.createStatement(
+                    ResultSet.TYPE_SCROLL_INSENSITIVE,
+                    ResultSet.CONCUR_READ_ONLY).executeQuery(
+                    "SELECT MAX(id) FROM Personne"
+                    );
+                    if (result.first())
+                    newUserId = result.getInt("MAX(id)");
+                } catch(SQLException e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage());
+                }
+
+                String parts[] = jComboBoxClasse.getSelectedItem().toString().split("_");
+                int idClasse = Integer.parseInt(parts[0]);
+                if(type != 1) {
+                    DAO<Inscription> daoI = DAO_Factory.getInscriptionDAO();
+                    Inscription newI = new Inscription(0, idClasse, newUserId);
+                    if(!daoI.create(newI)) {
+                        JOptionPane.showMessageDialog(null, "Une erreur est survenue");
+                        this.setVisible(false);
+                        new CreationCompte().setVisible(true);
+                    }
+                } else {
+                    String partsDisc[] = jComboBoxDiscipline.getSelectedItem().toString().split("_");
+                    int idDisc = Integer.parseInt(partsDisc[0]);
+                    DAO<Enseignement> daoE = DAO_Factory.getEnseignementDAO();
+                    Enseignement newE = new Enseignement(0, idClasse, idDisc, newUserId);
+                    if(!daoE.create(newE)) {
+                        JOptionPane.showMessageDialog(null, "Une erreur est survenue");
+                        this.setVisible(false);
+                        new CreationCompte().setVisible(true);
+                    }
+                }
                 this.setVisible(false);
                 new ConnexionGraphique().setVisible(true);
-            } else {
-                JOptionPane.showMessageDialog(null, "Une erreur est survenue. Merci de vérifier vos informations et de réessayer");
             }
-        }
-    }//GEN-LAST:event_jButton4ActionPerformed
+        }//GEN-LAST:event_jButtonValiderActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButtonRetourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRetourActionPerformed
         this.setVisible(false);
         new ConnexionGraphique().setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jButtonRetourActionPerformed
+
+    private void jCheckBoxEnseignantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxEnseignantActionPerformed
+        if (jCheckBoxEnseignant.isSelected()) {
+            jComboBoxDiscipline.setVisible(true);
+            jLabelDiscipline.setVisible(true);
+        } else {
+            jComboBoxDiscipline.setVisible(false);
+            jLabelDiscipline.setVisible(false);
+        }
+    }//GEN-LAST:event_jCheckBoxEnseignantActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JButton jButtonRetour;
+    private javax.swing.JButton jButtonValider;
+    private javax.swing.JCheckBox jCheckBoxEnseignant;
+    private javax.swing.JComboBox<String> jComboBoxClasse;
+    private javax.swing.JComboBox<String> jComboBoxDiscipline;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabelClasse;
+    private javax.swing.JLabel jLabelDiscipline;
+    private javax.swing.JLabel jLabelEnseignantCheck;
+    private javax.swing.JLabel jLabelLogin;
+    private javax.swing.JLabel jLabelNom;
+    private javax.swing.JLabel jLabelPassword;
+    private javax.swing.JLabel jLabelPrenom;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
+    private javax.swing.JTextField jTextFieldLogin;
+    private javax.swing.JTextField jTextFieldNom;
+    private javax.swing.JTextField jTextFieldPassword;
+    private javax.swing.JTextField jTextFieldPrenom;
     // End of variables declaration//GEN-END:variables
 }

@@ -21,12 +21,16 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.data.general.DefaultPieDataset;
 
 /**
- *
- * @author kagounard
+ * Statistiques pour un enseignant connecte : Pourcentage d'eleves dans chaque ecole
+ * @author Marine
  */
 public class ReportingEnsGraphique extends javax.swing.JFrame {
 
     private Personne user;
+
+    /**
+     * Connecte le programme a la base de donnees
+     */
     protected static Connection connect = null;
         static {
             Connection tmp = null;
@@ -40,7 +44,8 @@ public class ReportingEnsGraphique extends javax.swing.JFrame {
             connect = tmp;
         }
     /**
-     * Creates new form ReportingEnsGraphique
+     * Crees une nouvelle JForm ReportingEnsGraphique
+     * @param user Personne connectee
      */
     public ReportingEnsGraphique(Personne user) {
         initComponents();

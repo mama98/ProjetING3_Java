@@ -9,11 +9,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- *
- * @author Marine <ECE>
+ * Point d'entree dans l'application, ouvrant une fenetre de connexion
+ * @author Marine
  */
 public class TestConnexion extends javax.swing.JFrame {
 
+    /**
+     * Point d'entree du .jar
+     * @param args Arguments de la ligne de commande, inutiles
+     */
     public static void main(String[] args) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

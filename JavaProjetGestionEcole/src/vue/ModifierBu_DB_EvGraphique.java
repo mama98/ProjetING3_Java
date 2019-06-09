@@ -28,7 +28,7 @@ import modele.Evaluation;
 import static vue.ConnexionGraphique.connect;
 
 /**
- *
+ * Permet la modification d'un Bulletin, DetailBulletin, Evaluation
  * @author Marine
  */
 public class ModifierBu_DB_EvGraphique extends javax.swing.JFrame {
@@ -60,6 +60,10 @@ public class ModifierBu_DB_EvGraphique extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
+
+    /**
+     * Connecte le programme a la base de donnees
+     */
     protected static Connection connect = null;
         static {
             Connection tmp = null;
@@ -74,7 +78,12 @@ public class ModifierBu_DB_EvGraphique extends javax.swing.JFrame {
         }
 
     /**
-     * Creates new form ModifierBu_DB_EvGraphique
+     * Crees une nouvelle JForm ModifierBu_DB_EvGraphique
+     * @param enseignant
+     * @param idEleve
+     * @param bulletin
+     * @param idItem
+     * @param choice
      */
     public ModifierBu_DB_EvGraphique(Personne enseignant,
                                   int idEleve,

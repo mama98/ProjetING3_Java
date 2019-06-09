@@ -14,11 +14,16 @@ import java.sql.Types;
 import modele.Ecole;
 
 /**
- *
+ * Classe permettant l'interface entre les ecoles de la base de donnees et
+ * la classe Ecole en Java
  * @author Marine
  */
 public class EcoleDAO extends DAO<Ecole> {
 
+    /**
+     * Cree une nouvelle instance de la classe et connecte a la base de donnees
+     * @param conn Connexion etablie avec la base de donnees MySQL
+     */
     public EcoleDAO(Connection conn) {
         super(conn);
     }
@@ -26,7 +31,7 @@ public class EcoleDAO extends DAO<Ecole> {
     @Override
     public boolean create(Ecole obj) {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        
+
         try {
             // prefer prepareStatement as statement to avoid SQL injection
             PreparedStatement statement = this.connect.prepareStatement(
@@ -46,7 +51,7 @@ public class EcoleDAO extends DAO<Ecole> {
     @Override
     public boolean delete(Ecole obj) {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        
+
         try {
             // prefer prepareStatement as statement to avoid SQL injection
             PreparedStatement statement = this.connect.prepareStatement(
@@ -65,7 +70,7 @@ public class EcoleDAO extends DAO<Ecole> {
     @Override
     public boolean update(Ecole obj) {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        
+
         try {
             // prefer prepareStatement as statement to avoid SQL injection
             PreparedStatement statement = this.connect.prepareStatement(
@@ -85,9 +90,9 @@ public class EcoleDAO extends DAO<Ecole> {
     @Override
     public Ecole find(int id_ecole) {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        
-            Ecole ecole = new Ecole();      
-      
+
+            Ecole ecole = new Ecole();
+
     try {
       ResultSet result = this.connect.createStatement(
         ResultSet.TYPE_SCROLL_INSENSITIVE,
@@ -96,11 +101,11 @@ public class EcoleDAO extends DAO<Ecole> {
         ecole = new Ecole(
           id_ecole,
           result.getString("nom")
-        );         
+        );
     } catch (SQLException e) {
       e.printStackTrace();
     }
     return ecole;
     }
-    
+
 }

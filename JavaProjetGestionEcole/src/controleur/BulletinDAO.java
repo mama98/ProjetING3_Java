@@ -13,11 +13,17 @@ import modele.Bulletin;
 import modele.DetailBulletin;
 
 /**
- *
- * @author Marine <ECE>
+ * Classe permettant l'interface entre les bulletins de la base de donnees et
+ * la classe Bulletin en Java
+ * @author Marine
  */
 public class BulletinDAO extends DAO<Bulletin> {
 
+    /**
+    * Cree une nouvelle instance de la classe et connecte a la base de donnees
+    *
+    * @param conn Connexion etablie avec la base de donnees MySQL
+    */
     public BulletinDAO(Connection conn) {
         super(conn);
     }
@@ -27,20 +33,20 @@ public class BulletinDAO extends DAO<Bulletin> {
         try {
             // prefer prepareStatement as statement to avoid SQL injection
             PreparedStatement statement = this.connect.prepareStatement(
-                    "INSERT INTO Bulletin(id, nom, appreciation, id_Trimestre, id_Inscription) VALUES(?,?,?,?,?)"
+            "INSERT INTO Bulletin(nom, appreciation, id_Trimestre, id_Inscription) VALUES(?,?,?,?)"
             );
             //Changer les ? par la valeur de l'objet créé pour adapter le java a la requette SQL.
-            statement.setObject(1, obj.getId(), Types.INTEGER);
-            statement.setObject(2, obj.getNom(), Types.VARCHAR);
-            statement.setObject(3, obj.getAppreciation(), Types.VARCHAR);
-            statement.setObject(4, obj.getId_Trimestre(), Types.INTEGER);
-            statement.setObject(5, obj.getId_Inscription(), Types.INTEGER);
+            statement.setObject(1, obj.getNom(), Types.VARCHAR);
+            statement.setObject(2, obj.getAppreciation(), Types.VARCHAR);
+            statement.setObject(3, obj.getId_Trimestre(), Types.INTEGER);
+            statement.setObject(4, obj.getId_Inscription(), Types.INTEGER);
 
             statement.executeUpdate(); //execute update for change in DB and executeQuery for select
 
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
         return true;
     }
 
@@ -63,7 +69,7 @@ public class BulletinDAO extends DAO<Bulletin> {
 
     @Override
     public boolean update(Bulletin obj) {
-        
+
                 try {
             // prefer prepareStatement as statement to avoid SQL injection
             PreparedStatement statement = this.connect.prepareStatement(
@@ -83,9 +89,9 @@ public class BulletinDAO extends DAO<Bulletin> {
 
     @Override
     public Bulletin find(int id_bulletin) {
-        
-                            Bulletin bulletin = new Bulletin();      
-      
+
+                            Bulletin bulletin = new Bulletin();
+
     try {
       ResultSet result = this.connect.createStatement(
         ResultSet.TYPE_SCROLL_INSENSITIVE,
@@ -97,11 +103,11 @@ public class BulletinDAO extends DAO<Bulletin> {
           result.getString("appreciation"),
           result.getInt("id_Trimestre"),
           result.getInt("id_Inscription")
-        );         
+        );
     } catch (SQLException e) {
       e.printStackTrace();
     }
     return bulletin;
     }
-    
+
 }
