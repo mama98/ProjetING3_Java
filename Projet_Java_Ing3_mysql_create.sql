@@ -1,4 +1,4 @@
-CREATE TABLE `Ecole` (
+﻿CREATE TABLE `Ecole` (
 	`id` INT NOT NULL AUTO_INCREMENT,
 	`nom` varchar(255) NOT NULL,
 	PRIMARY KEY (`id`)
@@ -131,8 +131,18 @@ INSERT INTO `Niveau` (`id`, `nom`) VALUES
 ('1', 'ING1'), ('2', 'ING2'), ('3', 'ING3'), ('4', 'ING4'), ('5', 'ING5');
 
 INSERT INTO `Classe` (`id`, `nom`, `id_AnneeScolaire`, `id_Ecole`, `id_Niveau`) VALUES
-('1', 'TD01', '2019', '1', '3'), ('2', 'TD02', '2019', '1', '3'), ('3', 'TD03', '2019', '1', '3'),
-('4', 'TD04', '2018', '1', '3'), ('5', 'TD05', '2019', '1', '3'), ('6', 'TD02', '2019', '2', '2');
+('1', 'TD01', '2019', '1', '3'), 
+('2', 'TD02', '2019', '1', '3'), 
+('3', 'TD03', '2019', '3', '4'),
+('4', 'TD04', '2018', '5', '1'), 
+('5', 'TD05', '2019', '4', '5'), 
+('6', 'TD02', '2019', '3', '2'),
+('7', 'TD05', '2017', '1', '3'),
+('8', 'TD02', '2016', '2', '4'),
+('9', 'TD03', '2015', '2', '5'),
+('10', 'TD06', '2016', '5', '2'),
+('11', 'TD01', '2019', '3', '1'),
+('12', 'TD04', '2018', '1', '3');
 
 INSERT INTO `Personne` (`id`, `nom`, `prenom`, `login`, `password`, `type_Enseignant`) VALUES
 ('1', 'Beurotte', 'Marine', 'mama', 'beubeu', '0'), ('2', 'Ricout', 'Valentine', 'vava', 'riri', '1'),
@@ -140,20 +150,24 @@ INSERT INTO `Personne` (`id`, `nom`, `prenom`, `login`, `password`, `type_Enseig
 ('5', 'Afkir', 'Sophia', 'soso', 'afaf', '0'), ('6', 'Poissonnier', 'Terence', 'tete', 'poipoi', '1'),
 ('7', 'Chamouard', 'Laure', 'lolo', 'chacha', '0'), ('8', 'Rossignol', 'Paul-Louis', 'popo', 'roro', '1'),
 ('9', 'Le Du', 'Laure', 'laulau', 'lele', '0'), ('10', 'Planchard', 'Malo', 'malo', 'coco', '1'),
-('11', 'Rabillard', 'Paul', 'paul', 'rara', '0'), ('12', 'Lemercier', 'Thomas', 'toto', 'lele', '1'),
-('13', 'Montoute', 'Kerwan', 'keke', 'monmon', '0'), ('14', 'Lenclud', 'Gregoire', 'greg', 'lele', '1'),
-('15', 'Jogarajah', 'Kishor', 'kiki', 'jojo', '0'), ('16', 'Devincre', 'Leonard', 'leo', 'dede', '1'),
- ('17', 'Corbet', 'Alexandre', 'alex', 'coco', '0'), ('18', 'Chhem', 'Serina', 'sese', 'cheche', '1'),
- ('19', 'Carlier', 'Helene', 'hehe', 'caca', '0'), ('20', 'Jouvet', 'Tom', 'tomtom', 'joujou', '1');
+('11', 'Rabillard', 'Paul', 'paul', 'rara', '0'), ('12', 'Lemercier', 'Thomas', 'toto', 'lele', '0'),
+('13', 'Montoute', 'Kerwan', 'keke', 'monmon', '0'), ('14', 'Lenclud', 'Gregoire', 'greg', 'lele', '0'),
+('15', 'Jogarajah', 'Kishor', 'kiki', 'jojo', '0'), ('16', 'Devincre', 'Leonard', 'leo', 'dede', '0'),
+ ('17', 'Corbet', 'Alexandre', 'alex', 'coco', '0'), ('18', 'Chhem', 'Serina', 'sese', 'cheche', '0'),
+ ('19', 'Carlier', 'Helene', 'hehe', 'caca', '0'), ('20', 'Jouvet', 'Tom', 'tomtom', 'joujou', '0'),
+('21', 'Piersson', 'Clara', 'clacla', 'pipi', '1'), ('22', 'Forget', 'Claire', 'clairou', 'fofo', '1'),
+('23', 'Vimont', 'Zoe', 'zozo', 'vivi', '1');
  
 INSERT INTO `Inscription` (`id`, `id_Classe`, `id_Personne`) VALUES
-('1', '5', '1'), ('2', '3', '3'), ('3', '1', '5'), ('4', '1', '7'), ('5', '2', '9'), ('6', '4', '11'),
-('7', '4', '13'), ('8', '6', '15'), ('9', '5', '17'), ('10', '3', '19');
+('1', '1', '1'), ('2', '2', '3'), ('3', '3', '5'), ('4', '4', '7'), ('5', '5', '9'), ('6', '6', '11'),
+('7', '6', '12'), ('8', '7', '13'), ('9', '8', '14'), ('10', '9', '15'), ('11', '10', '16'),
+('12', '11', '17'), ('13', '12', '18'), ('14', '1', '19'), ('15', '2', '20');
 
 INSERT INTO `Enseignement` (`id`, `id_Classe`, `id_Discipline`, `id_Personne`) VALUES
-('1', '5', '1', '4'), ('2', '3', '2', '2'),
-('3', '2', '1', '4'), ('4', '6', '2', '2'),
-('5', '1', '1', '4'), ('6', '4', '2', '2');
+('1', '1', '1', '2'), ('2', '3', '2', '4'),
+('3', '2', '3', '6'), ('4', '6', '4', '8'),
+('5', '7', '5', '10'), ('6', '4', '6', '21'),
+('4', '10', '7', '22'), ('4', '9', '8', '23');
 
 INSERT INTO `Trimestre` (`id`, `numero`, `debut`, `fin`, `id_AnneeScolaire`) VALUES
 ('1', '1', '2018-09-01', '2018-12-15', '2018'), ('2', '2', '2018-12-15', '2019-03-15', '2019'),
