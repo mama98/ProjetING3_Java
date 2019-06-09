@@ -20,7 +20,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ *Classe qui retourne les DAO du package controleur à l'aide de getters.
  * @author Marine
  */
 public class DAO_Factory {

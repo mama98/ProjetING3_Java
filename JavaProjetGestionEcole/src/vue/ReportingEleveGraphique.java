@@ -84,7 +84,7 @@ public class ReportingEleveGraphique extends javax.swing.JFrame {
         returnButton = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         reportPanel = new javax.swing.JPanel();
-        jComboBoxBulletin = new javax.swing.JComboBox<>();
+        jComboBoxBulletin = new javax.swing.JComboBox<String>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
