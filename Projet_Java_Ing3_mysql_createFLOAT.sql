@@ -1,5 +1,5 @@
 ﻿
-CREATE TABLE `Ecole` (
+ CREATE TABLE `Ecole` (
 	`id` INT NOT NULL AUTO_INCREMENT,
 	`nom` varchar(255) NOT NULL,
 	PRIMARY KEY (`id`)
